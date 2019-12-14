@@ -44,6 +44,12 @@ int32_t get_named_mutex(NamedMutex *mutex, const char * const name)
     {
         lname = (char *)malloc(sizeof(char) * (name_len + 1));
     }
+    if (strlen(lname) > (MUTEX_NAME_LEN - 1))
+    {
+        return MUTEX_NAME_TOO_LONG;
+    }
+    memset(mutex->name, 0, MUTEX_NAME_LEN);
+    strncpy(mutex->name, lname, MUTEX_NAME_LEN - 1);
     // Try to create the mutex
     lmutex = sem_open(
         name, 
@@ -87,6 +93,13 @@ int32_t get_named_mutex(NamedMutex *mutex, const char * const name)
         return MUTEX_FAILURE;
     }
     mutex->mutex = lmutex;
+    if (strlen(name) > (MUTEX_NAME_LEN - 1))
+    {
+        return MUTEX_NAME_TOO_LONG;
+    }
+    memset(mutex->name, 0, MUTEX_NAME_LEN);
+    strncpy_s(mutex->name, MUTEX_NAME_LEN, name, MUTEX_NAME_LEN - 1);
+    return MUTEX_SUCCESS;
 #endif
 }
 
@@ -103,7 +116,6 @@ int32_t lock_named_mutex(NamedMutex *mutex)
     }
 #ifdef __linux__
     sem_wait(mutex->mutex);
-    return MUTEX_SUCCESS;
 #elif defined _WIN32
     switch (WaitForSingleObject(mutex->mutex, INFINITE))
     {
@@ -114,6 +126,7 @@ int32_t lock_named_mutex(NamedMutex *mutex)
         return MUTEX_FAILURE;
     }
 #endif
+    return MUTEX_SUCCESS;
 }
 
 /// <summary>
@@ -129,13 +142,13 @@ int32_t unlock_named_mutex(NamedMutex *mutex)
     }
 #ifdef __linux__
     sem_post(mutex->mutex);
-    return MUTEX_SUCCESS;
 #elif defined _WIN32
     if (!ReleaseMutex(mutex->mutex))
     {
         return MUTEX_FAILURE;
     }
 #endif
+    return MUTEX_SUCCESS;
 }
 
 int32_t free_named_mutex(NamedMutex *mutex)

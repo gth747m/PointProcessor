@@ -68,7 +68,7 @@ int32_t hash_pid(const char * const pid, uint32_t *index)
 /// <param name="table">PID table to insert into</param>
 /// <param name="pid">Name of PID to insert</param>
 /// <param name="pid">PID index to insert</param>
-/// <returns>PidTableStatus</returns>
+/// <returns>Status as defined in PidTableStatus</returns>
 int32_t insert_pid(PidTable * table, const char * const pid, uint32_t index)
 {
     uint32_t count = 0;
@@ -88,9 +88,9 @@ int32_t insert_pid(PidTable * table, const char * const pid, uint32_t index)
     hash_pid(pid, &insert_index);
     insert_index = insert_index % MAX_PIDS;
     // If the insert_index is out of bounds (should never happen)
-    if (table->size >= MAX_PIDS)
+    if (table->count >= MAX_PIDS)
     {
-        return PID_INVALID_INDNEX;
+        return PID_INVALID_INDEX;
     }
     // If there is a collision
     if (table->entries[insert_index].is_used)
@@ -125,6 +125,8 @@ int32_t insert_pid(PidTable * table, const char * const pid, uint32_t index)
                 table->entries[insert_index].index = index;
                 // Set it as in use
                 table->entries[insert_index].is_used = true;
+                // Increment table count
+                table->count++;
                 // Return success
                 return PID_SUCCESS;
             }
@@ -155,6 +157,8 @@ int32_t insert_pid(PidTable * table, const char * const pid, uint32_t index)
         table->entries[insert_index].index = index;
         // Set it as in use
         table->entries[insert_index].is_used = true;
+        // Increment table count
+        table->count++;
         // Return success
         return PID_SUCCESS;
     }
@@ -171,7 +175,7 @@ int32_t insert_pid(PidTable * table, const char * const pid, uint32_t index)
 /// <param name="table">PID table to insert into</param>
 /// <param name="pid">Name of PID</param>
 /// <param name="index">PID index from table</param>
-/// <returns>PidTableStatus</returns>
+/// <returns>Status as defined in PidTableStatus</returns>
 int32_t get_pid_index(const PidTable * table, const char * const pid, uint32_t * index)
 {
     // If our pid table isn't there
@@ -229,6 +233,6 @@ int32_t get_pid_index(const PidTable * table, const char * const pid, uint32_t *
             }
         }
     }
-    return PID_FAILURE;
+    return PID_NOT_FOUND;
 }
 

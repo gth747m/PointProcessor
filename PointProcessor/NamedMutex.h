@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 #ifdef __linux__
 #    include <semaphore.h>
 #elif defined _WIN32
@@ -7,25 +9,62 @@
 #    include <Windows.h>
 #endif
 
+/// <summary>
+/// Max name length for a named mutex
+/// </summary>
 #define MUTEX_NAME_LEN 32
 
+/// <summary>
+/// Named mutex structure
+/// </summary>
 typedef struct NamedMutex
 {
+    /// <summary>
+    /// Name of this mutex
+    /// </summary>
     char name[MUTEX_NAME_LEN];
 #ifdef __linux__
+    /// <summary>
+    /// Linux semaphore
+    /// </summary>
     sem_t *mutex;
 #elif defined _WIN32
-    HANDLE mutex
+    /// <summary>
+    /// Windows mutex
+    /// </summary>
+    HANDLE mutex;
 #endif
 } NamedMutex;
 
+/// <summary>
+/// Possible status messages from NamedMutex
+/// </summary>
 enum NamedMutexStatus
 {
-    MUTEX_FAILURE    = -3, // Generic Failure
-    MUTEX_NULL       = -2, // Mutex was null
-    MUTEX_NULL_NAME  = -1, // Mutex name was null
-    MUTEX_SUCCESS    = 0,  // Mutex operation successful
-    MUTEX_CREATED    = 1   // Mutex created
+    /// <summary>
+    /// Mutex name is too long
+    /// </summary>
+    MUTEX_NAME_TOO_LONG = -4,
+    /// <summary>
+    /// Mutex provided was null
+    /// </summary>
+    MUTEX_NULL = -3,
+    /// <summary>
+    /// Mutex name provided was null
+    /// </summary>
+    MUTEX_NULL_NAME = -2,
+    /// <summary>
+    /// Generic Failure
+    /// </summary>
+    MUTEX_FAILURE = -1,
+    /// <summary>
+    /// Mutex operation successful
+    /// </summary>
+    MUTEX_SUCCESS = 0,
+    /// <summary>
+    /// Mutex didn't exist, so it was created
+    /// </summary>
+    MUTEX_CREATED = 1
 };
 
 /// <summary>
