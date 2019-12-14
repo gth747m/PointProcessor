@@ -1,5 +1,5 @@
 # Main program name
-PROGRAM=PointProc.exe
+PROGRAM=PointProcessor.exe
 
 # Flags
 #CXX=gcc
@@ -15,13 +15,14 @@ DEFINES=_DEBUG
 LFLAGS=$(OPTIMIZE) -lrt -lpthread
 
 # Directories
-DIRS=PointProc/
+DIRS=PointProcessor/
 BDIR=build/
 
 # Sources
-SRCS=PointProc.c
+SRCS=PointProcessor.c
 SRCS+=NamedMutex.c
 SRCS+=PidTable.c
+SRCS+=SharedMemory.c
 
 # Resources
 RCS=pids.txt
@@ -47,7 +48,7 @@ $(PROGRAM): $(OBJS) $(RESOURCES)
 	$(CXX) $(LFLAGS) -o $@ $(filter %.o, $^)
 
 # Compile C++ files
-build/%.o: PointProc/%.c $(BDIR)
+build/%.o: PointProcessor/%.c $(BDIR)
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 $(BDIR):
