@@ -9,7 +9,7 @@
 
 #include "PidTable.h"
 
-#define TOTAL_PIDS 30000
+#define TOTAL_PIDS 60000
 
 static char random_char()
 {
@@ -46,18 +46,21 @@ int main()
     init_pid_table(table);
     for (size_t i = 0; i < TOTAL_PIDS; i++)
     {
-        if (pids[i] == NULL)
-            exit(1);
         pids[i] = (char*)malloc(sizeof(char) * PID_LEN);
+        if (pids[i] == NULL)
+        {
+            fprintf(stderr, "Failed to allocate memory.");
+            exit(1);
+        }
         random_pid(pids[i], PID_LEN);
     }
-    //clock_gettime(CLOCK_MONOTONIC, &tstart);
+    clock_gettime(CLOCK_MONOTONIC, &tstart);
     for (uint32_t i = 0; i < TOTAL_PIDS; i++)
     {
         if (insert_pid(table, pids[i], i) != PID_SUCCESS)
             failed++;
     }
-    //clock_gettime(CLOCK_MONOTONIC, &tend);
+    clock_gettime(CLOCK_MONOTONIC, &tend);
     tdiff = ((double)tend.tv_sec + 1.0e-9 * tend.tv_nsec) -
         ((double)tstart.tv_sec + 1.0e-9 * tstart.tv_nsec);
     printf("Time (us)    = %f\n", tdiff);
@@ -65,29 +68,25 @@ int main()
     printf("Failures     = %d\n", failed);
     printf("Avg Ins (us) = %f\n", ((double)tdiff / (double)(TOTAL_PIDS - failed)));
     printf("Done\n");
-    //clock_gettime(CLOCK_MONOTONIC, &tstart);
-    ret = get_pid_index(table, "CALC002", &index);
-    //clock_gettime(CLOCK_MONOTONIC, &tend);
+    clock_gettime(CLOCK_MONOTONIC, &tstart);
+    ret = get_pid_index(table, pids[2345], &index);
+    clock_gettime(CLOCK_MONOTONIC, &tend);
     tdiff = ((double)tend.tv_sec + 1.0e-9 * tend.tv_nsec) -
         ((double)tstart.tv_sec + 1.0e-9 * tstart.tv_nsec);
     if (index != 0)
-        printf("CALC002 found at index %u in '%f' (us)\n",
-            index, tdiff);
+        printf("'%s' found with index %u in '%f' (us)\n",
+            pids[2345], index, tdiff);
     else
-        fprintf(stderr, "Couldn't find CALC002: Got return code of %d\n", ret);
+        fprintf(stderr, "Couldn't find '%s': Got return code of %d\n", pids[2345], ret);
     index = 0;
-    //clock_gettime(CLOCK_MONOTONIC, &tstart);
-    ret = get_pid_index(table, "STAT017", &index);
-    //clock_gettime(CLOCK_MONOTONIC, &tend);
+    clock_gettime(CLOCK_MONOTONIC, &tstart);
+    ret = get_pid_index(table, pids[5432], &index);
+    clock_gettime(CLOCK_MONOTONIC, &tend);
     tdiff = ((double)tend.tv_sec + 1.0e-9 * tend.tv_nsec) -
         ((double)tstart.tv_sec + 1.0e-9 * tstart.tv_nsec);
     if (index != 0)
-        printf("STAT017 found at index %u in '%f' (us)\n",
-            index, tdiff);
+        printf("'%s' found with index %u in '%f' (us)\n",
+            pids[5432], index, tdiff);
     else
-        fprintf(stderr, "Couldn't find STAT017: Got return code of %d\n", ret);
-    hash_pid("CALC002", &index);
-    printf("CALC002 hash_pid = %u\n", index);
+        fprintf(stderr, "Couldn't find '%s': Got return code of %d\n", pids[5432], ret);
 }
-
-

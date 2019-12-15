@@ -1,8 +1,12 @@
 #include "SharedMemory.h"
 
+#include <stdbool.h>
+
 #ifdef __linux__
+#    include <unistd.h>
 #    include <errno.h>
 #    include <fcntl.h>
+#    include <sys/mman.h>
 #    include <sys/stat.h>
 #endif
 
@@ -68,32 +72,17 @@ int32_t get_shared_memory(SharedMemory* memory, const char* const name, size_t s
     // Close the shared memory object file descriptor
     // This does not free the memory mapped file
     close(shm_fd);
+    // Save the name of the mapped region
+    if (strlen(name) > (SHM_NAME_LEN - 1))
+    {
+        return SHM_NAME_TOO_LONG;
+    }
+    memset(memory->name, 0, SHM_NAME_LEN);
+    strncpy(memory->name, name, SHM_NAME_LEN - 1);
     // Save the pointer to shared memory
-    mem = lmem;
-    // Make a shared pointer to the mapping view
-    // store the mapping in the destructor lambda and unmap it
-    // when no one is using this pointer anymore
-    this->mem = std::shared_ptr<T>(static_cast<T*>(lmem),
-        [mem_ptr = this->mem, size = size, name = name](T *mem) { 
-            if (mem_ptr.use_count() == 0)
-            {
-                if ((mem != nullptr) && (mem != MAP_FAILED))
-                {
-                    if (munmap(mem, size) != 0)
-                    {
-                        perror("Failed to unmap shared memory mapping");
-                        exit(errno);
-                    }
-                }
-                // TODO: Open an counter semaphore and only unlink when
-                // there are no more users of this memory map
-                if (shm_unlink(name.c_str()) == -1)
-                {
-                    perror("Failed to unlink the shared memory object");
-                    exit(errno);
-                }
-            }
-        });
+    memory->memory = lmem;
+    // Save the size of the mapped region
+    memory->size = size;
 #elif defined _WIN32
     HANDLE lmap = NULL;
     void *lmem = NULL;
@@ -156,11 +145,11 @@ int32_t close_shared_memory(SharedMemory* memory)
     {
         return SHM_NULL;
     }
-    if (munmap(mem, size) != 0)
+    if (munmap(memory->memory, memory->size) != 0)
     {
         success = false;
     }
-    if (shm_unlink(name.c_str()) == -1)
+    if (shm_unlink(memory->name) == -1)
     {
         success = false;
     }
