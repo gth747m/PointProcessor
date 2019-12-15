@@ -2,14 +2,18 @@
 PROGRAM=PointProcessor.exe
 
 # Flags
-#CXX=gcc
-CXX=clang
+CXX=gcc
+#CXX=clang
 DEBUG=-ggdb
 OPTIMIZE=-O3
 STD=-std=c18
 GENDEPS=-MMD
 WARN=-Wall -Wextra -Wpedantic
+# IF DEBUG
 DEFINES=_DEBUG
+# Needed for ftruncate() for SharedMemory
+DEFINES+=_XOPEN_SOURCE
+DEFINES+=_XOPEN_SOURCE_EXTENDED 
 
 # Link Flags
 LFLAGS=$(OPTIMIZE) -lrt -lpthread
@@ -23,9 +27,6 @@ SRCS=PointProcessor.c
 SRCS+=NamedMutex.c
 SRCS+=PidTable.c
 SRCS+=SharedMemory.c
-
-# Resources
-RCS=pids.txt
 
 # Include Directories
 INC=$(foreach d,$(DIRS),-I$d)
@@ -43,8 +44,7 @@ OBJS=$(patsubst %,$(BDIR)%,$(SRCS:.c=.o))
 DEPS=$(patsubst %,$(BDIR)%,$(SRCS:.c=.d))
 
 # Main program
-$(PROGRAM): $(OBJS) $(RESOURCES)
-	cp -p $(DIRS)$(RCS) $(RCS)
+$(PROGRAM): $(OBJS)
 	$(CXX) $(LFLAGS) -o $@ $(filter %.o, $^)
 
 # Compile C++ files
@@ -59,9 +59,9 @@ $(BDIR):
 
 # Clean up everything except source
 clean:
-	rm -rf $(PROGRAM) $(BDIR) $(RCS)
+	rm -rf $(PROGRAM) $(BDIR)
 
 # Clean up build objects and dependency files
 neat:
-	rm -rf $(BDIR) $(RCS)
+	rm -rf $(BDIR)
 

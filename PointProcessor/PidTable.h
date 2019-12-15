@@ -16,7 +16,7 @@
 /// As # of PIDs approaches MAX_PIDS the performance 
 /// of the insertions and lookups will degrade
 /// </summary>
-#define MAX_PIDS 50000
+#define MAX_PIDS 500000
 
 /// <summary>
 /// Point ID structure

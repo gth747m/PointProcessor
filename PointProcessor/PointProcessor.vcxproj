@@ -145,7 +145,7 @@
   <ItemGroup>
     <ClCompile Include="NamedMutex.c" />
     <ClCompile Include="PidTable.c" />
-    <ClCompile Include="PointProc.c" />
+    <ClCompile Include="PointProcessor.c" />
     <ClCompile Include="SharedMemory.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
