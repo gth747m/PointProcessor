@@ -58,7 +58,7 @@ enum PidTableStatus
     /// </summary>
     PID_DUPLICATE       = -5,
     /// <summary>
-    /// PID index calculated was out of range
+    /// PID index calculated was out of range (should never happen)
     /// </summary>
     PID_INVALID_INDEX  = -4,
     /// <summary>
@@ -95,15 +95,21 @@ typedef struct PidTable
 } PidTable;
 
 /// <summary>
-/// Initialize a PidTable
+/// Create a PidTable in local memory
 /// </summary>
-void init_pid_table(PidTable * table);
+/// <returns>Pointer to a PidTable</returns>
+PidTable* pid_table_create();
 
 /// <summary>
-/// Get the index of the PID (before resolving collisions)
-/// using MurmurHash3_32 by Austin Appleby (given to public domain)
+/// Initialize a PidTable
 /// </summary>
-int32_t hash_pid(const char * const pid, uint32_t * index);
+void pid_table_init(PidTable * table);
+
+/// <summary>
+/// Free memory allocated by pid_table_create
+/// </summary>
+/// <param name="table">Pointer to a PidTable</param>
+void pid_table_free(PidTable* table);
 
 /// <summary>
 /// Insert a new PID into the table
@@ -112,7 +118,7 @@ int32_t hash_pid(const char * const pid, uint32_t * index);
 /// <param name="pid">Name of PID to insert</param>
 /// <param name="index">PID index to insert</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-int32_t insert_pid(PidTable * table, const char * const pid, uint32_t index);
+int32_t pid_table_insert(PidTable * table, const char * const pid, uint32_t index);
 
 /// <summary>
 /// Get the index of a PID in the table
@@ -121,4 +127,4 @@ int32_t insert_pid(PidTable * table, const char * const pid, uint32_t index);
 /// <param name="pid">Name of PID</param>
 /// <param name="index">PID index from table</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-int32_t get_pid_index(const PidTable * table, const char * const pid, uint32_t * index);
+int32_t pid_table_get_index(const PidTable * table, const char * const pid, uint32_t * index);

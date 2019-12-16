@@ -174,7 +174,7 @@ int32_t free_named_mutex(NamedMutex *mutex)
 /// </summary>
 /// <param name=name>Name of mutex to remove</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t remove_named_mutex(const char * const name)
+int32_t remove_named_mutex(const char* const name)
 {
 #ifdef __linux__
     // local copy of mutex name
@@ -202,6 +202,8 @@ int32_t remove_named_mutex(const char * const name)
     {
         return MUTEX_FAILURE;
     }
+#elif defined _WIN32
+    UNREFERENCED_PARAMETER(name);
 #endif
     return MUTEX_SUCCESS;
 }

@@ -13,30 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{6053cae2-d520-43cc-9b5c-d2b3e3c08bb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{136429fc-222f-436c-b13e-3c5c7cad8bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PointProcessor">
+      <UniqueIdentifier>{be261826-f3ca-408f-a119-066d2b9c5569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PointProcessor">
+      <UniqueIdentifier>{e1dd5b6b-f7cb-4475-8fdb-c12c548322ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NamedMutex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PidTable.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\PointProcessor</Filter>
+    </ClInclude>
+    <ClInclude Include="NamedMutex.h">
+      <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="SharedMemory.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NamedMutex.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PidTable.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="PointProcessor.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\PointProcessor</Filter>
     </ClCompile>
     <ClCompile Include="SharedMemory.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="PidTable.c">
+      <Filter>Source Files\PointProcessor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
