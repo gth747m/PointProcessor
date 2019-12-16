@@ -2,11 +2,7 @@
 
 #include <stddef.h>
 #include <string.h>
-
-/// <summary>
-/// Initialize a PidTable
-/// </summary>
-void init_pid_table(PidTable * table) { memset(table, 0, sizeof(PidTable)); }
+#include <stdlib.h>
 
 /// <summary>
 /// Get the index of the PID (before resolving collisions)
@@ -14,7 +10,7 @@ void init_pid_table(PidTable * table) { memset(table, 0, sizeof(PidTable)); }
 /// </summary>
 /// <param name="">PID name to hash</param>
 /// <returns>PID index</returns>
-int32_t hash_pid(const char * const pid, uint32_t *index)
+static int32_t hash_pid(const char* const pid, uint32_t* index)
 {
     // If our pid table isn't there
     if (pid == NULL)
@@ -63,13 +59,50 @@ int32_t hash_pid(const char * const pid, uint32_t *index)
 }
 
 /// <summary>
+/// Create a PidTable in local memory
+/// </summary>
+/// <returns>Pointer to a PidTable</returns>
+PidTable* pid_table_create()
+{
+    PidTable* table = (PidTable*)malloc(sizeof(PidTable));
+    if (table == NULL)
+    {
+        perror("Failed to allocate PidTable memory.");
+        exit(1);
+    }
+    pid_table_init(table);
+    return table;
+}
+
+/// <summary>
+/// Initialize a PidTable
+/// </summary>
+void pid_table_init(PidTable* table) 
+{ 
+    if (table == NULL)
+        return;
+    memset(table, 0, sizeof(PidTable)); 
+}
+
+/// <summary>
+/// Free memory allocated by pid_table_create
+/// </summary>
+/// <param name="table">Pointer to a PidTable</param>
+void pid_table_free(PidTable* table)
+{
+    if (table == NULL)
+        return;
+    free(table);
+}
+
+/// <summary>
 /// Insert a new PID into the table
 /// </summary>
 /// <param name="table">PID table to insert into</param>
 /// <param name="pid">Name of PID to insert</param>
 /// <param name="pid">PID index to insert</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-int32_t insert_pid(PidTable * table, const char * const pid, uint32_t index)
+int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
 {
     uint32_t count = 0;
     // If our pid table isn't there
@@ -176,7 +209,7 @@ int32_t insert_pid(PidTable * table, const char * const pid, uint32_t index)
 /// <param name="pid">Name of PID</param>
 /// <param name="index">PID index from table</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-int32_t get_pid_index(const PidTable * table, const char * const pid, uint32_t * index)
+int32_t pid_table_get_index(const PidTable* table, const char* const pid, uint32_t* index)
 {
     // If our pid table isn't there
     if (table == NULL)
@@ -189,6 +222,8 @@ int32_t get_pid_index(const PidTable * table, const char * const pid, uint32_t *
     // The PID is too long to store 
     if (strlen(pid) > PID_LEN - 1)
         return PID_TOO_LONG;
+    if (index == NULL)
+        return PID_FAILURE;
     // Hash the PID to get the insert_index
     uint32_t insert_index = 0;
     hash_pid(pid, &insert_index);
