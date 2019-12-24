@@ -14,13 +14,13 @@
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <param name=name>Name of the mutex</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t get_named_mutex(NamedMutex *mutex, const char * const name)
+int32_t named_mutex_create(NamedMutex* mutex, const char* const name)
 {
 #ifdef __linux__
     // local copy of mutex name
-    char *lname = NULL;
+    char* lname = NULL;
     // local pointer to mutex
-    sem_t *lmutex = NULL;
+    sem_t* lmutex = NULL;
     // length of name
     size_t name_len = 0;
     if (mutex == NULL)
@@ -81,6 +81,18 @@ int32_t get_named_mutex(NamedMutex *mutex, const char * const name)
         }
     }
 #elif defined _WIN32
+    if (mutex == NULL)
+    {
+        return MUTEX_NULL;
+    }
+    if (name == NULL)
+    {
+        return MUTEX_NULL_NAME;
+    }
+    if (strlen(name) >= MUTEX_NAME_LEN)
+    {
+        return MUTEX_NAME_TOO_LONG;
+    }
     HANDLE lmutex = NULL;
     lmutex = CreateMutexA(
         NULL,
@@ -99,7 +111,11 @@ int32_t get_named_mutex(NamedMutex *mutex, const char * const name)
     }
     memset(mutex->name, 0, MUTEX_NAME_LEN);
     strncpy_s(mutex->name, MUTEX_NAME_LEN, name, MUTEX_NAME_LEN - 1);
-    return MUTEX_SUCCESS;
+    if (GetLastError() == ERROR_ALREADY_EXISTS)
+    {
+        return MUTEX_SUCCESS;
+    }
+    return MUTEX_CREATED;
 #endif
 }
 
@@ -108,7 +124,7 @@ int32_t get_named_mutex(NamedMutex *mutex, const char * const name)
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t lock_named_mutex(NamedMutex *mutex)
+int32_t named_mutex_lock(NamedMutex* mutex)
 {
     if (mutex == NULL)
     {
@@ -134,7 +150,7 @@ int32_t lock_named_mutex(NamedMutex *mutex)
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t unlock_named_mutex(NamedMutex *mutex)
+int32_t named_mutex_unlock(NamedMutex* mutex)
 {
     if (mutex == NULL || mutex->mutex == NULL)
     {
@@ -151,7 +167,12 @@ int32_t unlock_named_mutex(NamedMutex *mutex)
     return MUTEX_SUCCESS;
 }
 
-int32_t free_named_mutex(NamedMutex *mutex)
+/// <summary>
+/// Close handle to a NamedMutex
+/// </summary>
+/// <param name=mutex>Pointer to a mutex structure</param>
+/// <returns>Status as defined in NamedMutexStatus</returns>
+int32_t named_mutex_release(NamedMutex* mutex)
 {
     if (mutex == NULL || mutex->mutex == NULL)
     {
@@ -174,11 +195,11 @@ int32_t free_named_mutex(NamedMutex *mutex)
 /// </summary>
 /// <param name=name>Name of mutex to remove</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t remove_named_mutex(const char* const name)
+int32_t named_mutex_remove(const char* const name)
 {
 #ifdef __linux__
     // local copy of mutex name
-    char *lname = NULL;
+    char* lname = NULL;
     // length of name
     size_t name_len = 0;
     if (name == NULL)
@@ -203,7 +224,14 @@ int32_t remove_named_mutex(const char* const name)
         return MUTEX_FAILURE;
     }
 #elif defined _WIN32
-    UNREFERENCED_PARAMETER(name);
+    if (name == NULL)
+    {
+        return MUTEX_NULL_NAME;
+    }
+    if (strlen(name) >= MUTEX_NAME_LEN)
+    {
+        return MUTEX_NAME_TOO_LONG;
+    }
 #endif
     return MUTEX_SUCCESS;
 }
