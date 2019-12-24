@@ -1,5 +1,7 @@
 #include "PidTableTest.h"
 
+#include "PidTable.h"
+
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -70,7 +72,7 @@ static void pid_table_insert_random(
 /// <summary>
 /// Test PidTable functions passed a NULL table
 /// </summary>
-void pid_table_test_null_table()
+static void pid_table_test_null_table()
 {
     printf("    Test NULL PidTable...            ");
     int32_t status = 0;
@@ -86,7 +88,7 @@ void pid_table_test_null_table()
 /// <summary>
 /// Test PidTable functions passed a NULL PID
 /// </summary>
-void pid_table_test_null_pid()
+static void pid_table_test_null_pid()
 {
     printf("    Test NULL PID...                 ");
     int32_t status = 0;
@@ -101,7 +103,7 @@ void pid_table_test_null_pid()
 /// <summary>
 /// Test PidTable functions passed a too long PID
 /// </summary>
-void pid_table_test_long_pid()
+static void pid_table_test_long_pid()
 {
     printf("    Test PID too long...             ");
     int32_t status = 0;

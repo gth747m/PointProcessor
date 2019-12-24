@@ -27,7 +27,7 @@ typedef struct NamedMutex
     /// <summary>
     /// Linux semaphore
     /// </summary>
-    sem_t *mutex;
+    sem_t* mutex;
 #elif defined _WIN32
     /// <summary>
     /// Windows mutex
@@ -73,25 +73,32 @@ enum NamedMutexStatus
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <param name=name>Name of the mutex</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t get_named_mutex(NamedMutex *mutex, const char * const name);
+int32_t named_mutex_create(NamedMutex* mutex, const char* const name);
 
 /// <summary>
 /// Try to lock (aquire) a named mutex
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t lock_named_mutex(NamedMutex *mutex);
+int32_t named_mutex_lock(NamedMutex* mutex);
 
 /// <summary>
 /// Unlock a named mutex
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t unlock_named_mutex(NamedMutex *mutex);
+int32_t named_mutex_unlock(NamedMutex* mutex);
+
+/// <summary>
+/// Close handle to a NamedMutex
+/// </summary>
+/// <param name=mutex>Pointer to a mutex structure</param>
+/// <returns>Status as defined in NamedMutexStatus</returns>
+int32_t named_mutex_release(NamedMutex* mutex);
 
 /// <summary>
 /// Remove a named mutex from the system
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t remove_named_mutex(const char * const name);
+int32_t named_mutex_remove(const char* const name);

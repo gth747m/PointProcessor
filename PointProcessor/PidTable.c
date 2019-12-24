@@ -22,7 +22,8 @@ static int32_t hash_pid(const char* const pid, uint32_t* index)
     memcpy(pid_copy, pid, len);
     const uint8_t* key = (uint8_t *)pid_copy;
     uint32_t h = 0;
-    if (len > 3) {
+    if (len > 3) 
+    {
         size_t i = len >> 2;
         do {
             uint32_t k;
@@ -36,7 +37,8 @@ static int32_t hash_pid(const char* const pid, uint32_t* index)
             h = h * 5 + 0xe6546b64;
         } while (--i);
     }
-    if (len & 3) {
+    if (len & 3) 
+    {
         size_t i = len & 3;
         uint32_t k = 0;
         do {
