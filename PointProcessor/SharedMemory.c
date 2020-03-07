@@ -20,16 +20,17 @@
 int32_t get_shared_memory(SharedMemory* memory, const char* const name, size_t size)
 {
 #ifdef __linux__
-    // Create shared memory object
-    int shm_fd = shm_open(
-        name, 
-        O_RDWR | O_CREAT | O_EXCL, 
-        S_IRUSR | S_IWUSR);
     bool init = false;
+    int shm_fd = -1;
     if (memory == NULL)
     {
         return SHM_NULL;
     }
+    // Create shared memory object
+    shm_fd = shm_open(
+        name, 
+        O_RDWR | O_CREAT | O_EXCL, 
+        S_IRUSR | S_IWUSR);
     // Couldn't create shared memory object
     if (shm_fd == -1)
     {
@@ -173,8 +174,8 @@ int32_t close_shared_memory(SharedMemory* memory)
         success = false;
     }
     if (success)
-        return SHM_FAILURE;
-    return SHM_SUCCESS;
+        return SHM_SUCCESS;
+    return SHM_FAILURE;
 #elif defined _WIN32
     if (memory == NULL || memory->memory == NULL || memory->handle == NULL)
         return SHM_NULL;
