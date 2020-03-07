@@ -67,6 +67,11 @@ static void pid_table_insert_random(
     }
     *insert_successes = succeeded;
     *insert_failures = failed;
+    for (size_t i = 0; i < num_inserts; i++)
+    {
+        free(pids[i]);
+    }
+    free(pids);
 }
 
 /// <summary>
@@ -97,6 +102,7 @@ static void pid_table_test_null_pid()
     assert(status == PID_NULL);
     status = pid_table_get_index(table, NULL, 0);
     assert(status == PID_NULL);
+    pid_table_free(table);
     puts("Finished.");
 }
 
@@ -117,6 +123,7 @@ static void pid_table_test_long_pid()
     assert(status == PID_TOO_LONG);
     status = pid_table_get_index(table, pid, 0);
     assert(status == PID_TOO_LONG);
+    pid_table_free(table);
     puts("Finished.");
 }
 
