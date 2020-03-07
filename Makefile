@@ -1,8 +1,8 @@
 # Main program name
-PROGRAM=PointProcessorTest.exe
+PROGRAM=Test.exe
 
 $(PROGRAM): PointProcessor.exe
-	@$(MAKE) -C PointProcessorTests
+	@$(MAKE) -C Tests
 
 PointProcessor.exe: 
 	@$(MAKE) -C PointProcessor

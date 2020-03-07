@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{3BEA507F-A2C2-4616-9FB9-3FD586D0B424}</ProjectGuid>
-    <RootNamespace>PointProcessorTests</RootNamespace>
+    <RootNamespace>Tests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,7 +147,8 @@
     <ClCompile Include="..\PointProcessor\SharedMemory.c" />
     <ClCompile Include="NamedMutexTest.c" />
     <ClCompile Include="PidTableTest.c" />
-    <ClCompile Include="PointProcessorTests.c" />
+    <ClCompile Include="Tests.c" />
+    <ClCompile Include="SharedMemoryTest.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\PointProcessor\NamedMutex.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="..\PointProcessor\SharedMemory.h" />
     <ClInclude Include="NamedMutexTest.h" />
     <ClInclude Include="PidTableTest.h" />
+    <ClInclude Include="SharedMemoryTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
