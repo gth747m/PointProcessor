@@ -13,11 +13,11 @@ test: $(PROGRAM)
 # Clean up everything except source
 clean:
 	@$(MAKE) -C PointProcessor clean
-	@$(MAKE) -C PointProcessorTests clean
+	@$(MAKE) -C Tests clean
 	rmdir build/
 
 # Clean up build objects and dependency files
 neat:
 	@$(MAKE) -C PointProcessor clean
-	@$(MAKE) -C PointProcessorTests clean
+	@$(MAKE) -C Tests clean
 	rmdir build/
