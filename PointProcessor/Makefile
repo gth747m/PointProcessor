@@ -1,5 +1,5 @@
 # Main program name
-PROGRAM=PointProcessor.exe
+PROGRAM=../PointProcessor.exe
 
 # Flags
 CXX=gcc
@@ -53,11 +53,8 @@ $(BUILDDIR):
 
 # Clean up everything except source
 clean:
-	rm -rf $(PROGRAM) $(BUILDDIR)
+	rm -rf $(PROGRAM) $(OBJS) $(DEPS)
 
 # Clean up build objects and dependency files
 neat:
-	rm -rf $(BUILDDIR)
-
-test:
-	@echo $(OBJS)
+	rm -rf $(OBJS) $(DEPS)

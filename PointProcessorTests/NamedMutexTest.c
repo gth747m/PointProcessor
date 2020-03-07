@@ -39,6 +39,30 @@ static void random_name(char* name, size_t len)
     name[(len - 1)] = '\0';
 }
 
+#ifdef __linux__
+/// <summary>
+/// Helper thread function for incrementing an integer
+/// </summary>
+/// <param name="i">Pointer to int to increment</param>
+/// <returns></returns>
+static void * mutex_increment_int(int32_t *i)
+{
+    NamedMutex mutex;
+    int32_t status = named_mutex_create(&mutex, NAME);
+    assert(status == MUTEX_SUCCESS);
+    status = named_mutex_lock(&mutex);
+    assert(status == MUTEX_SUCCESS);
+    if (i)
+    {
+        (*i)++;
+    }
+    status = named_mutex_unlock(&mutex);
+    assert(status == MUTEX_SUCCESS);
+    status = named_mutex_release(&mutex);
+    assert(status == MUTEX_SUCCESS);
+    return NULL;
+}
+#elif defined _WIN32
 /// <summary>
 /// Helper thread function for incrementing an integer
 /// </summary>
@@ -60,6 +84,7 @@ static void mutex_increment_int(int32_t *i)
     status = named_mutex_release(&mutex);
     assert(status == MUTEX_SUCCESS);
 }
+#endif
 
 /// <summary>
 /// Test NamedMutex creation

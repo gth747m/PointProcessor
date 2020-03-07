@@ -1,5 +1,5 @@
 # Main program name
-PROGRAM=PointProcessorTest.exe
+PROGRAM=../PointProcessorTest.exe
 
 # Flags
 CXX=gcc
@@ -47,11 +47,7 @@ $(PROGRAM): $(OBJS)
 	$(CXX) $(LFLAGS) -o $@ $(filter %.o, $^)
 
 # Compile C++ files (Base program)
-$(BUILDDIR)%.o: PointProcessor/%.c $(BUILDDIR)
-	$(CXX) $(CFLAGS) -c -o $@ $<
-
-# Compile C++ files (Test program)
-$(BUILDDIR)%.o: %.c $(TBUILDDIR)
+$(BUILDDIR)%.o: %.c $(BUILDDIR)
 	$(CXX) $(CFLAGS) -c -o $@ $<
 
 $(BUILDDIR):
@@ -65,11 +61,8 @@ $(TBUILDDIR):
 
 # Clean up everything except source
 clean:
-	rm -rf $(PROGRAM) $(BUILDDIR)
+	rm -rf $(PROGRAM) $(patsubst %,$(BUILDDIR)%,$(SRCS:.c=.o)) $(DEPS)
 
 # Clean up build objects and dependency files
 neat:
-	rm -rf $(BUILDDIR)
-
-test:
-	@echo $(OBJS)
+	rm -rf $(patsubst %,$(BUILDDIR)%,$(SRCS:.c=.o)) $(DEPS)
