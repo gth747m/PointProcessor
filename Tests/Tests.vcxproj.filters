@@ -27,7 +27,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PointProcessorTests.c">
+    <ClCompile Include="Tests.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\PointProcessor\PidTable.c">
@@ -45,6 +45,9 @@
     <ClCompile Include="NamedMutexTest.c">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="SharedMemoryTest.c">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\PointProcessor\PidTable.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="NamedMutexTest.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedMemoryTest.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>

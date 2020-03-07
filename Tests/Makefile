@@ -1,5 +1,5 @@
 # Main program name
-PROGRAM=../PointProcessorTest.exe
+PROGRAM=../Test.exe
 
 # Flags
 CXX=gcc
@@ -21,13 +21,15 @@ DIRS=../PointProcessor/
 BUILDDIR=../build/
 
 # Sources
-SRCS=PointProcessorTests.c
+SRCS=Tests.c
 SRCS+=NamedMutexTest.c
 SRCS+=PidTableTest.c
+SRCS+=SharedMemoryTest.c
 
 # Other Objects
 OTHEROBJS+=NamedMutex.o
 OTHEROBJS+=PidTable.o
+OTHEROBJS+=SharedMemory.o
 
 # Include Directories
 INC=$(foreach d,$(DIRS),-I$d)
@@ -52,9 +54,6 @@ $(BUILDDIR)%.o: %.c $(BUILDDIR)
 
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
-
-$(TBUILDDIR):
-	mkdir -p $(TBUILDDIR)
 
 # Use dependency files (%.d)
 -include $(DEPS)

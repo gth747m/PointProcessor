@@ -44,7 +44,7 @@ static void random_name(char* name, size_t len)
 /// Helper thread function for incrementing an integer
 /// </summary>
 /// <param name="i">Pointer to int to increment</param>
-/// <returns></returns>
+/// <returns>NULL</returns>
 static void * mutex_increment_int(int32_t *i)
 {
     NamedMutex mutex;
@@ -67,7 +67,6 @@ static void * mutex_increment_int(int32_t *i)
 /// Helper thread function for incrementing an integer
 /// </summary>
 /// <param name="i">Pointer to int to increment</param>
-/// <returns></returns>
 static void mutex_increment_int(int32_t *i)
 {
     NamedMutex mutex;
@@ -91,7 +90,7 @@ static void mutex_increment_int(int32_t *i)
 /// </summary>
 static void named_mutex_test_create()
 {
-    printf("    Test creating named mutex...         ");
+    printf("    Test creating mutex...           ");
     NamedMutex mutex;
     NamedMutex mutex2;
     int32_t status = named_mutex_remove(NAME);
@@ -114,7 +113,7 @@ static void named_mutex_test_create()
 /// </summary>
 static void named_mutex_test_null_mutex()
 {
-    printf("    Test creating NULL mutex...          ");
+    printf("    Test creating NULL mutex...      ");
     int32_t status = named_mutex_remove(NAME);
     assert(status == MUTEX_SUCCESS);
     status = named_mutex_create(NULL, NAME);
@@ -131,7 +130,7 @@ static void named_mutex_test_null_mutex()
 /// </summary>
 static void named_mutex_test_null_name()
 {
-    printf("    Test creating NULL named mutex...    ");
+    printf("    Test creating NULL name...       ");
     NamedMutex mutex;
     int32_t status = named_mutex_remove(NULL);
     assert(status == MUTEX_NULL_NAME);
@@ -147,7 +146,7 @@ static void named_mutex_test_null_name()
 /// </summary>
 static void named_mutex_test_long_name()
 {
-    printf("    Test creating long named mutex...    ");
+    printf("    Test creating long name...       ");
     NamedMutex mutex;
     char name[(MUTEX_NAME_LEN * 2) + 1] = { 0 };
     random_name(name, (MUTEX_NAME_LEN * 2) + 1);
@@ -165,7 +164,7 @@ static void named_mutex_test_long_name()
 /// </summary>
 static void named_mutex_test_lock_serial()
 {
-    printf("    Test serial locking named mutex...   ");
+    printf("    Test serial locking...           ");
     NamedMutex mutex;
     int32_t status = named_mutex_remove(NAME);
     assert(status == MUTEX_SUCCESS);
@@ -187,7 +186,7 @@ static void named_mutex_test_lock_serial()
 /// </summary>
 static void named_mutex_test_lock_parallel()
 {
-    printf("    Test parallel locking named mutex... ");
+    printf("    Test parallel locking...         ");
     NamedMutex mutex;
     int32_t i = 0;
     int32_t status = named_mutex_remove(NAME);

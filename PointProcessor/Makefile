@@ -24,6 +24,7 @@ BUILDDIR=../build/
 SRCS=PointProcessor.c
 SRCS+=NamedMutex.c
 SRCS+=PidTable.c
+SRCS+=SharedMemory.c
 
 # Include Directories
 INC=$(foreach d,$(DIRS),-I$d)

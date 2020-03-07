@@ -25,6 +25,11 @@ int32_t get_shared_memory(SharedMemory* memory, const char* const name, size_t s
         name, 
         O_RDWR | O_CREAT | O_EXCL, 
         S_IRUSR | S_IWUSR);
+    bool init = false;
+    if (memory == NULL)
+    {
+        return SHM_NULL;
+    }
     // Couldn't create shared memory object
     if (shm_fd == -1)
     {
@@ -50,6 +55,7 @@ int32_t get_shared_memory(SharedMemory* memory, const char* const name, size_t s
     // Created shared memory object (first one to do so)
     else
     {
+        init = true;
         // Resize shared region
         if (ftruncate(shm_fd, size) == -1)
         {
@@ -87,6 +93,10 @@ int32_t get_shared_memory(SharedMemory* memory, const char* const name, size_t s
     HANDLE lmap = NULL;
     void *lmem = NULL;
     BOOL init = FALSE;
+    if (memory == NULL)
+    {
+        return SHM_NULL;
+    }
     lmap = CreateFileMappingA(
         INVALID_HANDLE_VALUE,   // use paging file
         NULL,                   // default security
@@ -129,7 +139,16 @@ int32_t get_shared_memory(SharedMemory* memory, const char* const name, size_t s
     // Save the handle to the file mapping
     memory->handle = lmap;
 #endif
-    return SHM_SUCCESS;
+    // We created this shared memory
+    if (init) 
+    {
+        return SHM_CREATED;
+    }
+    // We obtained an existing copy
+    else 
+    {
+        return SHM_SUCCESS;
+    }
 }
 
 /// <summary>
@@ -159,6 +178,7 @@ int32_t close_shared_memory(SharedMemory* memory)
 #elif defined _WIN32
     if (memory == NULL || memory->memory == NULL || memory->handle == NULL)
         return SHM_NULL;
+    FlushViewOfFile(memory->memory, memory->size);
     UnmapViewOfFile(memory->memory);
     CloseHandle(memory->handle);
     return SHM_SUCCESS;
