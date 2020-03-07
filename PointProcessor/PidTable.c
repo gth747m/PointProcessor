@@ -1,8 +1,9 @@
 #include "PidTable.h"
 
 #include <stddef.h>
-#include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /// <summary>
 /// Get the index of the PID (before resolving collisions)

@@ -206,6 +206,10 @@ int32_t named_mutex_remove(const char* const name)
     {
         return MUTEX_NULL_NAME;
     }
+    if (strlen(name) >= MUTEX_NAME_LEN)
+    {
+        return MUTEX_NAME_TOO_LONG;
+    }
     // Create a local copy of name and prepend "/" if not there
     name_len = strlen(name);
     if (name[0] != '/')
@@ -221,7 +225,13 @@ int32_t named_mutex_remove(const char* const name)
     // Unlink the mutex
     if (sem_unlink(lname) == -1)
     {
-        return MUTEX_FAILURE;
+        // If it didn't exist, that's okay
+        if (errno == ENOENT) {
+            return MUTEX_SUCCESS;
+        // Else we failed
+        } else {
+            return MUTEX_FAILURE;
+        }
     }
 #elif defined _WIN32
     if (name == NULL)

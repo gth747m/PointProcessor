@@ -5,6 +5,6 @@
 
 int main(void)
 {
-    //pid_table_test();
+    pid_table_test();
     named_mutex_test();
 }

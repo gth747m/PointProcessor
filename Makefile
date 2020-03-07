@@ -1,67 +1,23 @@
 # Main program name
-PROGRAM=PointProcessor.exe
+PROGRAM=PointProcessorTest.exe
 
-# Flags
-CXX=gcc
-#CXX=clang
-DEBUG=-ggdb
-OPTIMIZE=-O3
-STD=-std=c18
-GENDEPS=-MMD
-WARN=-Wall -Wextra -Wpedantic
-# IF DEBUG
-DEFINES=_DEBUG
-# Needed for ftruncate() for SharedMemory
-DEFINES+=_XOPEN_SOURCE
-DEFINES+=_XOPEN_SOURCE_EXTENDED 
+$(PROGRAM): PointProcessor.exe
+	@$(MAKE) -C PointProcessorTests
 
-# Link Flags
-LFLAGS=$(OPTIMIZE) -lrt -lpthread
+PointProcessor.exe: 
+	@$(MAKE) -C PointProcessor
 
-# Directories
-DIRS=PointProcessor/
-BDIR=build/
-
-# Sources
-SRCS=PointProcessor.c
-SRCS+=NamedMutex.c
-SRCS+=PidTable.c
-SRCS+=SharedMemory.c
-
-# Include Directories
-INC=$(foreach d,$(DIRS),-I$d)
-
-# Compile Flags
-#CFLAGS=$(WARN) $(GENDEPS) $(STD) $(DEBUG) $(INC)
-CFLAGS=$(OPTIMIZE) $(WARN) $(GENDEPS) $(STD) $(INC) $(foreach d,$(DEFINES),-D$d)
-
-# Compiled objects
-#TMPOBJS=$(SRCS:.c=.o)
-OBJS=$(patsubst %,$(BDIR)%,$(SRCS:.c=.o))
-
-# Dependencies
-#TMPDEPS=$(SRCS:.c=.d)
-DEPS=$(patsubst %,$(BDIR)%,$(SRCS:.c=.d))
-
-# Main program
-$(PROGRAM): $(OBJS)
-	$(CXX) $(LFLAGS) -o $@ $(filter %.o, $^)
-
-# Compile C++ files
-build/%.o: PointProcessor/%.c $(BDIR)
-	$(CXX) $(CFLAGS) -c -o $@ $<
-
-$(BDIR):
-	mkdir -p $(BDIR)
-
-# Use dependency files (%.d)
--include $(DEPS)
+test: $(PROGRAM)
+	./$(PROGRAM)
 
 # Clean up everything except source
 clean:
-	rm -rf $(PROGRAM) $(BDIR)
+	@$(MAKE) -C PointProcessor clean
+	@$(MAKE) -C PointProcessorTests clean
+	rmdir build/
 
 # Clean up build objects and dependency files
 neat:
-	rm -rf $(BDIR)
-
+	@$(MAKE) -C PointProcessor clean
+	@$(MAKE) -C PointProcessorTests clean
+	rmdir build/
