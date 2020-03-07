@@ -46,10 +46,18 @@ int32_t named_mutex_create(NamedMutex* mutex, const char* const name)
     }
     if (strlen(lname) > (MUTEX_NAME_LEN - 1))
     {
+        if (lname)
+        {
+            free(lname);
+        }
         return MUTEX_NAME_TOO_LONG;
     }
     memset(mutex->name, 0, MUTEX_NAME_LEN);
     strncpy(mutex->name, lname, MUTEX_NAME_LEN - 1);
+    if (lname)
+    {
+        free(lname);
+    }
     // Try to create the mutex
     lmutex = sem_open(
         name, 
@@ -225,6 +233,10 @@ int32_t named_mutex_remove(const char* const name)
     // Unlink the mutex
     if (sem_unlink(lname) == -1)
     {
+        if (lname)
+        {
+            free(lname);
+        }
         // If it didn't exist, that's okay
         if (errno == ENOENT) {
             return MUTEX_SUCCESS;
@@ -232,6 +244,10 @@ int32_t named_mutex_remove(const char* const name)
         } else {
             return MUTEX_FAILURE;
         }
+    }
+    if (lname)
+    {
+        free(lname);
     }
 #elif defined _WIN32
     if (name == NULL)
