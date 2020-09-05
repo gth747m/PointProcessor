@@ -194,7 +194,7 @@ static void pid_table_test_half()
     printf("    Test half filling table...       ");
     PidTable* table = pid_table_create();
     uint32_t failures = 0;
-    uint32_t num_pids = (int)(MAX_PIDS / 2);
+    uint32_t num_pids = (int)(MAX_POINTS / 2);
     uint32_t successes = 0;
     pid_table_insert_random(
         table, num_pids, &successes, &failures);
@@ -215,10 +215,10 @@ static void pid_table_test_full()
     uint32_t failures = 0;
     uint32_t successes = 0;
     pid_table_insert_random(
-        table, MAX_PIDS, &successes, &failures);
-    assert(successes == MAX_PIDS);
+        table, MAX_POINTS, &successes, &failures);
+    assert(successes == MAX_POINTS);
     assert(failures == 0);
-    assert(table->count == MAX_PIDS);
+    assert(table->count == MAX_POINTS);
     pid_table_free(table);
     puts("Finished.");
 }
@@ -231,13 +231,13 @@ static void pid_table_test_overfill()
     printf("    Test overfilling table...        ");
     PidTable* table = pid_table_create();
     uint32_t failures = 0;
-    uint32_t num_pids = (int)(MAX_PIDS / 2);
+    uint32_t num_pids = (int)(MAX_POINTS / 2);
     uint32_t successes = 0;
     pid_table_insert_random(
-        table, MAX_PIDS + num_pids, &successes, &failures);
-    assert(successes == MAX_PIDS);
+        table, MAX_POINTS + num_pids, &successes, &failures);
+    assert(successes == MAX_POINTS);
     assert(failures == num_pids);
-    assert(table->count == MAX_PIDS);
+    assert(table->count == MAX_POINTS);
     pid_table_free(table);
     puts("Finished.");
 }

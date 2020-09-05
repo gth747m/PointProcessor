@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "Constants.h"
+
 /// <summary>
 /// Name to pass to the OS for shared memory
 /// </summary>
@@ -11,12 +13,6 @@
 /// Max string length for a PID
 /// </summary>
 #define PID_LEN 32
-/// <summary>
-/// Max number of PIDs 
-/// As # of PIDs approaches MAX_PIDS the performance 
-/// of the insertions and lookups will degrade
-/// </summary>
-#define MAX_PIDS 500000
 
 /// <summary>
 /// Point ID structure
@@ -87,7 +83,7 @@ typedef struct PidTable
     /// <summary>
     /// PidEntry array
     /// </summary>
-    PidEntry entries[MAX_PIDS];
+    PidEntry entries[MAX_POINTS];
     /// <summary>
     /// Current count of entries
     /// </summary>

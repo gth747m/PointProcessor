@@ -122,9 +122,9 @@ int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
     // Hash the PID to get the insert_index
     uint32_t insert_index = 0;
     hash_pid(pid, &insert_index);
-    insert_index = insert_index % MAX_PIDS;
+    insert_index = insert_index % MAX_POINTS;
     // If the insert_index is out of bounds (should never happen)
-    if (table->count >= MAX_PIDS)
+    if (table->count >= MAX_POINTS)
     {
         return PID_INVALID_INDEX;
     }
@@ -133,7 +133,7 @@ int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
     {
         // Find the next open space or if this 
         // pid already exists
-        for (uint32_t i = 0; i < MAX_PIDS; i++)
+        for (uint32_t i = 0; i < MAX_POINTS; i++)
         {
             count++;
             // If this insert_index is used
@@ -168,7 +168,7 @@ int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
             }
             // Move to the next insert_index or 
             // wrap back to the start
-            if (insert_index < (MAX_PIDS - 1))
+            if (insert_index < (MAX_POINTS - 1))
             {
                 insert_index++;
             }
@@ -199,7 +199,7 @@ int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
         return PID_SUCCESS;
     }
     // The table is full
-    if (count >= MAX_PIDS)
+    if (count >= MAX_POINTS)
         return PID_TABLE_FULL;
     // Shouldn't get here
     return PID_FAILURE;
@@ -230,9 +230,9 @@ int32_t pid_table_get_index(const PidTable* table, const char* const pid, uint32
     // Hash the PID to get the insert_index
     uint32_t insert_index = 0;
     hash_pid(pid, &insert_index);
-    insert_index = insert_index % MAX_PIDS;
+    insert_index = insert_index % MAX_POINTS;
     // If the insert_index is out of bounds (should never happen)
-    if (insert_index >= MAX_PIDS)
+    if (insert_index >= MAX_POINTS)
     {
         return PID_FAILURE;
     }
@@ -240,7 +240,7 @@ int32_t pid_table_get_index(const PidTable* table, const char* const pid, uint32
     if (table->entries[insert_index].is_used)
     {
         // Find the next open space or if this pid already exists
-        for (uint32_t i = 0; i < MAX_PIDS; i++)
+        for (uint32_t i = 0; i < MAX_POINTS; i++)
         {
             // If this insert_index is used
             if (table->entries[insert_index].is_used)
@@ -261,7 +261,7 @@ int32_t pid_table_get_index(const PidTable* table, const char* const pid, uint32
             }
             // Move to the next insert_index or 
             // wrap back to the start
-            if (insert_index < (MAX_PIDS - 1))
+            if (insert_index < (MAX_POINTS - 1))
             {
                 insert_index++;
             }
