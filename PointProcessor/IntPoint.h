@@ -1,96 +1,94 @@
 #pragma once
 
-#include <stdbool.h>
 #include <stdint.h>
 
 /// <summary>
-/// Possible BoolInput statuses
+/// Possible Int statuses
 /// </summary>
-enum BoolInputStatusCode
+enum IntStatusCode
 {
     /// <summary>
     /// Argument was null
     /// </summary>
-    BOOL_INP_NULL          = -4,
+    INT_POINT_NULL          = -4,
     /// <summary>
-    /// Point is not a Boolean Input
+    /// Point is not a Integer
     /// </summary>
-    BOOL_INP_INVALID_TYPE  = -3,
+    INT_POINT_INVALID_TYPE  = -3,
     /// <summary>
     /// Index was out of range
     /// </summary>
-    BOOL_INP_INVALID_INDEX = -2,
+    INT_POINT_INVALID_INDEX = -2,
     /// <summary>
     /// Generic failure
     /// </summary>
-    BOOL_INP_FAILURE       = -1,
+    INT_POINT_FAILURE       = -1,
     /// <summary>
     /// Success
     /// </summary>
-    BOOL_INP_SUCCESS       = 0
+    INT_POINT_SUCCESS       = 0
 };
 
 ///<summary>
-/// Get the current value of a boolean input point
+/// Get the current value of a integer point
 ///</summary>
 ///<param name="index">Point index</param>
 ///<param name="value">Current value</param>
-///<returns>BoolInputStatusCode</returns>
-int32_t bool_input_get_value(
-    int32_t index, 
-    bool*   value);
+///<returns>IntStatusCode</returns>
+int32_t int_get_value(
+    int32_t  index,
+    int32_t* value);
 
 ///<summary>
-/// Get the current quality of a boolean input point
+/// Get the current quality of a integer point
 ///</summary>
 ///<param name="index">Point index</param>
 ///<param name="quality">Current quality</param>
-///<returns>BoolInputStatusCode</returns>
-int32_t bool_input_get_quality(
+///<returns>IntStatusCode</returns>
+int32_t int_get_quality(
     int32_t  index, 
     int32_t* quality);
 
 ///<summary>
-/// Get the current value/quality of a boolean input point
+/// Get the current value/quality of a integer point
 ///</summary>
 ///<param name="index">Point index</param>
 ///<param name="value">Current value</param>
 ///<param name="quality">Current quality</param>
-///<returns>BoolInputStatusCode</returns>
-int32_t bool_input_get_value_quality(
-    int32_t  index, 
-    bool*    value,
+///<returns>IntStatusCode</returns>
+int32_t int_get_value_quality(
+    int32_t  index,
+    int32_t* value,
     int32_t* quality);
 
 ///<summary>
-/// Set the current value of a boolean input point
+/// Set the current value of a integer point
 ///</summary>
 ///<param name="index">Point index</param>
 ///<param name="value">Current value</param>
-///<returns>BoolInputStatusCode</returns>
-int32_t bool_input_set_value(
+///<returns>IntStatusCode</returns>
+int32_t int_set_value(
     int32_t index, 
-    bool    value);
+    int32_t value);
 
 ///<summary>
-/// Set the current quality of a boolean input point
+/// Set the current quality of a integer point
 ///</summary>
 ///<param name="index">Point index</param>
 ///<param name="quality">Current quality</param>
-///<returns>BoolInputStatusCode</returns>
-int32_t bool_input_set_quality(
+///<returns>IntStatusCode</returns>
+int32_t int_set_quality(
     int32_t index, 
     int32_t quality);
 
 ///<summary>
-/// Set the current value/quality of a boolean input point
+/// Set the current value/quality of a integer point
 ///</summary>
 ///<param name="index">Point index</param>
 ///<param name="value">Current value</param>
 ///<param name="quality">Current quality</param>
-///<returns>BoolInputStatusCode</returns>
-int32_t bool_input_set_value_quality(
-    int32_t index, 
-    bool    value,
+///<returns>IntStatusCode</returns>
+int32_t int_set_value_quality(
+    int32_t index,
+    int32_t value,
     int32_t quality);
-

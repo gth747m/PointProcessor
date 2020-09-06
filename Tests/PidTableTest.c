@@ -1,11 +1,13 @@
 #include "PidTableTest.h"
 
 #include "PidTable.h"
+#include "Data.h"
 
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 /// <summary>
@@ -42,52 +44,24 @@ static void random_pid(char* pid, size_t len)
 /// <param name="insert_successes">Number of successful inserts</param>
 /// <param name="insert_failures">Number of failed inserts</param>
 static void pid_table_insert_random(
-    PidTable* table, 
     uint32_t  num_inserts,
     uint32_t* insert_successes,
     uint32_t* insert_failures)
 {
-    char** pids = (char**)malloc(sizeof(char *) * num_inserts);
+    char pid[PID_LEN] = { 0 };
     uint32_t failed = 0;
     uint32_t succeeded = 0;
-    assert(table != NULL);
-    assert(pids != NULL);
-    for (size_t i = 0; i < num_inserts; i++)
-    {
-        pids[i] = (char*)malloc(sizeof(char) * PID_LEN);
-        assert(pids[i] != NULL);
-        random_pid(pids[i], PID_LEN);
-    }
     for (uint32_t i = 0; i < num_inserts; i++)
     {
-        if (pid_table_insert(table, pids[i], i) == PID_SUCCESS)
+        memset(pid, 0, PID_LEN);
+        random_pid(pid, PID_LEN);
+        if (pid_table_insert(pid, i) == PID_SUCCESS)
             succeeded++;
         else
             failed++;
     }
     *insert_successes = succeeded;
     *insert_failures = failed;
-    for (size_t i = 0; i < num_inserts; i++)
-    {
-        free(pids[i]);
-    }
-    free(pids);
-}
-
-/// <summary>
-/// Test PidTable functions passed a NULL table
-/// </summary>
-static void pid_table_test_null_table()
-{
-    printf("    Test NULL PidTable...            ");
-    int32_t status = 0;
-    pid_table_init(NULL);
-    pid_table_free(NULL);
-    status = pid_table_insert(NULL, "TEST", 0);
-    assert(status == PID_TABLE_NULL);
-    status = pid_table_get_index(NULL, "TEST", 0);
-    assert(status == PID_TABLE_NULL);
-    puts("Finished.");
 }
 
 /// <summary>
@@ -96,13 +70,14 @@ static void pid_table_test_null_table()
 static void pid_table_test_null_pid()
 {
     printf("    Test NULL PID...                 ");
+    data = (Data*)calloc(1, sizeof(Data));
+    assert(data != NULL);
     int32_t status = 0;
-    PidTable* table = pid_table_create();
-    status = pid_table_insert(table, NULL, 0);
+    status = pid_table_insert(NULL, 0);
     assert(status == PID_NULL);
-    status = pid_table_get_index(table, NULL, 0);
+    status = pid_table_get_index(NULL, 0);
     assert(status == PID_NULL);
-    pid_table_free(table);
+    free(data);
     puts("Finished.");
 }
 
@@ -112,18 +87,19 @@ static void pid_table_test_null_pid()
 static void pid_table_test_long_pid()
 {
     printf("    Test PID too long...             ");
+    data = (Data*)calloc(1, sizeof(Data));
+    assert(data != NULL);
     int32_t status = 0;
-    PidTable* table = pid_table_create();
     char pid[PID_LEN + 1] = { 0 };
     for (uint32_t i = 0; i < PID_LEN + 1; i++)
     {
         pid[i] = 'a';
     }
-    status = pid_table_insert(table, pid, 0);
+    status = pid_table_insert(pid, 0);
     assert(status == PID_TOO_LONG);
-    status = pid_table_get_index(table, pid, 0);
+    status = pid_table_get_index(pid, 0);
     assert(status == PID_TOO_LONG);
-    pid_table_free(table);
+    free(data);
     puts("Finished.");
 }
 
@@ -133,17 +109,18 @@ static void pid_table_test_long_pid()
 static void pid_table_test_not_found()
 {
     printf("    Test PID not found...            ");
+    data = (Data*)calloc(1, sizeof(Data));
+    assert(data != NULL);
     char pid[PID_LEN] = { 0 };
     int32_t status = 0;
     uint32_t index = rand();
     uint32_t lookup = 0;
-    PidTable* table = pid_table_create();
     random_pid(pid, PID_LEN);
-    status = pid_table_insert(table, pid, index);
+    status = pid_table_insert(pid, index);
     assert(status == PID_SUCCESS);
-    status = pid_table_get_index(table, "a", &lookup);
+    status = pid_table_get_index("a", &lookup);
     assert(status == PID_NOT_FOUND);
-    pid_table_free(table);
+    free(data);
     puts("Finished.");
 }
 
@@ -153,18 +130,19 @@ static void pid_table_test_not_found()
 static void pid_table_test_lookup()
 {
     printf("    Test PID lookup...               ");
+    data = (Data*)calloc(1, sizeof(Data));
+    assert(data != NULL);
     char pid[PID_LEN] = { 0 };
     int32_t status = 0;
     uint32_t index = rand();
     uint32_t lookup = 0;
-    PidTable* table = pid_table_create();
     random_pid(pid, PID_LEN);
-    status = pid_table_insert(table, pid, index);
+    status = pid_table_insert(pid, index);
     assert(status == PID_SUCCESS);
-    status = pid_table_get_index(table, pid, &lookup);
+    status = pid_table_get_index(pid, &lookup);
     assert(status == PID_SUCCESS);
     assert(index == lookup);
-    pid_table_free(table);
+    free(data);
     puts("Finished.");
 }
 
@@ -174,15 +152,16 @@ static void pid_table_test_lookup()
 static void pid_table_test_duplicate()
 {
     printf("    Test inserting duplicate PID...  ");
-    PidTable* table = pid_table_create();
+    data = (Data*)calloc(1, sizeof(Data));
+    assert(data != NULL);
     char pid[PID_LEN] = { 0 };
     int32_t status = 0;
     random_pid(pid, PID_LEN);
-    status = pid_table_insert(table, pid, 0);
+    status = pid_table_insert(pid, 0);
     assert(status == PID_SUCCESS);
-    status = pid_table_insert(table, pid, 0);
+    status = pid_table_insert(pid, 0);
     assert(status == PID_DUPLICATE);
-    pid_table_free(table);
+    free(data);
     puts("Finished.");
 }
 
@@ -192,16 +171,17 @@ static void pid_table_test_duplicate()
 static void pid_table_test_half()
 {
     printf("    Test half filling table...       ");
-    PidTable* table = pid_table_create();
+    data = (Data*)calloc(1, sizeof(Data));
+    assert(data != NULL);
     uint32_t failures = 0;
     uint32_t num_pids = (int)(MAX_POINTS / 2);
     uint32_t successes = 0;
     pid_table_insert_random(
-        table, num_pids, &successes, &failures);
+        num_pids, &successes, &failures);
     assert(successes == num_pids);
     assert(failures == 0);
-    assert(table->count == num_pids);
-    pid_table_free(table);
+    assert(data->pointCount == num_pids);
+    free(data);
     puts("Finished.");
 }
 
@@ -211,15 +191,16 @@ static void pid_table_test_half()
 static void pid_table_test_full()
 {
     printf("    Test filling table...            ");
-    PidTable* table = pid_table_create();
+    data = (Data*)calloc(1, sizeof(Data));
+    assert(data != NULL);
     uint32_t failures = 0;
     uint32_t successes = 0;
     pid_table_insert_random(
-        table, MAX_POINTS, &successes, &failures);
+        MAX_POINTS, &successes, &failures);
     assert(successes == MAX_POINTS);
     assert(failures == 0);
-    assert(table->count == MAX_POINTS);
-    pid_table_free(table);
+    assert(data->pointCount == MAX_POINTS);
+    free(data);
     puts("Finished.");
 }
 
@@ -229,16 +210,17 @@ static void pid_table_test_full()
 static void pid_table_test_overfill()
 {
     printf("    Test overfilling table...        ");
-    PidTable* table = pid_table_create();
+    data = (Data*)calloc(1, sizeof(Data));
+    assert(data != NULL);
     uint32_t failures = 0;
     uint32_t num_pids = (int)(MAX_POINTS / 2);
     uint32_t successes = 0;
     pid_table_insert_random(
-        table, MAX_POINTS + num_pids, &successes, &failures);
+        MAX_POINTS + num_pids, &successes, &failures);
     assert(successes == MAX_POINTS);
     assert(failures == num_pids);
-    assert(table->count == MAX_POINTS);
-    pid_table_free(table);
+    assert(data->pointCount == MAX_POINTS);
+    free(data);
     puts("Finished.");
 }
 
@@ -249,7 +231,6 @@ void pid_table_test()
 {
     puts("Testing PidTable...");
     srand((unsigned)time(NULL));
-    pid_table_test_null_table();
     pid_table_test_null_pid();
     pid_table_test_long_pid();
     pid_table_test_not_found();

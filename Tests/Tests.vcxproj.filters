@@ -68,5 +68,8 @@
     <ClInclude Include="SharedMemoryTest.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
+    <ClInclude Include="..\PointProcessor\Data.h">
+      <Filter>Header Files\PointProcessor</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

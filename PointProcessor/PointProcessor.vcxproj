@@ -95,10 +95,11 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4090</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,11 +139,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BoolInput.h" />
+    <ClInclude Include="BoolPoint.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="Data.h" />
+    <ClInclude Include="FloatPoint.h" />
+    <ClInclude Include="IntPoint.h" />
     <ClInclude Include="NamedMutex.h" />
     <ClInclude Include="PidTable.h" />
+    <ClInclude Include="PointTypes.h" />
+    <ClInclude Include="Quality.h" />
     <ClInclude Include="SharedMemory.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BoolInput.c" />
+    <ClCompile Include="BoolPoint.c" />
+    <ClCompile Include="FloatPoint.c" />
+    <ClCompile Include="IntPoint.c" />
     <ClCompile Include="NamedMutex.c" />
     <ClCompile Include="PidTable.c" />
     <ClCompile Include="PointProcessor.c" />

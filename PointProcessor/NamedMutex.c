@@ -36,13 +36,13 @@ int32_t named_mutex_create(NamedMutex* mutex, const char* const name)
     name_len = strlen(name);
     if (name[0] != '/')
     {
-        lname = (char *)malloc(sizeof(char) * (name_len + 2));
+        lname = (char *)calloc(name_len + 2, sizeof(char));
         lname[0] = '/';
         strcpy(lname + 1, name);
     }
     else
     {
-        lname = (char *)malloc(sizeof(char) * (name_len + 1));
+        lname = (char *)malloc(name_len + 1, sizeof(char));
     }
     if (strlen(lname) > (MUTEX_NAME_LEN - 1))
     {
@@ -222,13 +222,13 @@ int32_t named_mutex_remove(const char* const name)
     name_len = strlen(name);
     if (name[0] != '/')
     {
-        lname = (char *)malloc(sizeof(char) * (name_len + 2));
+        lname = (char *)calloc(name_len + 2, sizeof(char));
         lname[0] = '/';
         strcpy(lname + 1, name);
     }
     else
     {
-        lname = (char *)malloc(sizeof(char) * (name_len + 1));
+        lname = (char *)calloc(name_len + 1, sizeof(char));
     }
     // Unlink the mutex
     if (sem_unlink(lname) == -1)

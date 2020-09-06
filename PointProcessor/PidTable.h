@@ -6,15 +6,6 @@
 #include "Constants.h"
 
 /// <summary>
-/// Name to pass to the OS for shared memory
-/// </summary>
-#define PID_TABLE_NAME "PIDTABLE"
-/// <summary>
-/// Max string length for a PID
-/// </summary>
-#define PID_LEN 32
-
-/// <summary>
 /// Point ID structure
 /// </summary>
 typedef struct PidEntry {
@@ -76,51 +67,26 @@ enum PidTableStatus
 };
 
 /// <summary>
-/// Table of PIDs
-/// </summary>
-typedef struct PidTable
-{
-    /// <summary>
-    /// PidEntry array
-    /// </summary>
-    PidEntry entries[MAX_POINTS];
-    /// <summary>
-    /// Current count of entries
-    /// </summary>
-    uint32_t count;
-} PidTable;
-
-/// <summary>
-/// Create a PidTable in local memory
-/// </summary>
-/// <returns>Pointer to a PidTable</returns>
-PidTable* pid_table_create();
-
-/// <summary>
 /// Initialize a PidTable
 /// </summary>
-void pid_table_init(PidTable* table);
-
-/// <summary>
-/// Free memory allocated by pid_table_create
-/// </summary>
-/// <param name="table">Pointer to a PidTable</param>
-void pid_table_free(PidTable* table);
+void pid_table_init();
 
 /// <summary>
 /// Insert a new PID into the table
 /// </summary>
-/// <param name="table">PID table to insert into</param>
 /// <param name="pid">Name of PID to insert</param>
 /// <param name="index">PID index to insert</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index);
+int32_t pid_table_insert(
+    const char* const pid, 
+    uint32_t          index);
 
 /// <summary>
 /// Get the index of a PID in the table
 /// </summary>
-/// <param name="table">PID table to insert into</param>
 /// <param name="pid">Name of PID</param>
 /// <param name="index">PID index from table</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-int32_t pid_table_get_index(const PidTable* table, const char* const pid, uint32_t* index);
+int32_t pid_table_get_index(
+    const char* const pid, 
+    uint32_t*         index);

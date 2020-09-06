@@ -5,13 +5,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "Data.h"
+
 /// <summary>
 /// Get the index of the PID (before resolving collisions)
 /// using MurmurHash3_32 by Austin Appleby (given to public domain)
 /// </summary>
 /// <param name="">PID name to hash</param>
 /// <returns>PID index</returns>
-static int32_t hash_pid(const char* const pid, uint32_t* index)
+static int32_t hash_pid(
+    const char* const pid, 
+    uint32_t*         index)
 {
     // If our pid table isn't there
     if (pid == NULL)
@@ -62,57 +66,24 @@ static int32_t hash_pid(const char* const pid, uint32_t* index)
 }
 
 /// <summary>
-/// Create a PidTable in local memory
-/// </summary>
-/// <returns>Pointer to a PidTable</returns>
-PidTable* pid_table_create()
-{
-    PidTable* table = (PidTable*)malloc(sizeof(PidTable));
-    if (table == NULL)
-    {
-        perror("Failed to allocate PidTable memory.");
-        exit(1);
-    }
-    pid_table_init(table);
-    return table;
-}
-
-/// <summary>
 /// Initialize a PidTable
 /// </summary>
-void pid_table_init(PidTable* table) 
+void pid_table_init()
 { 
-    if (table == NULL)
-        return;
-    memset(table, 0, sizeof(PidTable)); 
-}
-
-/// <summary>
-/// Free memory allocated by pid_table_create
-/// </summary>
-/// <param name="table">Pointer to a PidTable</param>
-void pid_table_free(PidTable* table)
-{
-    if (table == NULL)
-        return;
-    free(table);
+    memset(data->pointIds, 0, sizeof(data->pointIds)); 
 }
 
 /// <summary>
 /// Insert a new PID into the table
 /// </summary>
-/// <param name="table">PID table to insert into</param>
 /// <param name="pid">Name of PID to insert</param>
 /// <param name="pid">PID index to insert</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
+int32_t pid_table_insert(
+    const char* const pid, 
+    uint32_t          index)
 {
     uint32_t count = 0;
-    // If our pid table isn't there
-    if (table == NULL)
-    {
-        return PID_TABLE_NULL;
-    }
     // If you didn't pass anything
     if (pid == NULL)
         return PID_NULL;
@@ -124,12 +95,12 @@ int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
     hash_pid(pid, &insert_index);
     insert_index = insert_index % MAX_POINTS;
     // If the insert_index is out of bounds (should never happen)
-    if (table->count >= MAX_POINTS)
+    if (data->pointCount >= MAX_POINTS)
     {
         return PID_INVALID_INDEX;
     }
     // If there is a collision
-    if (table->entries[insert_index].is_used)
+    if (data->pointIds[insert_index].is_used)
     {
         // Find the next open space or if this 
         // pid already exists
@@ -137,10 +108,10 @@ int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
         {
             count++;
             // If this insert_index is used
-            if (table->entries[insert_index].is_used)
+            if (data->pointIds[insert_index].is_used)
             {
                 // If this insert_index matches this pid
-                if (strncmp(table->entries[insert_index].pid, pid, PID_LEN) == 0)
+                if (strncmp(data->pointIds[insert_index].pid, pid, PID_LEN) == 0)
                 {
                     // Can't insert, it already exists
                     return PID_DUPLICATE;
@@ -151,18 +122,18 @@ int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
             {
                 // Copy the PID 
 #ifdef __linux__
-                strncpy(table->entries[insert_index].pid, pid, PID_LEN);
+                strncpy(data->pointIds[insert_index].pid, pid, PID_LEN);
 #elif defined _WIN32
-                strncpy_s(table->entries[insert_index].pid, PID_LEN, pid, PID_LEN);
+                strncpy_s(data->pointIds[insert_index].pid, PID_LEN, pid, PID_LEN);
 #endif
                 // Ensure its null terminated
-                table->entries[insert_index].pid[PID_LEN - 1] = 0;
+                data->pointIds[insert_index].pid[PID_LEN - 1] = 0;
                 // Set the index
-                table->entries[insert_index].index = index;
+                data->pointIds[insert_index].index = index;
                 // Set it as in use
-                table->entries[insert_index].is_used = true;
+                data->pointIds[insert_index].is_used = true;
                 // Increment table count
-                table->count++;
+                data->pointCount++;
                 // Return success
                 return PID_SUCCESS;
             }
@@ -183,18 +154,18 @@ int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
     {
         // Copy the PID 
 #ifdef __linux__
-        strncpy(table->entries[insert_index].pid, pid, PID_LEN);
+        strncpy(data->pointIds[insert_index].pid, pid, PID_LEN);
 #elif defined _WIN32
-        strncpy_s(table->entries[insert_index].pid, PID_LEN, pid, PID_LEN);
+        strncpy_s(data->pointIds[insert_index].pid, PID_LEN, pid, PID_LEN);
 #endif
         // Ensure its null terminated
-        table->entries[insert_index].pid[PID_LEN - 1] = 0;
+        data->pointIds[insert_index].pid[PID_LEN - 1] = 0;
         // Set the insert_index
-        table->entries[insert_index].index = index;
+        data->pointIds[insert_index].index = index;
         // Set it as in use
-        table->entries[insert_index].is_used = true;
+        data->pointIds[insert_index].is_used = true;
         // Increment table count
-        table->count++;
+        data->pointCount++;
         // Return success
         return PID_SUCCESS;
     }
@@ -208,17 +179,13 @@ int32_t pid_table_insert(PidTable* table, const char* const pid, uint32_t index)
 /// <summary>
 /// Get the index of a PID in the table
 /// </summary>
-/// <param name="table">PID table to insert into</param>
 /// <param name="pid">Name of PID</param>
 /// <param name="index">PID index from table</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-int32_t pid_table_get_index(const PidTable* table, const char* const pid, uint32_t* index)
+int32_t pid_table_get_index(
+    const char* const pid, 
+    uint32_t*         index)
 {
-    // If our pid table isn't there
-    if (table == NULL)
-    {
-        return PID_TABLE_NULL;
-    }
     // If you didn't pass anything
     if (pid == NULL)
         return PID_NULL;
@@ -237,20 +204,20 @@ int32_t pid_table_get_index(const PidTable* table, const char* const pid, uint32
         return PID_FAILURE;
     }
     // Index in use, may have found the PID
-    if (table->entries[insert_index].is_used)
+    if (data->pointIds[insert_index].is_used)
     {
         // Find the next open space or if this pid already exists
         for (uint32_t i = 0; i < MAX_POINTS; i++)
         {
             // If this insert_index is used
-            if (table->entries[insert_index].is_used)
+            if (data->pointIds[insert_index].is_used)
             {
                 // If this insert_index matches this pid, 
                 // we found it!
-                if (strncmp(table->entries[insert_index].pid, pid, PID_LEN) == 0)
+                if (strncmp(data->pointIds[insert_index].pid, pid, PID_LEN) == 0)
                 {
                     // We found the PID
-                    *index = table->entries[insert_index].index;
+                    *index = data->pointIds[insert_index].index;
                     return PID_SUCCESS;
                 }
             }

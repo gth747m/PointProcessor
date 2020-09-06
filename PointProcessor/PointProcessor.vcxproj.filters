@@ -25,6 +25,30 @@
     <Filter Include="Source Files\PointProcessor">
       <UniqueIdentifier>{e1dd5b6b-f7cb-4475-8fdb-c12c548322ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\PointProcessor\BoolPoint">
+      <UniqueIdentifier>{9d036e66-0e5f-45a2-895f-4dbe8098b9cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PointProcessor\BoolPoint">
+      <UniqueIdentifier>{51ef01c0-4a4c-4645-aba7-9756644f00a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PointProcessor\FloatPoint">
+      <UniqueIdentifier>{3c89b2c1-5f93-4908-a715-24c89ada00ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PointProcessor\IntPoint">
+      <UniqueIdentifier>{536bb3f1-2e20-46f3-99f8-ca7c40cf6217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PointProcessor\FloatPoint">
+      <UniqueIdentifier>{4abc4038-ad0c-4b9a-99df-223ce21349e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PointProcessor\IntPoint">
+      <UniqueIdentifier>{dfb91ddc-3092-48b0-8f54-4cb2fb35253e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Server">
+      <UniqueIdentifier>{f90aaac9-0538-4a0d-a852-3fd1380d4df6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Server">
+      <UniqueIdentifier>{bdd92e0f-ecc6-4f40-8107-2e75e9e1d656}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PidTable.h">
@@ -35,6 +59,30 @@
     </ClInclude>
     <ClInclude Include="SharedMemory.h">
       <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Quality.h">
+      <Filter>Header Files\PointProcessor</Filter>
+    </ClInclude>
+    <ClInclude Include="Data.h">
+      <Filter>Header Files\PointProcessor</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files\PointProcessor</Filter>
+    </ClInclude>
+    <ClInclude Include="PointTypes.h">
+      <Filter>Header Files\PointProcessor</Filter>
+    </ClInclude>
+    <ClInclude Include="BoolInput.h">
+      <Filter>Header Files\PointProcessor\BoolPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="BoolPoint.h">
+      <Filter>Header Files\PointProcessor\BoolPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatPoint.h">
+      <Filter>Header Files\PointProcessor\FloatPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="IntPoint.h">
+      <Filter>Header Files\PointProcessor\IntPoint</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +97,18 @@
     </ClCompile>
     <ClCompile Include="PidTable.c">
       <Filter>Source Files\PointProcessor</Filter>
+    </ClCompile>
+    <ClCompile Include="BoolInput.c">
+      <Filter>Source Files\PointProcessor\BoolPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="BoolPoint.c">
+      <Filter>Source Files\PointProcessor\BoolPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatPoint.c">
+      <Filter>Source Files\PointProcessor\FloatPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="IntPoint.c">
+      <Filter>Source Files\PointProcessor\IntPoint</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
