@@ -70,14 +70,13 @@ static void pid_table_insert_random(
 static void pid_table_test_null_pid()
 {
     printf("    Test NULL PID...                 ");
-    data = (Data*)calloc(1, sizeof(Data));
+    memset(data, 0, sizeof(Data));
     assert(data != NULL);
     int32_t status = 0;
     status = pid_table_insert(NULL, 0);
     assert(status == PID_NULL);
     status = pid_table_get_index(NULL, 0);
     assert(status == PID_NULL);
-    free(data);
     puts("Finished.");
 }
 
@@ -87,7 +86,7 @@ static void pid_table_test_null_pid()
 static void pid_table_test_long_pid()
 {
     printf("    Test PID too long...             ");
-    data = (Data*)calloc(1, sizeof(Data));
+    memset(data, 0, sizeof(Data));
     assert(data != NULL);
     int32_t status = 0;
     char pid[PID_LEN + 1] = { 0 };
@@ -99,7 +98,6 @@ static void pid_table_test_long_pid()
     assert(status == PID_TOO_LONG);
     status = pid_table_get_index(pid, 0);
     assert(status == PID_TOO_LONG);
-    free(data);
     puts("Finished.");
 }
 
@@ -109,7 +107,7 @@ static void pid_table_test_long_pid()
 static void pid_table_test_not_found()
 {
     printf("    Test PID not found...            ");
-    data = (Data*)calloc(1, sizeof(Data));
+    memset(data, 0, sizeof(Data));
     assert(data != NULL);
     char pid[PID_LEN] = { 0 };
     int32_t status = 0;
@@ -120,7 +118,6 @@ static void pid_table_test_not_found()
     assert(status == PID_SUCCESS);
     status = pid_table_get_index("a", &lookup);
     assert(status == PID_NOT_FOUND);
-    free(data);
     puts("Finished.");
 }
 
@@ -130,7 +127,7 @@ static void pid_table_test_not_found()
 static void pid_table_test_lookup()
 {
     printf("    Test PID lookup...               ");
-    data = (Data*)calloc(1, sizeof(Data));
+    memset(data, 0, sizeof(Data));
     assert(data != NULL);
     char pid[PID_LEN] = { 0 };
     int32_t status = 0;
@@ -142,7 +139,6 @@ static void pid_table_test_lookup()
     status = pid_table_get_index(pid, &lookup);
     assert(status == PID_SUCCESS);
     assert(index == lookup);
-    free(data);
     puts("Finished.");
 }
 
@@ -152,7 +148,7 @@ static void pid_table_test_lookup()
 static void pid_table_test_duplicate()
 {
     printf("    Test inserting duplicate PID...  ");
-    data = (Data*)calloc(1, sizeof(Data));
+    memset(data, 0, sizeof(Data));
     assert(data != NULL);
     char pid[PID_LEN] = { 0 };
     int32_t status = 0;
@@ -161,7 +157,6 @@ static void pid_table_test_duplicate()
     assert(status == PID_SUCCESS);
     status = pid_table_insert(pid, 0);
     assert(status == PID_DUPLICATE);
-    free(data);
     puts("Finished.");
 }
 
@@ -171,7 +166,7 @@ static void pid_table_test_duplicate()
 static void pid_table_test_half()
 {
     printf("    Test half filling table...       ");
-    data = (Data*)calloc(1, sizeof(Data));
+    memset(data, 0, sizeof(Data));
     assert(data != NULL);
     uint32_t failures = 0;
     uint32_t num_pids = (int)(MAX_POINTS / 2);
@@ -181,7 +176,6 @@ static void pid_table_test_half()
     assert(successes == num_pids);
     assert(failures == 0);
     assert(data->pointCount == num_pids);
-    free(data);
     puts("Finished.");
 }
 
@@ -191,7 +185,7 @@ static void pid_table_test_half()
 static void pid_table_test_full()
 {
     printf("    Test filling table...            ");
-    data = (Data*)calloc(1, sizeof(Data));
+    memset(data, 0, sizeof(Data));
     assert(data != NULL);
     uint32_t failures = 0;
     uint32_t successes = 0;
@@ -200,7 +194,6 @@ static void pid_table_test_full()
     assert(successes == MAX_POINTS);
     assert(failures == 0);
     assert(data->pointCount == MAX_POINTS);
-    free(data);
     puts("Finished.");
 }
 
@@ -210,7 +203,7 @@ static void pid_table_test_full()
 static void pid_table_test_overfill()
 {
     printf("    Test overfilling table...        ");
-    data = (Data*)calloc(1, sizeof(Data));
+    memset(data, 0, sizeof(Data));
     assert(data != NULL);
     uint32_t failures = 0;
     uint32_t num_pids = (int)(MAX_POINTS / 2);
@@ -220,7 +213,6 @@ static void pid_table_test_overfill()
     assert(successes == MAX_POINTS);
     assert(failures == num_pids);
     assert(data->pointCount == MAX_POINTS);
-    free(data);
     puts("Finished.");
 }
 

@@ -3,10 +3,11 @@ PROGRAM=../Test.exe
 
 # Flags
 CXX=gcc
-OPTIMIZE=-O3
+#OPTIMIZE=-O3
+OPTIMIZE=-ggdb
 STD=-std=c18
 GENDEPS=-MMD
-WARN=-Wall -Wextra -Wpedantic
+WARN=-Wall -Wextra -Wpedantic -Wno-discarded-qualifiers
 # IF DEBUG
 DEFINES=_DEBUG
 # Needed for ftruncate() for SharedMemory
@@ -22,11 +23,13 @@ BUILDDIR=../build/
 
 # Sources
 SRCS=Tests.c
+SRCS+=Data.c
 SRCS+=NamedMutexTest.c
 SRCS+=PidTableTest.c
 SRCS+=SharedMemoryTest.c
 
 # Other Objects
+OTHEROBJS+=Data.o
 OTHEROBJS+=NamedMutex.o
 OTHEROBJS+=PidTable.o
 OTHEROBJS+=SharedMemory.o

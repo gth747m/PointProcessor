@@ -90,15 +90,16 @@ int32_t pid_table_insert(
     // The PID is too long to store 
     if (strlen(pid) > PID_LEN - 1)
         return PID_TOO_LONG;
+    // If the table is full already
+    if (data->pointCount >= MAX_POINTS)
+        return PID_TABLE_FULL;
     // Hash the PID to get the insert_index
     uint32_t insert_index = 0;
     hash_pid(pid, &insert_index);
     insert_index = insert_index % MAX_POINTS;
     // If the insert_index is out of bounds (should never happen)
-    if (data->pointCount >= MAX_POINTS)
-    {
+    if (insert_index >= MAX_POINTS)
         return PID_INVALID_INDEX;
-    }
     // If there is a collision
     if (data->pointIds[insert_index].is_used)
     {

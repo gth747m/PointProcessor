@@ -1,7 +1,8 @@
 #pragma once
 
-#include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 
 #include "Constants.h"
 #include "PidTable.h"
@@ -65,10 +66,7 @@ typedef struct Data
 } Data;
 
 
-#pragma region DataInstance
 /// <summary>
 /// Global data instance
 /// </summary>
-volatile Data* data;
-#pragma endregion
-
+extern volatile Data* data;

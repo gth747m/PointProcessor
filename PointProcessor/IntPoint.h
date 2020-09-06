@@ -36,7 +36,7 @@ enum IntStatusCode
 ///<param name="value">Current value</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_get_value(
-    int32_t  index,
+    uint32_t index,
     int32_t* value);
 
 ///<summary>
@@ -46,7 +46,7 @@ int32_t int_get_value(
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_get_quality(
-    int32_t  index, 
+    uint32_t index, 
     int32_t* quality);
 
 ///<summary>
@@ -57,7 +57,7 @@ int32_t int_get_quality(
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_get_value_quality(
-    int32_t  index,
+    uint32_t index,
     int32_t* value,
     int32_t* quality);
 
@@ -68,8 +68,8 @@ int32_t int_get_value_quality(
 ///<param name="value">Current value</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_set_value(
-    int32_t index, 
-    int32_t value);
+    uint32_t index, 
+    int32_t  value);
 
 ///<summary>
 /// Set the current quality of a integer point
@@ -78,8 +78,8 @@ int32_t int_set_value(
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_set_quality(
-    int32_t index, 
-    int32_t quality);
+    uint32_t index, 
+    int32_t  quality);
 
 ///<summary>
 /// Set the current value/quality of a integer point
@@ -89,6 +89,6 @@ int32_t int_set_quality(
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_set_value_quality(
-    int32_t index,
-    int32_t value,
-    int32_t quality);
+    uint32_t index,
+    int32_t  value,
+    int32_t  quality);

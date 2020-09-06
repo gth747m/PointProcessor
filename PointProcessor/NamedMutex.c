@@ -42,7 +42,7 @@ int32_t named_mutex_create(NamedMutex* mutex, const char* const name)
     }
     else
     {
-        lname = (char *)malloc(name_len + 1, sizeof(char));
+        lname = (char *)calloc(name_len + 1, sizeof(char));
     }
     if (strlen(lname) > (MUTEX_NAME_LEN - 1))
     {

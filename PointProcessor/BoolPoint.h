@@ -37,8 +37,8 @@ enum BoolStatusCode
 ///<param name="value">Current value</param>
 ///<returns>BoolStatusCode</returns>
 int32_t bool_get_value(
-    int32_t index,
-    bool*   value);
+    uint32_t index,
+    bool*    value);
 
 ///<summary>
 /// Get the current quality of a boolean point
@@ -47,7 +47,7 @@ int32_t bool_get_value(
 ///<param name="quality">Current quality</param>
 ///<returns>BoolStatusCode</returns>
 int32_t bool_get_quality(
-    int32_t  index, 
+    uint32_t index, 
     int32_t* quality);
 
 ///<summary>
@@ -58,7 +58,7 @@ int32_t bool_get_quality(
 ///<param name="quality">Current quality</param>
 ///<returns>BoolStatusCode</returns>
 int32_t bool_get_value_quality(
-    int32_t  index,
+    uint32_t index,
     bool*    value,
     int32_t* quality);
 
@@ -69,8 +69,8 @@ int32_t bool_get_value_quality(
 ///<param name="value">Current value</param>
 ///<returns>BoolStatusCode</returns>
 int32_t bool_set_value(
-    int32_t index, 
-    bool    value);
+    uint32_t index, 
+    bool     value);
 
 ///<summary>
 /// Set the current quality of a boolean point
@@ -79,8 +79,8 @@ int32_t bool_set_value(
 ///<param name="quality">Current quality</param>
 ///<returns>BoolStatusCode</returns>
 int32_t bool_set_quality(
-    int32_t index, 
-    int32_t quality);
+    uint32_t index, 
+    int32_t  quality);
 
 ///<summary>
 /// Set the current value/quality of a boolean point
@@ -90,6 +90,6 @@ int32_t bool_set_quality(
 ///<param name="quality">Current quality</param>
 ///<returns>BoolStatusCode</returns>
 int32_t bool_set_value_quality(
-    int32_t index,
-    bool    value,
-    int32_t quality);
+    uint32_t index,
+    bool     value,
+    int32_t  quality);

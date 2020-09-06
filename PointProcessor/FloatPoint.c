@@ -9,10 +9,10 @@
 ///<param name="value">Current value</param>
 ///<returns>FloatStatusCode</returns>
 int32_t float_get_value(
-    int32_t index, 
-    float*  value)
+    uint32_t index, 
+    float*   value)
 {
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return FLOAT_POINT_INVALID_INDEX;
     *value = data->valuesQualities[index].value.float_value;
     return FLOAT_POINT_SUCCESS;
@@ -25,12 +25,12 @@ int32_t float_get_value(
 ///<param name="quality">Current quality</param>
 ///<returns>FloatStatusCode</returns>
 int32_t float_get_quality(
-    int32_t  index, 
+    uint32_t index, 
     int32_t* quality)
 {
     if (quality == NULL)
         return FLOAT_POINT_NULL;
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return FLOAT_POINT_INVALID_INDEX;
     *quality = data->valuesQualities[index].quality;
     return 0;
@@ -44,13 +44,13 @@ int32_t float_get_quality(
 ///<param name="quality">Current quality</param>
 ///<returns>FloatStatusCode</returns>
 int32_t float_get_value_quality(
-    int32_t  index,
+    uint32_t index,
     float*   value,
     int32_t* quality)
 {
     if (value == NULL || quality == NULL)
         return FLOAT_POINT_NULL;
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return FLOAT_POINT_INVALID_INDEX;
     *value = data->valuesQualities[index].value.float_value;
     *quality = data->valuesQualities[index].quality;
@@ -64,10 +64,10 @@ int32_t float_get_value_quality(
 ///<param name="value">Current value</param>
 ///<returns>FloatStatusCode</returns>
 int32_t float_set_value(
-    int32_t index, 
-    float   value)
+    uint32_t index, 
+    float    value)
 {
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return FLOAT_POINT_INVALID_INDEX;
     data->valuesQualities[index].value.float_value = value;
     return FLOAT_POINT_SUCCESS;
@@ -80,10 +80,10 @@ int32_t float_set_value(
 ///<param name="quality">Current quality</param>
 ///<returns>FloatStatusCode</returns>
 int32_t float_set_quality(
-    int32_t index, 
-    int32_t quality)
+    uint32_t index, 
+    int32_t  quality)
 {
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return FLOAT_POINT_INVALID_INDEX;
     data->valuesQualities[index].quality = quality;
     return FLOAT_POINT_SUCCESS;
@@ -97,11 +97,11 @@ int32_t float_set_quality(
 ///<param name="quality">Current quality</param>
 ///<returns>FloatStatusCode</returns>
 int32_t float_set_value_quality(
-    int32_t index,
-    float   value,
-    int32_t quality)
+    uint32_t index,
+    float    value,
+    int32_t  quality)
 {
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return FLOAT_POINT_INVALID_INDEX;
     data->valuesQualities[index].value.float_value = value;
     data->valuesQualities[index].quality = quality;

@@ -9,10 +9,10 @@
 ///<param name="value">Current value</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_get_value(
-    int32_t  index, 
+    uint32_t index, 
     int32_t* value)
 {
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return INT_POINT_INVALID_INDEX;
     *value = data->valuesQualities[index].value.int_value;
     return INT_POINT_SUCCESS;
@@ -25,12 +25,12 @@ int32_t int_get_value(
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_get_quality(
-    int32_t  index, 
+    uint32_t index, 
     int32_t* quality)
 {
     if (quality == NULL)
         return INT_POINT_NULL;
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return INT_POINT_INVALID_INDEX;
     *quality = data->valuesQualities[index].quality;
     return 0;
@@ -44,13 +44,13 @@ int32_t int_get_quality(
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_get_value_quality(
-    int32_t  index,
+    uint32_t index,
     int32_t* value,
     int32_t* quality)
 {
     if (value == NULL || quality == NULL)
         return INT_POINT_NULL;
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return INT_POINT_INVALID_INDEX;
     *value = data->valuesQualities[index].value.int_value;
     *quality = data->valuesQualities[index].quality;
@@ -64,10 +64,10 @@ int32_t int_get_value_quality(
 ///<param name="value">Current value</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_set_value(
-    int32_t index, 
-    int32_t value)
+    uint32_t index, 
+    int32_t  value)
 {
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return INT_POINT_INVALID_INDEX;
     data->valuesQualities[index].value.int_value = value;
     return INT_POINT_SUCCESS;
@@ -80,10 +80,10 @@ int32_t int_set_value(
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_set_quality(
-    int32_t index, 
-    int32_t quality)
+    uint32_t index, 
+    int32_t  quality)
 {
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return INT_POINT_INVALID_INDEX;
     data->valuesQualities[index].quality = quality;
     return INT_POINT_SUCCESS;
@@ -97,11 +97,11 @@ int32_t int_set_quality(
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
 int32_t int_set_value_quality(
-    int32_t index,
-    int32_t value,
-    int32_t quality)
+    uint32_t index,
+    int32_t  value,
+    int32_t  quality)
 {
-    if (index < 0 || index >= data->pointCount)
+    if (index >= data->pointCount)
         return INT_POINT_INVALID_INDEX;
     data->valuesQualities[index].value.int_value = value;
     data->valuesQualities[index].quality = quality;

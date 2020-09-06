@@ -3,10 +3,11 @@ PROGRAM=../PointProcessor.exe
 
 # Flags
 CXX=gcc
-OPTIMIZE=-O3
+#OPTIMIZE=-O3
+OPTIMIZE=-ggdb
 STD=-std=c18
 GENDEPS=-MMD
-WARN=-Wall -Wextra -Wpedantic
+WARN=-Wall -Wextra -Wpedantic -Wno-discarded-qualifiers
 # IF DEBUG
 DEFINES=_DEBUG
 # Needed for ftruncate() for SharedMemory
@@ -22,9 +23,14 @@ BUILDDIR=../build/
 
 # Sources
 SRCS=PointProcessor.c
+SRCS+=Data.c
 SRCS+=NamedMutex.c
 SRCS+=PidTable.c
 SRCS+=SharedMemory.c
+SRCS+=BoolPoint.c
+SRCS+=BoolInput.c
+SRCS+=FloatPoint.c
+SRCS+=IntPoint.c
 
 # Include Directories
 INC=$(foreach d,$(DIRS),-I$d)
