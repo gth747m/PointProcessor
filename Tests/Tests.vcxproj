@@ -75,7 +75,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)PointProcessor;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)PointLib;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -108,6 +108,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(OutDir)PointLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -143,22 +144,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\PointProcessor\NamedMutex.c" />
-    <ClCompile Include="..\PointProcessor\PidTable.c" />
-    <ClCompile Include="..\PointProcessor\SharedMemory.c" />
-    <ClCompile Include="NamedMutexTest.c" />
-    <ClCompile Include="PidTableTest.c" />
+    <ClCompile Include="..\PointLib\Data.c" />
+    <ClCompile Include="Points\PointIdTest.c" />
+    <ClCompile Include="System\NamedMutexTest.c" />
+    <ClCompile Include="System\SharedMemoryTest.c" />
     <ClCompile Include="Tests.c" />
-    <ClCompile Include="SharedMemoryTest.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\PointProcessor\Data.h" />
-    <ClInclude Include="..\PointProcessor\NamedMutex.h" />
-    <ClInclude Include="..\PointProcessor\PidTable.h" />
-    <ClInclude Include="..\PointProcessor\SharedMemory.h" />
-    <ClInclude Include="NamedMutexTest.h" />
-    <ClInclude Include="PidTableTest.h" />
-    <ClInclude Include="SharedMemoryTest.h" />
+    <ClInclude Include="Points\PointIdTest.h" />
+    <ClInclude Include="System\NamedMutexTest.h" />
+    <ClInclude Include="System\SharedMemoryTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

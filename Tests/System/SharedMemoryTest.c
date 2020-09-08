@@ -1,11 +1,11 @@
 #include "SharedMemoryTest.h"
 
-#include "SharedMemory.h"
-
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "System/SharedMemory.h"
 
 static const char* const NAME = "MySharedMemory";
 
@@ -42,9 +42,9 @@ static void shared_memory_test_clear()
 {
     printf("    Clearing previous...             ");
     SharedMemory shm;
-    int32_t status = get_shared_memory(&shm, NAME, sizeof(SharedMemory));
+    int32_t status = shared_memory_get(&shm, NAME, sizeof(SharedMemory));
     assert((status == SHM_CREATED) || (status == SHM_SUCCESS));
-    status = close_shared_memory(&shm);
+    status = shared_memory_close(&shm);
     assert(status == SHM_SUCCESS);
     puts("Finished.");
 }
@@ -56,9 +56,9 @@ static void shared_memory_test_create_close()
 {
     printf("    Test creating and closing...     ");
     SharedMemory shm;
-    int32_t status = get_shared_memory(&shm, NAME, sizeof(SharedMemory));
+    int32_t status = shared_memory_get(&shm, NAME, sizeof(SharedMemory));
     assert(status == SHM_CREATED);
-    status = close_shared_memory(&shm);
+    status = shared_memory_close(&shm);
     assert(status == SHM_SUCCESS);
     puts("Finished.");
 }
@@ -69,9 +69,9 @@ static void shared_memory_test_create_close()
 static void shared_memory_test_null()
 {
     printf("    Test creating NULL...            ");
-    int32_t status = get_shared_memory(NULL, NAME, sizeof(SharedMemory));
+    int32_t status = shared_memory_get(NULL, NAME, sizeof(SharedMemory));
     assert(status == SHM_NULL);
-    status = close_shared_memory(NULL);
+    status = shared_memory_close(NULL);
     assert(status == SHM_NULL);
     puts("Finished.");
 }
@@ -84,11 +84,11 @@ static void shared_memory_test_get()
     printf("    Test getting existing...         ");
     SharedMemory shm;
     SharedMemory shm2;
-    int32_t status = get_shared_memory(&shm, NAME, sizeof(SharedMemory));
+    int32_t status = shared_memory_get(&shm, NAME, sizeof(SharedMemory));
     assert(status == SHM_CREATED);
-    status = get_shared_memory(&shm2, NAME, sizeof(SharedMemory));
+    status = shared_memory_get(&shm2, NAME, sizeof(SharedMemory));
     assert(status == SHM_SUCCESS);
-    status = close_shared_memory(&shm);
+    status = shared_memory_close(&shm);
     assert(status == SHM_SUCCESS);
     puts("Finished.");
 }
@@ -103,7 +103,7 @@ static void shared_memory_test_long_name()
     char name[(SHM_NAME_LEN * 2) + 1] = { 0 };
     int32_t status = 0;
     random_name(name, (SHM_NAME_LEN * 2) + 1);
-    status = get_shared_memory(&shm, name, sizeof(SharedMemory));
+    status = shared_memory_get(&shm, name, sizeof(SharedMemory));
     assert(status == SHM_NAME_TOO_LONG);
     puts("Finished.");
 }

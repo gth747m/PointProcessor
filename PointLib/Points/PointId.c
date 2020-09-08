@@ -1,11 +1,11 @@
-#include "PidTable.h"
+#include "PointId.h"
 
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "Data.h"
+#include "../Data.h"
 
 /// <summary>
 /// Get the index of the PID (before resolving collisions)
@@ -68,7 +68,7 @@ static int32_t hash_pid(
 /// <summary>
 /// Initialize a PidTable
 /// </summary>
-void pid_table_init()
+POINT_API void pid_table_init()
 { 
     memset(data->pointIds, 0, sizeof(data->pointIds)); 
 }
@@ -79,7 +79,7 @@ void pid_table_init()
 /// <param name="pid">Name of PID to insert</param>
 /// <param name="pid">PID index to insert</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-int32_t pid_table_insert(
+POINT_API int32_t pid_table_insert(
     const char* const pid, 
     uint32_t          index)
 {
@@ -183,7 +183,7 @@ int32_t pid_table_insert(
 /// <param name="pid">Name of PID</param>
 /// <param name="index">PID index from table</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-int32_t pid_table_get_index(
+POINT_API int32_t pid_table_get_index(
     const char* const pid, 
     uint32_t*         index)
 {

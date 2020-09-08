@@ -1,6 +1,6 @@
 #include "BoolPoint.h"
 
-#include "Data.h"
+#include "../../Data.h"
 
 ///<summary>
 /// Get the current value of a boolean point
@@ -8,7 +8,7 @@
 ///<param name="index">Point index</param>
 ///<param name="value">Current value</param>
 ///<returns>BoolStatusCode</returns>
-int32_t bool_get_value(
+POINT_API int32_t bool_get_value(
     uint32_t index, 
     bool*    value)
 {
@@ -24,7 +24,7 @@ int32_t bool_get_value(
 ///<param name="index">Point index</param>
 ///<param name="quality">Current quality</param>
 ///<returns>BoolStatusCode</returns>
-int32_t bool_get_quality(
+POINT_API int32_t bool_get_quality(
     uint32_t index, 
     int32_t* quality)
 {
@@ -43,7 +43,7 @@ int32_t bool_get_quality(
 ///<param name="value">Current value</param>
 ///<param name="quality">Current quality</param>
 ///<returns>BoolStatusCode</returns>
-int32_t bool_get_value_quality(
+POINT_API int32_t bool_get_value_quality(
     uint32_t index,
     bool*    value,
     int32_t* quality)
@@ -63,7 +63,7 @@ int32_t bool_get_value_quality(
 ///<param name="index">Point index</param>
 ///<param name="value">Current value</param>
 ///<returns>BoolStatusCode</returns>
-int32_t bool_set_value(
+POINT_API int32_t bool_set_value(
     uint32_t index, 
     bool     value)
 {
@@ -79,7 +79,7 @@ int32_t bool_set_value(
 ///<param name="index">Point index</param>
 ///<param name="quality">Current quality</param>
 ///<returns>BoolStatusCode</returns>
-int32_t bool_set_quality(
+POINT_API int32_t bool_set_quality(
     uint32_t index, 
     int32_t  quality)
 {
@@ -96,7 +96,7 @@ int32_t bool_set_quality(
 ///<param name="value">Current value</param>
 ///<param name="quality">Current quality</param>
 ///<returns>BoolStatusCode</returns>
-int32_t bool_set_value_quality(
+POINT_API int32_t bool_set_value_quality(
     uint32_t index,
     bool     value,
     int32_t  quality)

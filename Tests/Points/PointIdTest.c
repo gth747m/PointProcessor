@@ -1,6 +1,6 @@
-#include "PidTableTest.h"
+#include "PointIdTest.h"
 
-#include "PidTable.h"
+#include "Points/PointId.h"
 #include "Data.h"
 
 #include <assert.h>

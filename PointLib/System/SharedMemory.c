@@ -17,7 +17,7 @@
 /// <param name="name">Name of shared memory segment</param>
 /// <param name="size">Size of shared memory segment</param>
 /// <returns>Status as defined in SharedMemoryStatus</returns>
-int32_t get_shared_memory(SharedMemory* memory, const char* const name, size_t size)
+POINT_API int32_t shared_memory_get(SharedMemory* memory, const char* const name, size_t size)
 {
 #ifdef __linux__
     bool init = false;
@@ -157,7 +157,7 @@ int32_t get_shared_memory(SharedMemory* memory, const char* const name, size_t s
 /// </summary>
 /// <param name="memory">Pointer to Shared memory structure</param>
 /// <returns>Status as defined in SharedMemoryStatus</returns>
-int32_t close_shared_memory(SharedMemory* memory)
+POINT_API int32_t shared_memory_close(SharedMemory* memory)
 {
 #ifdef __linux__
     bool success = true;

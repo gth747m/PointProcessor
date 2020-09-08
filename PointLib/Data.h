@@ -4,10 +4,11 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "PointLib.h"
 #include "Constants.h"
-#include "PidTable.h"
-#include "PointTypes.h"
-#include "Quality.h"
+#include "Points/PointId.h"
+#include "Points/PointType.h"
+#include "Points/Quality.h"
 
 ///<summary>
 /// Value/Quality pair
@@ -69,4 +70,4 @@ typedef struct Data
 /// <summary>
 /// Global data instance
 /// </summary>
-extern volatile Data* data;
+extern POINT_API volatile Data* data;

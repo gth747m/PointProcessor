@@ -13,63 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\PointProcessor">
-      <UniqueIdentifier>{2f931e29-d977-4bc1-812c-418dbebb27b8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\PointProcessor">
-      <UniqueIdentifier>{e26ed0aa-f6b8-43eb-9348-5baa6ccc1571}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\System">
       <UniqueIdentifier>{6585e5c2-ee7c-4940-89e7-549537c22c56}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\System">
       <UniqueIdentifier>{0e4b3571-0ba3-4aa7-9134-5131654fa097}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Points">
+      <UniqueIdentifier>{e26ed0aa-f6b8-43eb-9348-5baa6ccc1571}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Points">
+      <UniqueIdentifier>{2f931e29-d977-4bc1-812c-418dbebb27b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Tests.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\PointProcessor\PidTable.c">
-      <Filter>Source Files\PointProcessor</Filter>
+    <ClCompile Include="Points\PointIdTest.c">
+      <Filter>Source Files\Points</Filter>
     </ClCompile>
-    <ClCompile Include="PidTableTest.c">
-      <Filter>Source Files\PointProcessor</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PointProcessor\NamedMutex.c">
+    <ClCompile Include="System\NamedMutexTest.c">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\PointProcessor\SharedMemory.c">
+    <ClCompile Include="System\SharedMemoryTest.c">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="NamedMutexTest.c">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="SharedMemoryTest.c">
-      <Filter>Source Files\System</Filter>
+    <ClCompile Include="..\PointLib\Data.c">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\PointProcessor\PidTable.h">
-      <Filter>Header Files\PointProcessor</Filter>
+    <ClInclude Include="Points\PointIdTest.h">
+      <Filter>Header Files\Points</Filter>
     </ClInclude>
-    <ClInclude Include="PidTableTest.h">
-      <Filter>Header Files\PointProcessor</Filter>
-    </ClInclude>
-    <ClInclude Include="..\PointProcessor\NamedMutex.h">
+    <ClInclude Include="System\NamedMutexTest.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="..\PointProcessor\SharedMemory.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
-    <ClInclude Include="NamedMutexTest.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
-    <ClInclude Include="SharedMemoryTest.h">
+    <ClInclude Include="System\SharedMemoryTest.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="..\PointProcessor\Data.h">
-      <Filter>Header Files\PointProcessor</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

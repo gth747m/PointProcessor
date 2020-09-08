@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{65f75f01-1ee0-4977-84ab-5b1b71e77b39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Points">
+      <UniqueIdentifier>{34978575-7f7b-4045-ae83-33cbea568674}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Points\Bool">
+      <UniqueIdentifier>{45c1ca76-b23b-4f42-8e9e-d2770f62ba16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Points\Float">
+      <UniqueIdentifier>{f219d98f-5c03-4333-b509-61c63b81d27d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Points\Int">
+      <UniqueIdentifier>{0259db59-5ac7-44ed-9afd-8baecd952a04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{e7587318-b1a7-4e02-9672-1c25ba3e82b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Points">
+      <UniqueIdentifier>{d96b54cd-8426-42c1-bd0a-bbe13b6af7c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Points\Bool">
+      <UniqueIdentifier>{e7b40736-ebdd-4d76-9092-b236efd1ec98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Points\Float">
+      <UniqueIdentifier>{224a373c-10b2-4499-bffd-f4795fb2ebe3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Points\Int">
+      <UniqueIdentifier>{867f27a5-9f4f-4cc7-a969-8ab4b6c514ee}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Points\Bool\BoolInput.h">
+      <Filter>Header Files\Points\Bool</Filter>
+    </ClInclude>
+    <ClInclude Include="Points\Bool\BoolPoint.h">
+      <Filter>Header Files\Points\Bool</Filter>
+    </ClInclude>
+    <ClInclude Include="Points\Float\FloatPoint.h">
+      <Filter>Header Files\Points\Float</Filter>
+    </ClInclude>
+    <ClInclude Include="Points\Int\IntPoint.h">
+      <Filter>Header Files\Points\Int</Filter>
+    </ClInclude>
+    <ClInclude Include="Points\PointId.h">
+      <Filter>Header Files\Points</Filter>
+    </ClInclude>
+    <ClInclude Include="Points\PointType.h">
+      <Filter>Header Files\Points</Filter>
+    </ClInclude>
+    <ClInclude Include="Points\Quality.h">
+      <Filter>Header Files\Points</Filter>
+    </ClInclude>
+    <ClInclude Include="System\NamedMutex.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="System\SharedMemory.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Points\Bool\BoolInput.c">
+      <Filter>Source Files\Points\Bool</Filter>
+    </ClCompile>
+    <ClCompile Include="Points\Bool\BoolPoint.c">
+      <Filter>Source Files\Points\Bool</Filter>
+    </ClCompile>
+    <ClCompile Include="Points\Float\FloatPoint.c">
+      <Filter>Source Files\Points\Float</Filter>
+    </ClCompile>
+    <ClCompile Include="Points\Int\IntPoint.c">
+      <Filter>Source Files\Points\Int</Filter>
+    </ClCompile>
+    <ClCompile Include="Points\PointId.c">
+      <Filter>Source Files\Points</Filter>
+    </ClCompile>
+    <ClCompile Include="System\NamedMutex.c">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="System\SharedMemory.c">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Data.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

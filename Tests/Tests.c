@@ -3,16 +3,21 @@
 #include <stdlib.h>
 
 #include "Data.h"
-#include "PidTableTest.h"
-#include "NamedMutexTest.h"
-#include "SharedMemoryTest.h"
+#include "System/SharedMemory.h"
+#include "Points/PointIdTest.h"
+#include "System/NamedMutexTest.h"
+#include "System/SharedMemoryTest.h"
+
+#define SHARED_MEM_NAME "PointLibShm"
 
 int main(void)
 {
-    data = (Data*)calloc(1, sizeof(Data));
+    SharedMemory shm;
+    shared_memory_get(&shm, SHARED_MEM_NAME, sizeof(Data));
+    data = shm.memory;
     assert(data != NULL);
     shared_memory_test();
     named_mutex_test();
     pid_table_test();
-    free(data);
+    shared_memory_close(&shm);
 }

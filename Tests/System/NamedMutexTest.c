@@ -1,6 +1,6 @@
 #include "NamedMutexTest.h"
 
-#include "NamedMutex.h"
+#include "System/NamedMutex.h"
 
 #include <assert.h>
 #include <stdint.h>
