@@ -14,42 +14,45 @@ DEFINES=_DEBUG
 DEFINES+=_XOPEN_SOURCE
 DEFINES+=_XOPEN_SOURCE_EXTENDED 
 
-# Link Flags
-LFLAGS=$(OPTIMIZE) -lrt -lpthread
+# Link Libraries
+LNKLIBS=rt
+LNKLIBS+=pthread
+LNKLIBS+=pointlib
 
 # Directories
-DIRS=../PointProcessor/
-BUILDDIR=../build/
+DIRS=Points/
+DIRS+=Points/Bool/
+DIRS+=Points/Float/
+DIRS+=Points/Int/
+DIRS+=System/
+INCDIRS=../
+LIBDIRS=../
+BUILDDIR=../build/Tests/
 
 # Sources
 SRCS=Tests.c
-SRCS+=Data.c
-SRCS+=NamedMutexTest.c
-SRCS+=PidTableTest.c
-SRCS+=SharedMemoryTest.c
+SRCS+=Points/PointIdTest.c
+SRCS+=System/NamedMutexTest.c
+SRCS+=System/SharedMemoryTest.c
 
-# Other Objects
-OTHEROBJS+=Data.o
-OTHEROBJS+=NamedMutex.o
-OTHEROBJS+=PidTable.o
-OTHEROBJS+=SharedMemory.o
+# Link Flags
+LFLAGS=$(OPTIMIZE) $(foreach l, $(LNKLIBS), -l$l) $(foreach d, $(LIBDIRS), -L$d) 
 
 # Include Directories
-INC=$(foreach d,$(DIRS),-I$d)
+INC=$(foreach d,$(INCDIRS),-I$d)
 
 # Compile Flags
 CFLAGS=$(OPTIMIZE) $(WARN) $(GENDEPS) $(STD) $(INC) $(foreach d,$(DEFINES),-D$d)
 
 # Compiled objects
 OBJS=$(patsubst %,$(BUILDDIR)%,$(SRCS:.c=.o))
-OBJS+=$(patsubst %,$(BUILDDIR)%,$(OTHEROBJS))
 
 # Dependencies
 DEPS=$(patsubst %,$(BUILDDIR)%,$(SRCS:.c=.d))
 
 # Main program
 $(PROGRAM): $(OBJS)
-	$(CXX) $(LFLAGS) -o $@ $(filter %.o, $^)
+	$(CXX) $(LFLAGS) -o $@ $(filter %.o, $^) $(LIB)
 
 # Compile C++ files (Base program)
 $(BUILDDIR)%.o: %.c $(BUILDDIR)
@@ -57,13 +60,14 @@ $(BUILDDIR)%.o: %.c $(BUILDDIR)
 
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
+	$(foreach d, $(DIRS), mkdir -p $(BUILDDIR)$d;)
 
 # Use dependency files (%.d)
 -include $(DEPS)
 
 # Clean up everything except source
 clean:
-	rm -rf $(PROGRAM) $(patsubst %,$(BUILDDIR)%,$(SRCS:.c=.o)) $(DEPS)
+	rm -rf $(PROGRAM) $(BUILDDIR)
 
 # Clean up build objects and dependency files
 neat:

@@ -4,13 +4,13 @@
 // that uses this DLL. This way any other project whose source files include this file see
 // POINTLIB_API functions as being imported from a DLL, whereas this DLL sees symbols
 // defined with this macro as being exported.
-#ifdef POINT_EXPORTS
-#define POINTLIB_API __declspec(dllexport)
+#ifdef _WIN32
+#    ifdef POINT_EXPORTS
+#        define POINTLIB_API __declspec(dllexport)
+#    else
+#        define POINTLIB_API __declspec(dllimport)
+#    endif
 #else
-#define POINTLIB_API __declspec(dllimport)
+#    define POINTLIB_API
 #endif
 
-/*
-extern POINTLIB_API int nPoint;
-POINTLIB_API int fnPoint(void);
-*/

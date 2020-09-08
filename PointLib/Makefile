@@ -1,10 +1,11 @@
 # Main program name
-PROGRAM=../PointProcessor.exe
+PROGRAM=../libpointlib.so
 
 # Flags
 CXX=gcc
 #OPTIMIZE=-O3
 OPTIMIZE=-ggdb
+PIC=-fPIC
 STD=-std=c18
 GENDEPS=-MMD
 WARN=-Wall -Wextra -Wpedantic -Wno-discarded-qualifiers
@@ -18,25 +19,30 @@ DEFINES+=_XOPEN_SOURCE_EXTENDED
 LFLAGS=$(OPTIMIZE) -lrt -lpthread
 
 # Directories
-DIRS=../PointProcessor/
-BUILDDIR=../build/
+DIRS=Points/
+DIRS+=Points/Bool/
+DIRS+=Points/Float/
+DIRS+=Points/Int/
+DIRS+=System/
+INCDIRS=../
+BUILDDIR=../build/PointLib/
 
 # Sources
-SRCS=PointProcessor.c
+SRCS=Points/PointId.c
+SRCS+=Points/Float/FloatPoint.c
+SRCS+=Points/Int/IntPoint.c
+SRCS+=Points/Bool/BoolPoint.c
+SRCS+=Points/Bool/BoolInput.c
 SRCS+=Data.c
-SRCS+=NamedMutex.c
-SRCS+=PidTable.c
-SRCS+=SharedMemory.c
-SRCS+=BoolPoint.c
-SRCS+=BoolInput.c
-SRCS+=FloatPoint.c
-SRCS+=IntPoint.c
+SRCS+=dllmain.c
+SRCS+=System/NamedMutex.c
+SRCS+=System/SharedMemory.c
 
 # Include Directories
-INC=$(foreach d,$(DIRS),-I$d)
+INC=$(foreach d,$(INCDIRS),-I$d)
 
 # Compile Flags
-CFLAGS=$(OPTIMIZE) $(WARN) $(GENDEPS) $(STD) $(INC) $(foreach d,$(DEFINES),-D$d)
+CFLAGS=$(OPTIMIZE) $(WARN) $(GENDEPS) $(STD) $(INC) $(foreach d,$(DEFINES),-D$d) $(PIC)
 
 # Compiled objects
 OBJS=$(patsubst %,$(BUILDDIR)%,$(SRCS:.c=.o))
@@ -46,7 +52,7 @@ DEPS=$(patsubst %,$(BUILDDIR)%,$(SRCS:.c=.d))
 
 # Main program
 $(PROGRAM): $(OBJS)
-	$(CXX) $(LFLAGS) -o $@ $(filter %.o, $^)
+	$(CXX) -shared $(LFLAGS) -o $@ $(filter %.o, $^)
 
 # Compile C++ files
 $(BUILDDIR)%.o: %.c $(BUILDDIR)
@@ -54,13 +60,14 @@ $(BUILDDIR)%.o: %.c $(BUILDDIR)
 
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
+	$(foreach d, $(DIRS), mkdir -p $(BUILDDIR)$d;)
 
 # Use dependency files (%.d)
 -include $(DEPS)
 
 # Clean up everything except source
 clean:
-	rm -rf $(PROGRAM) $(OBJS) $(DEPS)
+	rm -rf $(PROGRAM) $(BUILDDIR)
 
 # Clean up build objects and dependency files
 neat:

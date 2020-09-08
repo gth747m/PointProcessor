@@ -1,9 +1,3 @@
-#ifdef __linux__
-#    include <semaphore.h>
-#elif defined _WIN32
-#    define WIN32_LEAN_AND_MEAN
-#    include <Windows.h>
-#endif
 
 #include <assert.h>
 
@@ -12,6 +6,24 @@
 #include "PointLib/PointLib.h"
 #include "PointLib/System/SharedMemory.h"
 
+#ifdef __linux__
+__attribute((constructor))
+void alloc_dll_shm()
+{
+    shared_memory_get(&shm, SHARED_MEM_NAME, sizeof(Data));
+    data = shm.memory;
+    assert(data != NULL);
+}
+
+__attribute((destructor))
+void dealloc_dll_shm()
+{
+    shared_memory_close(&shm);
+}
+
+#elif defined _WIN32
+#    define WIN32_LEAN_AND_MEAN
+#    include <Windows.h>
 BOOL APIENTRY DllMain(
     HMODULE hModule,
     DWORD   ul_reason_for_call,
@@ -34,4 +46,4 @@ BOOL APIENTRY DllMain(
     }
     return TRUE;
 }
-
+#endif
