@@ -14,7 +14,9 @@
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <param name=name>Name of the mutex</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-POINTLIB_API int32_t named_mutex_create(NamedMutex* mutex, const char* const name)
+POINTLIB_API int32_t named_mutex_create(
+    NamedMutex*       mutex, 
+    const char* const name)
 {
 #ifdef __linux__
     // local copy of mutex name
@@ -132,7 +134,8 @@ POINTLIB_API int32_t named_mutex_create(NamedMutex* mutex, const char* const nam
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-POINTLIB_API int32_t named_mutex_lock(NamedMutex* mutex)
+POINTLIB_API int32_t named_mutex_lock(
+    NamedMutex* mutex)
 {
     if (mutex == NULL)
     {
@@ -158,7 +161,8 @@ POINTLIB_API int32_t named_mutex_lock(NamedMutex* mutex)
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-POINTLIB_API int32_t named_mutex_unlock(NamedMutex* mutex)
+POINTLIB_API int32_t named_mutex_unlock(
+    NamedMutex* mutex)
 {
     if (mutex == NULL || mutex->mutex == NULL)
     {
@@ -180,7 +184,8 @@ POINTLIB_API int32_t named_mutex_unlock(NamedMutex* mutex)
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-POINTLIB_API int32_t named_mutex_release(NamedMutex* mutex)
+POINTLIB_API int32_t named_mutex_release(
+    NamedMutex* mutex)
 {
     if (mutex == NULL || mutex->mutex == NULL)
     {
@@ -203,7 +208,8 @@ POINTLIB_API int32_t named_mutex_release(NamedMutex* mutex)
 /// </summary>
 /// <param name=name>Name of mutex to remove</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-POINTLIB_API int32_t named_mutex_remove(const char* const name)
+POINTLIB_API int32_t named_mutex_remove(
+    const char* const name)
 {
 #ifdef __linux__
     // local copy of mutex name

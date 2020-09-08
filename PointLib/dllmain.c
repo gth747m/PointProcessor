@@ -10,6 +10,7 @@
 __attribute((constructor))
 void alloc_dll_shm()
 {
+    // Create or get a reference to shared memory
     shared_memory_get(&shm, SHARED_MEM_NAME, sizeof(Data));
     data = shm.memory;
     assert(data != NULL);
@@ -24,6 +25,13 @@ void dealloc_dll_shm()
 #elif defined _WIN32
 #    define WIN32_LEAN_AND_MEAN
 #    include <Windows.h>
+/// <summary>
+/// Method run on load/unload of this DLL
+/// </summary>
+/// <param name="hModule">Handle to DLL module</param>
+/// <param name="ul_reason_for_call">Reason for calling function</param>
+/// <param name="lpReserved">Reserved</param>
+/// <returns></returns>
 BOOL APIENTRY DllMain(
     HMODULE hModule,
     DWORD   ul_reason_for_call,
@@ -32,6 +40,7 @@ BOOL APIENTRY DllMain(
     switch (ul_reason_for_call)
     {
     case DLL_PROCESS_ATTACH:
+        // Create or get a reference to shared memory
         shared_memory_get(&shm, SHARED_MEM_NAME, sizeof(Data));
         data = shm.memory;
         assert(data != NULL);
@@ -41,6 +50,7 @@ BOOL APIENTRY DllMain(
     case DLL_THREAD_DETACH:
         break;
     case DLL_PROCESS_DETACH:
+        // Destroy shared memory
         shared_memory_close(&shm);
         break;
     }
