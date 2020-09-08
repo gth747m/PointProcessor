@@ -2,7 +2,7 @@
 
 #include <stdint.h>
 
-#include "PointLib.h"
+#include "PointLib/PointLib.h"
 
 /// <summary>
 /// Possible Int statuses
@@ -37,7 +37,7 @@ enum IntStatusCode
 ///<param name="index">Point index</param>
 ///<param name="value">Current value</param>
 ///<returns>IntStatusCode</returns>
-POINT_API int32_t int_get_value(
+POINTLIB_API int32_t int_get_value(
     uint32_t index,
     int32_t* value);
 
@@ -47,7 +47,7 @@ POINT_API int32_t int_get_value(
 ///<param name="index">Point index</param>
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
-POINT_API int32_t int_get_quality(
+POINTLIB_API int32_t int_get_quality(
     uint32_t index, 
     int32_t* quality);
 
@@ -58,7 +58,7 @@ POINT_API int32_t int_get_quality(
 ///<param name="value">Current value</param>
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
-POINT_API int32_t int_get_value_quality(
+POINTLIB_API int32_t int_get_value_quality(
     uint32_t index,
     int32_t* value,
     int32_t* quality);
@@ -69,7 +69,7 @@ POINT_API int32_t int_get_value_quality(
 ///<param name="index">Point index</param>
 ///<param name="value">Current value</param>
 ///<returns>IntStatusCode</returns>
-POINT_API int32_t int_set_value(
+POINTLIB_API int32_t int_set_value(
     uint32_t index, 
     int32_t  value);
 
@@ -79,7 +79,7 @@ POINT_API int32_t int_set_value(
 ///<param name="index">Point index</param>
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
-POINT_API int32_t int_set_quality(
+POINTLIB_API int32_t int_set_quality(
     uint32_t index, 
     int32_t  quality);
 
@@ -90,7 +90,7 @@ POINT_API int32_t int_set_quality(
 ///<param name="value">Current value</param>
 ///<param name="quality">Current quality</param>
 ///<returns>IntStatusCode</returns>
-POINT_API int32_t int_set_value_quality(
+POINTLIB_API int32_t int_set_value_quality(
     uint32_t index,
     int32_t  value,
     int32_t  quality);

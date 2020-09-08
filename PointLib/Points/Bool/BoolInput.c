@@ -1,15 +1,15 @@
 #include "BoolInput.h"
 
-#include "../../Data.h"
-#include "../PointType.h"
-#include "../Quality.h"
+#include "PointLib/Data.h"
+#include "PointLib/Points/PointType.h"
+#include "PointLib/Points/Quality.h"
 
 /// <summary>
 /// Initialize an index to a boolean input point
 /// </summary>
 /// <param name="index">index</param>
 /// <returns>BoolInputStatusCode</returns>
-POINT_API int32_t bool_input_init_value_quality(
+POINTLIB_API int32_t bool_input_init_value_quality(
     uint32_t index)
 {
     if (index >= data->pointCount)
@@ -27,7 +27,7 @@ POINT_API int32_t bool_input_init_value_quality(
 ///<param name="index">Point index</param>
 ///<param name="value">Current value</param>
 ///<returns>BoolInputStatusCode</returns>
-POINT_API int32_t bool_input_get_value(
+POINTLIB_API int32_t bool_input_get_value(
     uint32_t index, 
     bool*    value)
 {
@@ -47,7 +47,7 @@ POINT_API int32_t bool_input_get_value(
 ///<param name="index">Point index</param>
 ///<param name="quality">Current quality</param>
 ///<returns>BoolInputStatusCode</returns>
-POINT_API int32_t bool_input_get_quality(
+POINTLIB_API int32_t bool_input_get_quality(
     uint32_t   index, 
     int32_t*   quality)
 {
@@ -68,7 +68,7 @@ POINT_API int32_t bool_input_get_quality(
 ///<param name="value">Current value</param>
 ///<param name="quality">Current quality</param>
 ///<returns>BoolInputStatusCode</returns>
-POINT_API int32_t bool_input_get_value_quality(
+POINTLIB_API int32_t bool_input_get_value_quality(
     uint32_t   index,
     bool*      value,
     int32_t*   quality)
@@ -90,7 +90,7 @@ POINT_API int32_t bool_input_get_value_quality(
 ///<param name="index">Point index</param>
 ///<param name="value">Current value</param>
 ///<returns>BoolInputStatusCode</returns>
-POINT_API int32_t bool_input_set_value(
+POINTLIB_API int32_t bool_input_set_value(
     uint32_t index, 
     bool     value)
 {
@@ -108,7 +108,7 @@ POINT_API int32_t bool_input_set_value(
 ///<param name="index">Point index</param>
 ///<param name="quality">Current quality</param>
 ///<returns>BoolInputStatusCode</returns>
-POINT_API int32_t bool_input_set_quality(
+POINTLIB_API int32_t bool_input_set_quality(
     uint32_t index, 
     int32_t  quality)
 {
@@ -127,7 +127,7 @@ POINT_API int32_t bool_input_set_quality(
 ///<param name="value">Current value</param>
 ///<param name="quality">Current quality</param>
 ///<returns>BoolInputStatusCode</returns>
-POINT_API int32_t bool_input_set_value_quality(
+POINTLIB_API int32_t bool_input_set_value_quality(
     uint32_t index,
     bool     value,
     int32_t  quality)

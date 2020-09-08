@@ -3,8 +3,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "../Constants.h"
-#include "PointLib.h"
+#include "PointLib/Constants.h"
+#include "PointLib/PointLib.h"
 
 /// <summary>
 /// Point ID structure
@@ -70,7 +70,7 @@ enum PidTableStatus
 /// <summary>
 /// Initialize a PidTable
 /// </summary>
-POINT_API void pid_table_init();
+POINTLIB_API void pid_table_init();
 
 /// <summary>
 /// Insert a new PID into the table
@@ -78,7 +78,7 @@ POINT_API void pid_table_init();
 /// <param name="pid">Name of PID to insert</param>
 /// <param name="index">PID index to insert</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-POINT_API int32_t pid_table_insert(
+POINTLIB_API int32_t pid_table_insert(
     const char* const pid, 
     uint32_t          index);
 
@@ -88,6 +88,6 @@ POINT_API int32_t pid_table_insert(
 /// <param name="pid">Name of PID</param>
 /// <param name="index">PID index from table</param>
 /// <returns>Status as defined in PidTableStatus</returns>
-POINT_API int32_t pid_table_get_index(
+POINTLIB_API int32_t pid_table_get_index(
     const char* const pid, 
     uint32_t*         index);

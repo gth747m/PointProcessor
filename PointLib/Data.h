@@ -4,11 +4,12 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#include "PointLib.h"
-#include "Constants.h"
-#include "Points/PointId.h"
-#include "Points/PointType.h"
-#include "Points/Quality.h"
+#include "PointLib/PointLib.h"
+#include "PointLib/Constants.h"
+#include "PointLib/Points/PointId.h"
+#include "PointLib/Points/PointType.h"
+#include "PointLib/Points/Quality.h"
+#include "PointLib/System/SharedMemory.h"
 
 ///<summary>
 /// Value/Quality pair
@@ -68,6 +69,11 @@ typedef struct Data
 
 
 /// <summary>
+/// Global shared memory instance
+/// </summary>
+extern POINTLIB_API SharedMemory shm;
+
+/// <summary>
 /// Global data instance
 /// </summary>
-extern POINT_API volatile Data* data;
+extern POINTLIB_API volatile Data* data;

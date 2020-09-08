@@ -9,7 +9,7 @@
 #    include <Windows.h>
 #endif
 
-#include "PointLib.h"
+#include "PointLib/PointLib.h"
 
 /// <summary>
 /// Max name length for a named mutex
@@ -75,32 +75,32 @@ enum NamedMutexStatus
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <param name=name>Name of the mutex</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-POINT_API int32_t named_mutex_create(NamedMutex* mutex, const char* const name);
+POINTLIB_API int32_t named_mutex_create(NamedMutex* mutex, const char* const name);
 
 /// <summary>
 /// Try to lock (aquire) a named mutex
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-POINT_API int32_t named_mutex_lock(NamedMutex* mutex);
+POINTLIB_API int32_t named_mutex_lock(NamedMutex* mutex);
 
 /// <summary>
 /// Unlock a named mutex
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-POINT_API int32_t named_mutex_unlock(NamedMutex* mutex);
+POINTLIB_API int32_t named_mutex_unlock(NamedMutex* mutex);
 
 /// <summary>
 /// Close handle to a NamedMutex
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-POINT_API int32_t named_mutex_release(NamedMutex* mutex);
+POINTLIB_API int32_t named_mutex_release(NamedMutex* mutex);
 
 /// <summary>
 /// Remove a named mutex from the system
 /// </summary>
 /// <param name=mutex>Pointer to a mutex structure</param>
 /// <returns>Status as defined in NamedMutexStatus</returns>
-POINT_API int32_t named_mutex_remove(const char* const name);
+POINTLIB_API int32_t named_mutex_remove(const char* const name);

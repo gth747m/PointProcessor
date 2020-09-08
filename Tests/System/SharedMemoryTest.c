@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "System/SharedMemory.h"
+#include "PointLib/System/SharedMemory.h"
 
 static const char* const NAME = "MySharedMemory";
 

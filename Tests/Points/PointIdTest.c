@@ -1,12 +1,13 @@
 #include "PointIdTest.h"
 
-#include "Points/PointId.h"
-#include "Data.h"
+#include "PointLib/Points/PointId.h"
+#include "PointLib/Data.h"
 
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 #include <time.h>
 
