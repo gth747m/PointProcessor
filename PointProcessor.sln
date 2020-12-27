@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PointProcessor", "PointProcessor\PointProcessor.vcxproj", "{B4112827-850B-4317-8144-9D0BD5CEC011}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PointProcessorLib", "PointProcessorLib\PointProcessorLib.vcxproj", "{5A3BC019-9563-4CA5-B69A-B2BF898A22CE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PointProcessorTest", "PointProcessorTest\PointProcessorTest.vcxproj", "{194BA722-8734-4131-B34C-982C00012278}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +25,22 @@ Global
 		{B4112827-850B-4317-8144-9D0BD5CEC011}.Release|x64.Build.0 = Release|x64
 		{B4112827-850B-4317-8144-9D0BD5CEC011}.Release|x86.ActiveCfg = Release|Win32
 		{B4112827-850B-4317-8144-9D0BD5CEC011}.Release|x86.Build.0 = Release|Win32
+		{5A3BC019-9563-4CA5-B69A-B2BF898A22CE}.Debug|x64.ActiveCfg = Debug|x64
+		{5A3BC019-9563-4CA5-B69A-B2BF898A22CE}.Debug|x64.Build.0 = Debug|x64
+		{5A3BC019-9563-4CA5-B69A-B2BF898A22CE}.Debug|x86.ActiveCfg = Debug|Win32
+		{5A3BC019-9563-4CA5-B69A-B2BF898A22CE}.Debug|x86.Build.0 = Debug|Win32
+		{5A3BC019-9563-4CA5-B69A-B2BF898A22CE}.Release|x64.ActiveCfg = Release|x64
+		{5A3BC019-9563-4CA5-B69A-B2BF898A22CE}.Release|x64.Build.0 = Release|x64
+		{5A3BC019-9563-4CA5-B69A-B2BF898A22CE}.Release|x86.ActiveCfg = Release|Win32
+		{5A3BC019-9563-4CA5-B69A-B2BF898A22CE}.Release|x86.Build.0 = Release|Win32
+		{194BA722-8734-4131-B34C-982C00012278}.Debug|x64.ActiveCfg = Debug|x64
+		{194BA722-8734-4131-B34C-982C00012278}.Debug|x64.Build.0 = Debug|x64
+		{194BA722-8734-4131-B34C-982C00012278}.Debug|x86.ActiveCfg = Debug|Win32
+		{194BA722-8734-4131-B34C-982C00012278}.Debug|x86.Build.0 = Debug|Win32
+		{194BA722-8734-4131-B34C-982C00012278}.Release|x64.ActiveCfg = Release|x64
+		{194BA722-8734-4131-B34C-982C00012278}.Release|x64.Build.0 = Release|x64
+		{194BA722-8734-4131-B34C-982C00012278}.Release|x86.ActiveCfg = Release|Win32
+		{194BA722-8734-4131-B34C-982C00012278}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
