@@ -72,6 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\PointProcessorLib;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)$(Configuration)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -139,16 +141,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Frequency.cpp" />
     <ClCompile Include="PointProcessor.cpp" />
-    <ClCompile Include="Quality.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AveragePoint.h" />
-    <ClInclude Include="Frequency.h" />
-    <ClInclude Include="Point.h" />
-    <ClInclude Include="Quality.h" />
-    <ClInclude Include="SumPoint.h" />
+    <ProjectReference Include="..\PointProcessorLib\PointProcessorLib.vcxproj">
+      <Project>{5a3bc019-9563-4ca5-b69a-b2bf898a22ce}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

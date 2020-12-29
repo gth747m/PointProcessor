@@ -18,28 +18,5 @@
     <ClCompile Include="PointProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Quality.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Frequency.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Point.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Quality.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Frequency.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SumPoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AveragePoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
