@@ -28,52 +28,6 @@ static void random_name(char* name, size_t len)
     name[(len - 1)] = '\0';
 }
 
-#ifdef __linux__
-/// <summary>
-/// Helper thread function for incrementing an integer
-/// </summary>
-/// <param name="i">Pointer to int to increment</param>
-/// <returns>NULL</returns>
-static void * mutex_increment_int(int32_t *i)
-{
-    NamedMutex mutex;
-    int32_t status = named_mutex_create(&mutex, NAME);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_lock(&mutex);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    if (i)
-    {
-        (*i)++;
-    }
-    status = named_mutex_unlock(&mutex);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_release(&mutex);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    return NULL;
-}
-#elif defined _WIN32
-/// <summary>
-/// Helper thread function for incrementing an integer
-/// </summary>
-/// <param name="i">Pointer to int to increment</param>
-static void mutex_increment_int(int32_t *i)
-{
-    NamedMutex mutex;
-    int32_t status = named_mutex_create(&mutex, NAME);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_lock(&mutex);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    if (i)
-    {
-        (*i)++;
-    }
-    status = named_mutex_unlock(&mutex);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_release(&mutex);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-}
-#endif
-
 /// <summary>
 /// Test NamedMutex creation
 /// </summary>
@@ -160,6 +114,7 @@ TEST(NamedMutex, LockSerial)
     ASSERT_EQ(status, MUTEX_SUCCESS);
 }
 
+/*
 /// <summary>
 /// Test NamedMutex locking/unlocking (non-parallel)
 /// </summary>
@@ -213,3 +168,4 @@ TEST(NamedMutex, LockParallel)
     ASSERT_EQ(status, MUTEX_SUCCESS);
 }
 
+*/
