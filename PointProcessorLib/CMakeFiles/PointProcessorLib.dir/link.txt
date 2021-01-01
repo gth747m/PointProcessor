@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../lib/libPointProcessorLib.a  CMakeFiles/PointProcessorLib.dir/dllmain.cpp.o CMakeFiles/PointProcessorLib.dir/Frequency.cpp.o CMakeFiles/PointProcessorLib.dir/NamedMutex.cpp.o CMakeFiles/PointProcessorLib.dir/Quality.cpp.o CMakeFiles/PointProcessorLib.dir/SharedMemory.cpp.o
-/usr/bin/ranlib ../lib/libPointProcessorLib.a
