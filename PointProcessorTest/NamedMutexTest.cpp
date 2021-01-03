@@ -1,97 +1,151 @@
 #include "pch.h"
 
+#include <iostream>
+
 static const char* const NAME = "MyNamedMutex";
 
 /// <summary>
-/// Get a random ASCII character
+/// Helper thread function for incrementing an integer
 /// </summary>
-/// <returns>Random ASCII character</returns>
-static char random_char()
+/// <param name="i">Pointer to int to increment</param>
+static void mutex_increment_int(int32_t *i)
 {
-    const char* chars = "0123456789"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz";
-    return chars[rand() % 62];
-}
-
-/// <summary>
-/// Put a random string of length len in name
-/// </summary>
-/// <param name="name">Name string to fill in</param>
-/// <param name="len">String length</param>
-static void random_name(char* name, size_t len)
-{
-    for (size_t i = 0; i < (len - 1); i++)
+    NamedMutex mutex(NAME);
+    mutex.get_existing();
+    mutex.lock();
+    if (i)
     {
-        name[i] = random_char();
+        (*i)++;
     }
-    name[(len - 1)] = '\0';
+    mutex.unlock();
+    mutex.release();
 }
 
 /// <summary>
-/// Test NamedMutex creation
+/// Test NamedMutex create twice
 /// </summary>
-TEST(NamedMutex, Create)
+TEST(NamedMutex, CreateTwice)
 {
-    NamedMutex mutex;
-    NamedMutex mutex2;
-    int32_t status = named_mutex_remove(NAME);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_create(&mutex, NAME);
-    ASSERT_EQ(status, MUTEX_CREATED);
-    status = named_mutex_create(&mutex2, NAME);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_release(&mutex);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_release(&mutex2);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_remove(NAME);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
+    bool threw_exception = false;
+    NamedMutex mutex(NAME);
+    try
+    {
+        // Remove any prexisting mutex from the system (linux)
+        mutex.remove();
+        // Create a new mutex
+        mutex.create();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    try
+    {
+        // Try to create the same mutex again
+        mutex.create();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(threw_exception);
+    threw_exception = false;
+    try
+    {
+        // Try to create or get the same mutex
+        mutex.create_or_get();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(threw_exception);
+    threw_exception = false;
+    try
+    {
+        // Try to get the same mutex
+        mutex.get_existing();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(threw_exception);
+    threw_exception = false;
+    try
+    {
+        mutex.release();
+        mutex.remove();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
 }
 
 /// <summary>
-/// Test NamedMutex functions passed a NULL mutex
+/// Test NamedMutex locking a mutex without obtaining it first
 /// </summary>
-TEST(NamedMutex, NullMutex)
+TEST(NamedMutex, NullLock)
 {
-    int32_t status = named_mutex_remove(NAME);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_create(NULL, NAME);
-    ASSERT_EQ(status, MUTEX_NULL);
-    status = named_mutex_lock(NULL);
-    ASSERT_EQ(status, MUTEX_NULL);
-    status = named_mutex_unlock(NULL);
-    ASSERT_EQ(status, MUTEX_NULL);
+    NamedMutex mutex(NAME);
+    bool threw_exception = false;
+    try
+    {
+        // Remove any prexisting mutex from the system (linux)
+        mutex.remove();
+        // Lock the mutex without obtaining it
+        mutex.lock();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(threw_exception);
 }
 
 /// <summary>
-/// Test NamedMutex functions passed a NULL name
+/// Test NamedMutex releasing a mutex without obtaining it first
 /// </summary>
-TEST(NamedMutex, NullName)
+TEST(NamedMutex, NullRelease)
 {
-    NamedMutex mutex;
-    int32_t status = named_mutex_remove(NULL);
-    ASSERT_EQ(status, MUTEX_NULL_NAME);
-    status = named_mutex_create(&mutex, NULL);
-    ASSERT_EQ(status, MUTEX_NULL_NAME);
-    status = named_mutex_remove(NULL);
-    ASSERT_EQ(status, MUTEX_NULL_NAME);
+    NamedMutex mutex(NAME);
+    bool threw_exception = false;
+    try
+    {
+        // Remove any prexisting mutex from the system (linux)
+        mutex.remove();
+        // Release the mutex without obtaining it
+        mutex.release();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(threw_exception);
 }
 
 /// <summary>
-/// Test NamedMutex functions passed too long of a name
+/// Test NamedMutex unlocking a mutex without obtaining it first
 /// </summary>
-TEST(NamedMutex, LongName)
+TEST(NamedMutex, NullUnlock)
 {
-    NamedMutex mutex;
-    char name[(MUTEX_NAME_LEN * 2) + 1] = { 0 };
-    random_name(name, (MUTEX_NAME_LEN * 2) + 1);
-    int32_t status = named_mutex_remove(name);
-    ASSERT_EQ(status, MUTEX_NAME_TOO_LONG);
-    status = named_mutex_create(&mutex, name);
-    ASSERT_EQ(status, MUTEX_NAME_TOO_LONG);
-    status = named_mutex_remove(name);
-    ASSERT_EQ(status, MUTEX_NAME_TOO_LONG);
+    NamedMutex mutex(NAME);
+    bool threw_exception = false;
+    try
+    {
+        // Remove any prexisting mutex from the system (linux)
+        mutex.remove();
+        // Unlock the mutex without obtaining it
+        mutex.unlock();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(threw_exception);
 }
 
 /// <summary>
@@ -99,19 +153,24 @@ TEST(NamedMutex, LongName)
 /// </summary>
 TEST(NamedMutex, LockSerial)
 {
-    NamedMutex mutex;
-    int32_t status = named_mutex_remove(NAME);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_create(&mutex, NAME);
-    ASSERT_EQ(status, MUTEX_CREATED);
-    status = named_mutex_lock(&mutex);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_unlock(&mutex);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_release(&mutex);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
-    status = named_mutex_remove(NAME);
-    ASSERT_EQ(status, MUTEX_SUCCESS);
+    NamedMutex mutex(NAME);
+    bool threw_exception = false;
+    try
+    {
+        // Remove any prexisting mutex from the system (linux)
+        mutex.remove();
+        mutex.create();
+        mutex.lock();
+        mutex.unlock();
+        mutex.release();
+        mutex.remove();
+    }
+    catch (NamedMutexException& ex)
+    {
+        threw_exception = true;
+        std::cout << ex.what() << std::endl;
+    }
+    ASSERT_TRUE(!threw_exception);
 }
 
 /*

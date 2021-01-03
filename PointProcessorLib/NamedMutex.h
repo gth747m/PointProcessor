@@ -2,7 +2,11 @@
 
 #include "PointProcessorLib.h"
 
-#include <stdint.h>
+#include <cstdint>
+#include <exception>
+#include <memory>
+#include <sstream>
+#include <string>
 
 #ifdef __linux__
 #    include <semaphore.h>
@@ -11,102 +15,80 @@
 #    include <Windows.h>
 #endif
 
-/// <summary>
-/// Max name length for a named mutex
-/// </summary>
-#define MUTEX_NAME_LEN 32
-
-/// <summary>
-/// Named mutex structure
-/// </summary>
-typedef struct NamedMutex
+class NamedMutexException : public std::exception
 {
+public:
+    NamedMutexException(const char* msg);
+    NamedMutexException(std::string msg);
+    NamedMutexException(std::stringstream& msg);
+    virtual const char* what() const throw();
+protected:
+    std::string error_message;
+};
+
+class NamedMutex
+{
+public:
     /// <summary>
-    /// Name of this mutex
+    /// Create a named mutex object, this does not create or obtain a handle
+    /// to the mutex, it simply constructs the object
     /// </summary>
-    char name[MUTEX_NAME_LEN];
+    /// <param name="name">Mutex name</param>
+    NamedMutex(const char* name);
+    /// <summary>
+    /// Create a named mutex object, this does not create or obtain a handle
+    /// to the mutex, it simply constructs the object
+    /// </summary>
+    /// <param name="name">Mutex name</param>
+    NamedMutex(std::string name);
+    /// <summary>
+    /// Try to create a new named mutex, it cannot already exist
+    /// </summary>
+    void create();
+    /// <summary>
+    /// Create a new named mutex or get a handle to one that already exists
+    /// </summary>
+    void create_or_get();
+    /// <summary>
+    /// Try to get a handle to an already created named mutex
+    /// </summary>
+    void get_existing();
+    /// <summary>
+    /// Try to lock (aquire) a named mutex
+    /// </summary>
+    void lock();
+    /// <summary>
+    /// Unlock a named mutex
+    /// </summary>
+    void unlock();
+    /// <summary>
+    /// Close handle to a NamedMutex
+    /// </summary>
+    void release();
+    /// <summary>
+    /// Remove this mutex from the system
+    /// </summary>
+    void remove();
+protected:
+private:
+    /// <summary>
+    /// Mutex name
+    /// </summary>
+    std::string name;
+    /// <summary>
+    /// Is this mutex currently locked by this object?
+    /// </summary>
+    bool is_owner;
 #ifdef __linux__
     /// <summary>
     /// Linux semaphore
     /// </summary>
-    sem_t* mutex;
+    std::unique_ptr<sem_t> mutex;
 #elif defined _WIN32
     /// <summary>
     /// Windows mutex
     /// </summary>
-    HANDLE mutex;
+    std::unique_ptr<HANDLE> mutex;
 #endif
-} NamedMutex;
-
-/// <summary>
-/// Possible status messages from NamedMutex
-/// </summary>
-enum NamedMutexStatus
-{
-    /// <summary>
-    /// Mutex name is too long
-    /// </summary>
-    MUTEX_NAME_TOO_LONG = -4,
-    /// <summary>
-    /// Mutex provided was null
-    /// </summary>
-    MUTEX_NULL = -3,
-    /// <summary>
-    /// Mutex name provided was null
-    /// </summary>
-    MUTEX_NULL_NAME = -2,
-    /// <summary>
-    /// Generic Failure
-    /// </summary>
-    MUTEX_FAILURE = -1,
-    /// <summary>
-    /// Mutex operation successful
-    /// </summary>
-    MUTEX_SUCCESS = 0,
-    /// <summary>
-    /// Mutex didn't exist, so it was created
-    /// </summary>
-    MUTEX_CREATED = 1
 };
 
-/// <summary>
-/// Create or get a named mutex
-/// </summary>
-/// <param name=mutex>Pointer to a mutex structure</param>
-/// <param name=name>Name of the mutex</param>
-/// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t named_mutex_create(
-    NamedMutex*       mutex, 
-    const char* const name);
-
-/// <summary>
-/// Try to lock (aquire) a named mutex
-/// </summary>
-/// <param name=mutex>Pointer to a mutex structure</param>
-/// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t named_mutex_lock(
-    NamedMutex* mutex);
-
-/// <summary>
-/// Unlock a named mutex
-/// </summary>
-/// <param name=mutex>Pointer to a mutex structure</param>
-/// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t named_mutex_unlock(
-    NamedMutex* mutex);
-
-/// <summary>
-/// Close handle to a NamedMutex
-/// </summary>
-/// <param name=mutex>Pointer to a mutex structure</param>
-/// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t named_mutex_release(
-    NamedMutex* mutex);
-
-/// <summary>
-/// Remove a named mutex from the system
-/// </summary>
-/// <param name=mutex>Pointer to a mutex structure</param>
-/// <returns>Status as defined in NamedMutexStatus</returns>
-int32_t named_mutex_remove(
-    const char* const name);
