@@ -1,7 +1,5 @@
 #pragma once
 
-#include "PointProcessorLib.h"
-
 #include <cstdint>
 #include <exception>
 #include <memory>
@@ -75,10 +73,6 @@ private:
     /// Mutex name
     /// </summary>
     std::string name;
-    /// <summary>
-    /// Is this mutex currently locked by this object?
-    /// </summary>
-    bool is_owner;
 #ifdef __linux__
     /// <summary>
     /// Linux semaphore
