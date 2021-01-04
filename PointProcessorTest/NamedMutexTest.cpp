@@ -77,14 +77,12 @@ TEST(NamedMutex, CreateTwice)
     try
     {
         mutex.release();
-	std::cout << "Released mutex." << std::endl;
         mutex.remove();
-	std::cout << "Removed mutex." << std::endl;
     }
     catch (NamedMutexException& ex)
     {
         threw_exception = true;
-	std::cout << ex.what() << std::endl;
+	    std::cout << ex.what() << std::endl;
     }
     ASSERT_TRUE(!threw_exception);
 }

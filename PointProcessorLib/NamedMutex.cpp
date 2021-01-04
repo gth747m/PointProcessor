@@ -71,7 +71,7 @@ void NamedMutex::create()
     if (lmutex != SEM_FAILED)
     {
         // Store it 
-        this->mutex = std::make_unique<sem_t*>(lmutex);
+        this->mutex = lmutex;
         return;
     }
     // Failed to create the mutex
@@ -115,7 +115,7 @@ void NamedMutex::create()
             << this->name << "'.";
         throw NamedMutexException(ss);
     }
-    this->mutex = std::make_unique<HANDLE>(lmutex);
+    this->mutex = lmutex;
     if (GetLastError() == ERROR_ALREADY_EXISTS)
     {
         std::stringstream ss;
@@ -145,7 +145,7 @@ void NamedMutex::create_or_get()
     if (lmutex != SEM_FAILED)
     {
         // Store it 
-        this->mutex = std::make_unique<sem_t*>(lmutex);
+        this->mutex = lmutex;
         return;
     }
     // Failed to create the mutex
@@ -154,8 +154,10 @@ void NamedMutex::create_or_get()
         // Mutex already exists
         if (errno == EEXIST)
         {
+            // Connect to the preexisting mutex
+            lmutex = sem_open(lname.c_str(), O_CREAT);
             // Store it 
-            this->mutex = std::make_unique<sem_t*>(lmutex);
+            this->mutex = lmutex;
             return;
         }
         else
@@ -189,7 +191,7 @@ void NamedMutex::create_or_get()
             << this->name << "'.";
         throw NamedMutexException(ss);
     }
-    this->mutex = std::make_unique<HANDLE>(lmutex);
+    this->mutex = lmutex;
 #endif
 }
 
@@ -216,8 +218,8 @@ void NamedMutex::get_existing()
         // We shouldn't have created it, release it then throw exception
         this->release();
         std::stringstream ss;
-        ss << "Faield to get NamedMutex '" << this->name 
-		<< "' it doesn't exist.";
+        ss << "Failed to get NamedMutex '" << this->name 
+		    << "' it doesn't exist.";
         throw NamedMutexException(ss);
     }
     // Failed to create the mutex
@@ -226,8 +228,10 @@ void NamedMutex::get_existing()
         // Mutex already exists, this is what we expect
         if (errno == EEXIST)
         {
+            // Connect to the preexisting mutex
+            lmutex = sem_open(lname.c_str(), O_CREAT);
             // Store it 
-            this->mutex = std::make_unique<sem_t*>(lmutex);
+            this->mutex = lmutex;
             return;
         }
         else
@@ -261,7 +265,7 @@ void NamedMutex::get_existing()
             << this->name << "'.";
         throw NamedMutexException(ss);
     }
-    this->mutex = std::make_unique<HANDLE>(lmutex);
+    this->mutex = lmutex;
     if (GetLastError() != ERROR_ALREADY_EXISTS)
     {
         // We shouldn't have created it, release it then throw exception
@@ -286,9 +290,9 @@ void NamedMutex::lock()
         throw NamedMutexException(ss);
     }
 #ifdef __linux__
-    sem_wait(*this->mutex);
+    sem_wait(this->mutex);
 #elif defined _WIN32
-    switch (WaitForSingleObject(*this->mutex), INFINITE))
+    switch (WaitForSingleObject(this->mutex), INFINITE))
     {
     case WAIT_OBJECT_0:
         return;
@@ -312,9 +316,9 @@ void NamedMutex::unlock()
         throw NamedMutexException("Failed to unlock mutex, it was a nullptr.");
     }
 #ifdef __linux__
-    sem_post(*this->mutex);
+    sem_post(this->mutex);
 #elif defined _WIN32
-    if (!ReleaseMutex(*this->mutex))
+    if (!ReleaseMutex(this->mutex))
     {
         throw NamedMutexException("Failed to unlock mutex");
     }
@@ -332,12 +336,12 @@ void NamedMutex::release()
         throw NamedMutexException("Failed to release mutex, it was a nullptr.");
     }
 #ifdef __linux__
-    if (sem_close(*this->mutex) == -1)
+    if (sem_close(this->mutex) == -1)
     {
         throw NamedMutexException("Failed to release mutex.");
     }
 #elif defined _WIN32
-    BOOL ignore = CloseHandle(*this->mutex);
+    BOOL ignore = CloseHandle(this->mutex);
     UNREFERENCED_PARAMETER(ignore);
 #endif
 }
