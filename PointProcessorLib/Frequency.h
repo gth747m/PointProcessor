@@ -82,4 +82,4 @@ namespace PointProcessor
     /// <param name="frequency">[IN] Frequency</param>
     /// <returns>Number of seconds between updates</returns>
     float ConvertFrequency(const Frequency frequency);
-};
+}

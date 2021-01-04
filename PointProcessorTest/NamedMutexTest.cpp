@@ -28,11 +28,11 @@ TEST(NamedMutex, CreateTwice)
 {
     bool threw_exception = false;
     NamedMutex mutex(NAME);
+    // Create a new mutex
     try
     {
         // Remove any prexisting mutex from the system (linux)
         mutex.remove();
-        // Create a new mutex
         mutex.create();
     }
     catch (NamedMutexException&)
@@ -40,9 +40,9 @@ TEST(NamedMutex, CreateTwice)
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
+    // Try to create the same mutex again and fail
     try
     {
-        // Try to create the same mutex again
         mutex.create();
     }
     catch (NamedMutexException&)
@@ -51,36 +51,40 @@ TEST(NamedMutex, CreateTwice)
     }
     ASSERT_TRUE(threw_exception);
     threw_exception = false;
+    // Try to create or get the same mutex and succeed
     try
     {
-        // Try to create or get the same mutex
         mutex.create_or_get();
     }
     catch (NamedMutexException&)
     {
         threw_exception = true;
     }
-    ASSERT_TRUE(threw_exception);
+    ASSERT_TRUE(!threw_exception);
     threw_exception = false;
+    // Try to get the existing mutex and succeed
     try
     {
-        // Try to get the same mutex
         mutex.get_existing();
     }
     catch (NamedMutexException&)
     {
         threw_exception = true;
     }
-    ASSERT_TRUE(threw_exception);
+    ASSERT_TRUE(!threw_exception);
     threw_exception = false;
+    // Try to release and remove the mutex and succeed
     try
     {
         mutex.release();
+	std::cout << "Released mutex." << std::endl;
         mutex.remove();
+	std::cout << "Removed mutex." << std::endl;
     }
-    catch (NamedMutexException&)
+    catch (NamedMutexException& ex)
     {
         threw_exception = true;
+	std::cout << ex.what() << std::endl;
     }
     ASSERT_TRUE(!threw_exception);
 }

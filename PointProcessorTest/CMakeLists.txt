@@ -57,7 +57,7 @@ file (GLOB SRCS *.cpp)
 
 add_executable (PointProcessorTest ${SRCS})
 
-include_directories(${gtest_INCLUDE_DIRS})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/gtest/src/gtest/googletest/include/)
 
 target_link_libraries (PointProcessorTest PointProcessorLib)
 target_link_libraries (PointProcessorTest libgtest libgmock)

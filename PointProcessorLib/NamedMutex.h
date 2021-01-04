@@ -83,7 +83,7 @@ private:
     /// <summary>
     /// Linux semaphore
     /// </summary>
-    std::unique_ptr<sem_t> mutex;
+    std::unique_ptr<sem_t*> mutex;
 #elif defined _WIN32
     /// <summary>
     /// Windows mutex

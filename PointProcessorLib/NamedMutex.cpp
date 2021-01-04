@@ -58,49 +58,12 @@ void NamedMutex::create()
 {
 #ifdef __linux__
     // local copy of mutex name
-    char* lname = nullptr;
+    std::string lname = "/" + this->name;
     // local pointer to mutex
     sem_t* lmutex = nullptr;
-    // length of name
-    size_t name_len = 0;
-    if (mutex == nullptr)
-    {
-        return MUTEX_NULL;
-    }
-    if (name == nullptr)
-    {
-        return MUTEX_NULL_NAME;
-    }
-    // Create a local copy of name and prepend "/" if not there
-    memset(this->name, 0, MUTEX_NAME_LEN);
-    name_len = strlen(name);
-    if (name[0] != '/')
-    {
-        lname = (char *)calloc(name_len + 2, sizeof(char));
-        lname[0] = '/';
-        strcpy(lname + 1, name);
-    }
-    else
-    {
-        lname = (char *)calloc(name_len + 1, sizeof(char));
-    }
-    if (strlen(lname) > (MUTEX_NAME_LEN - 1))
-    {
-        if (lname)
-        {
-            free(lname);
-        }
-        return MUTEX_NAME_TOO_LONG;
-    }
-    memset(this->name, 0, MUTEX_NAME_LEN);
-    strncpy(this->name, lname, MUTEX_NAME_LEN - 1);
-    if (lname)
-    {
-        free(lname);
-    }
     // Try to create the mutex
     lmutex = sem_open(
-        name, 
+        lname.c_str(), 
         O_CREAT | O_EXCL, 
         S_IRUSR | S_IWUSR, 
         1);
@@ -108,8 +71,8 @@ void NamedMutex::create()
     if (lmutex != SEM_FAILED)
     {
         // Store it 
-        this->mutex = lmutex;
-        return MUTEX_CREATED;
+        this->mutex = std::make_unique<sem_t*>(lmutex);
+        return;
     }
     // Failed to create the mutex
     else
@@ -117,15 +80,17 @@ void NamedMutex::create()
         // Mutex already exists
         if (errno == EEXIST)
         {
-            // Connect to the preexisting mutex
-            lmutex = sem_open(name, O_CREAT);
-            // Store it
-            this->mutex = lmutex;
-            return MUTEX_SUCCESS;
+            std::stringstream ss;
+            ss << "NamedMutex '" << this->name << "' already exists.";
+            throw NamedMutexException(ss);
         }
         else
         {
-            return MUTEX_FAILURE;
+            // Failed
+            std::stringstream ss;
+            ss << "Failed to create NamedMutex '"
+                << this->name << "'.";
+            throw NamedMutexException(ss);
         }
     }
 #elif defined _WIN32
@@ -167,49 +132,12 @@ void NamedMutex::create_or_get()
 {
 #ifdef __linux__
     // local copy of mutex name
-    char* lname = nullptr;
+    std::string lname = "/" + this->name;
     // local pointer to mutex
     sem_t* lmutex = nullptr;
-    // length of name
-    size_t name_len = 0;
-    if (mutex == nullptr)
-    {
-        return MUTEX_NULL;
-    }
-    if (name == nullptr)
-    {
-        return MUTEX_NULL_NAME;
-    }
-    // Create a local copy of name and prepend "/" if not there
-    memset(this->name, 0, MUTEX_NAME_LEN);
-    name_len = strlen(name);
-    if (name[0] != '/')
-    {
-        lname = (char *)calloc(name_len + 2, sizeof(char));
-        lname[0] = '/';
-        strcpy(lname + 1, name);
-    }
-    else
-    {
-        lname = (char *)calloc(name_len + 1, sizeof(char));
-    }
-    if (strlen(lname) > (MUTEX_NAME_LEN - 1))
-    {
-        if (lname)
-        {
-            free(lname);
-        }
-        return MUTEX_NAME_TOO_LONG;
-    }
-    memset(this->name, 0, MUTEX_NAME_LEN);
-    strncpy(this->name, lname, MUTEX_NAME_LEN - 1);
-    if (lname)
-    {
-        free(lname);
-    }
     // Try to create the mutex
     lmutex = sem_open(
-        name, 
+        lname.c_str(), 
         O_CREAT | O_EXCL, 
         S_IRUSR | S_IWUSR, 
         1);
@@ -217,8 +145,8 @@ void NamedMutex::create_or_get()
     if (lmutex != SEM_FAILED)
     {
         // Store it 
-        this->mutex = std::make_unique<HANDLE>(lmutex);
-        return MUTEX_CREATED;
+        this->mutex = std::make_unique<sem_t*>(lmutex);
+        return;
     }
     // Failed to create the mutex
     else
@@ -226,15 +154,17 @@ void NamedMutex::create_or_get()
         // Mutex already exists
         if (errno == EEXIST)
         {
-            // Connect to the preexisting mutex
-            lmutex = sem_open(name, O_CREAT);
-            // Store it
-            this->mutex = std::make_unique<HANDLE>(lmutex);
-            return MUTEX_SUCCESS;
+            // Store it 
+            this->mutex = std::make_unique<sem_t*>(lmutex);
+            return;
         }
         else
         {
-            return MUTEX_FAILURE;
+            // Failed
+            std::stringstream ss;
+            ss << "Failed to create NamedMutex '"
+                << this->name << "'.";
+            throw NamedMutexException(ss);
         }
     }
 #elif defined _WIN32
@@ -270,74 +200,43 @@ void NamedMutex::get_existing()
 {
 #ifdef __linux__
     // local copy of mutex name
-    char* lname = NULL;
+    std::string lname = "/" + this->name;
     // local pointer to mutex
-    sem_t* lmutex = NULL;
-    // length of name
-    size_t name_len = 0;
-    if (mutex == NULL)
-    {
-        return MUTEX_NULL;
-    }
-    if (name == NULL)
-    {
-        return MUTEX_NULL_NAME;
-    }
-    // Create a local copy of name and prepend "/" if not there
-    memset(this->name, 0, MUTEX_NAME_LEN);
-    name_len = strlen(name);
-    if (name[0] != '/')
-    {
-        lname = (char *)calloc(name_len + 2, sizeof(char));
-        lname[0] = '/';
-        strcpy(lname + 1, name);
-    }
-    else
-    {
-        lname = (char *)calloc(name_len + 1, sizeof(char));
-    }
-    if (strlen(lname) > (MUTEX_NAME_LEN - 1))
-    {
-        if (lname)
-        {
-            free(lname);
-        }
-        return MUTEX_NAME_TOO_LONG;
-    }
-    memset(this->name, 0, MUTEX_NAME_LEN);
-    strncpy(this->name, lname, MUTEX_NAME_LEN - 1);
-    if (lname)
-    {
-        free(lname);
-    }
+    sem_t* lmutex = nullptr;
     // Try to create the mutex
     lmutex = sem_open(
-        name, 
+        lname.c_str(), 
         O_CREAT | O_EXCL, 
         S_IRUSR | S_IWUSR, 
         1);
-    // Success, we are the first to create this mutex
+    // We are the first to create this mutex, this is a failure, since
+    // we expected it to already exist
     if (lmutex != SEM_FAILED)
     {
-        // Store it 
-        this->mutex = std::make_unique<HANDLE>(lmutex);
-        return MUTEX_CREATED;
+        // We shouldn't have created it, release it then throw exception
+        this->release();
+        std::stringstream ss;
+        ss << "Faield to get NamedMutex '" << this->name 
+		<< "' it doesn't exist.";
+        throw NamedMutexException(ss);
     }
     // Failed to create the mutex
     else
     {
-        // Mutex already exists
+        // Mutex already exists, this is what we expect
         if (errno == EEXIST)
         {
-            // Connect to the preexisting mutex
-            lmutex = sem_open(name, O_CREAT);
-            // Store it
-            this->mutex = std::make_unique<HANDLE>(lmutex);
-            return MUTEX_SUCCESS;
+            // Store it 
+            this->mutex = std::make_unique<sem_t*>(lmutex);
+            return;
         }
         else
         {
-            return MUTEX_FAILURE;
+            // Failed to create or get it
+            std::stringstream ss;
+            ss << "Failed to get NamedMutex '"
+                << this->name << "'.";
+            throw NamedMutexException(ss);
         }
     }
 #elif defined _WIN32
@@ -387,9 +286,9 @@ void NamedMutex::lock()
         throw NamedMutexException(ss);
     }
 #ifdef __linux__
-    sem_wait(this->mutex);
+    sem_wait(*this->mutex);
 #elif defined _WIN32
-    switch (WaitForSingleObject(*this->mutex, INFINITE))
+    switch (WaitForSingleObject(*this->mutex), INFINITE))
     {
     case WAIT_OBJECT_0:
         return;
@@ -413,7 +312,7 @@ void NamedMutex::unlock()
         throw NamedMutexException("Failed to unlock mutex, it was a nullptr.");
     }
 #ifdef __linux__
-    sem_post(this->mutex);
+    sem_post(*this->mutex);
 #elif defined _WIN32
     if (!ReleaseMutex(*this->mutex))
     {
@@ -423,7 +322,7 @@ void NamedMutex::unlock()
     return;
 }
 
-/// <summary>
+/// <summary
 /// Close handle to a NamedMutex
 /// </summary>
 void NamedMutex::release()
@@ -433,9 +332,9 @@ void NamedMutex::release()
         throw NamedMutexException("Failed to release mutex, it was a nullptr.");
     }
 #ifdef __linux__
-    if (sem_close(this->mutex) == -1)
+    if (sem_close(*this->mutex) == -1)
     {
-        return MUTEX_FAILURE;
+        throw NamedMutexException("Failed to release mutex.");
     }
 #elif defined _WIN32
     BOOL ignore = CloseHandle(*this->mutex);
@@ -450,47 +349,17 @@ void NamedMutex::remove()
 {
 #ifdef __linux__
     // local copy of mutex name
-    char* lname = nullptr;
-    // length of name
-    size_t name_len = 0;
-    if (name == nullptr)
-    {
-        return MUTEX_nullptr_NAME;
-    }
-    if (strlen(name) >= MUTEX_NAME_LEN)
-    {
-        return MUTEX_NAME_TOO_LONG;
-    }
-    // Create a local copy of name and prepend "/" if not there
-    name_len = strlen(name);
-    if (name[0] != '/')
-    {
-        lname = (char *)calloc(name_len + 2, sizeof(char));
-        lname[0] = '/';
-        strcpy(lname + 1, name);
-    }
-    else
-    {
-        lname = (char *)calloc(name_len + 1, sizeof(char));
-    }
+    std::string lname = "/" + this->name;
     // Unlink the mutex
-    if (sem_unlink(lname) == -1)
+    if (sem_unlink(lname.c_str()) == -1)
     {
-        if (lname)
-        {
-            free(lname);
-        }
         // If it didn't exist, that's okay
         if (errno == ENOENT) {
-            return MUTEX_SUCCESS;
+            return;
         // Else we failed
         } else {
-            return MUTEX_FAILURE;
+            throw NamedMutexException("Failed to remove mutex.");
         }
-    }
-    if (lname)
-    {
-        free(lname);
     }
 #elif defined _WIN32
     return;
