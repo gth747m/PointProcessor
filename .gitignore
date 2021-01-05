@@ -60,3 +60,6 @@ cmake_install.cmake
 
 # GoogleTest files
 gtest/
+
+# Packages
+packages/
