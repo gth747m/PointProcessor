@@ -13,66 +13,60 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\System">
-      <UniqueIdentifier>{09fe3868-0100-4249-9c4a-c27968aca4e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\System">
-      <UniqueIdentifier>{eff6a9ea-4953-4a93-96ec-e823ea6ee591}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Enums">
-      <UniqueIdentifier>{50f5692a-2add-4f47-88e4-ebd77cc67d73}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Points">
-      <UniqueIdentifier>{ddc76d03-94e8-4ff5-83b6-3afabab0b40f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Enums">
-      <UniqueIdentifier>{c2297223-78f9-4a75-a67e-ae31c0e8c080}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Points">
-      <UniqueIdentifier>{9a9ef61b-ab83-4e71-94ab-675a36ea2acb}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="NamedMutex.h">
-      <Filter>Header Files\System</Filter>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SharedMemory.h">
-      <Filter>Header Files\System</Filter>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AveragePoint.h">
-      <Filter>Header Files\Points</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.h">
-      <Filter>Header Files\Points</Filter>
-    </ClInclude>
-    <ClInclude Include="Quality.h">
-      <Filter>Header Files\Enums</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Frequency.h">
-      <Filter>Header Files\Enums</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SumPoint.h">
-      <Filter>Header Files\Points</Filter>
+    <ClInclude Include="NamedMutex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PointProcessorLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Quality.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedMemory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SumPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="PointProcessorLib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Frequency.cpp">
-      <Filter>Source Files\Enums</Filter>
-    </ClCompile>
-    <ClCompile Include="Quality.cpp">
-      <Filter>Source Files\Enums</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NamedMutex.cpp">
-      <Filter>Source Files\System</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Quality.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SharedMemory.cpp">
-      <Filter>Source Files\System</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

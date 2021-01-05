@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2cbb8fd5-4d93-4b15-b28c-781a3512f048}</ProjectGuid>
+    <ProjectGuid>{53ff5e0b-3271-4ae9-800b-d5df8d3d251a}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
     <ConfigurationType>Application</ConfigurationType>
@@ -34,12 +34,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)\PointProcessorLib;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)$(Configuration)\;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="NamedMutexTest.cpp" />
     <ClCompile Include="SharedMemoryTest.cpp" />
     <ClCompile Include="pch.cpp">
@@ -50,12 +50,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\PointProcessorLib\PointProcessorLib.vcxproj">
+      <Project>{ac40c0c3-8f03-4cdb-a249-97fc536d420d}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PointProcessorLib\PointProcessorLib.vcxproj">
-      <Project>{5a3bc019-9563-4ca5-b69a-b2bf898a22ce}</Project>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -71,8 +71,6 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

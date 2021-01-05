@@ -34,7 +34,6 @@ const char* NamedMutexException::what() const throw()
 
 NamedMutex::NamedMutex(const char* name) :
     name(std::string(name)),
-    is_owner(false),
     mutex(nullptr)
 {
 }
@@ -46,7 +45,6 @@ NamedMutex::NamedMutex(const char* name) :
 /// <param name="name">Mutex name</param>
 NamedMutex::NamedMutex(std::string name) :
     name(name),
-    is_owner(false),
     mutex(nullptr)
 {
 }
@@ -292,7 +290,7 @@ void NamedMutex::lock()
 #ifdef __linux__
     sem_wait(this->mutex);
 #elif defined _WIN32
-    switch (WaitForSingleObject(this->mutex), INFINITE))
+    switch (WaitForSingleObject(this->mutex, INFINITE))
     {
     case WAIT_OBJECT_0:
         return;
