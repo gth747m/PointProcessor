@@ -40,17 +40,9 @@ public:
     /// <param name="name">Mutex name</param>
     NamedMutex(std::string name);
     /// <summary>
-    /// Try to create a new named mutex, it cannot already exist
+    /// Destructor
     /// </summary>
-    void create();
-    /// <summary>
-    /// Create a new named mutex or get a handle to one that already exists
-    /// </summary>
-    void create_or_get();
-    /// <summary>
-    /// Try to get a handle to an already created named mutex
-    /// </summary>
-    void get_existing();
+    virtual ~NamedMutex();
     /// <summary>
     /// Try to lock (aquire) a named mutex
     /// </summary>
@@ -68,7 +60,6 @@ public:
     /// </summary>
     void remove();
 protected:
-private:
     /// <summary>
     /// Mutex name
     /// </summary>
@@ -84,5 +75,6 @@ private:
     /// </summary>
     HANDLE mutex;
 #endif
+private:
 };
 

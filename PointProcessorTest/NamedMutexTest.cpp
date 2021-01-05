@@ -12,7 +12,6 @@ static const char* const NAME = "MyNamedMutex";
 static void mutex_increment_int(int32_t *i)
 {
     NamedMutex mutex(NAME);
-    mutex.get_existing();
     mutex.lock();
     if (i)
     {
@@ -25,38 +24,25 @@ static void mutex_increment_int(int32_t *i)
 /// <summary>
 /// Test NamedMutex create twice
 /// </summary>
-TEST(NamedMutex, CreateTwice)
+TEST(NamedMutex, Create)
 {
     bool threw_exception = false;
-    NamedMutex mutex(NAME);
-    NamedMutex mutex2(NAME);
+    std::unique_ptr<NamedMutex> mutex;
+    NamedMutex* mutex2 = nullptr;
     // Create a new mutex
     try
     {
-        // Remove any prexisting mutex from the system (linux)
-        mutex.remove();
-        mutex.create();
+        mutex = std::make_unique<NamedMutex>(NAME);
     }
     catch (NamedMutexException&)
     {
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
-    // Try to create the same mutex again and fail
-    try
-    {
-        mutex.create();
-    }
-    catch (NamedMutexException&)
-    {
-        threw_exception = true;
-    }
-    ASSERT_TRUE(threw_exception);
-    threw_exception = false;
     // Try to create or get the same mutex and succeed
     try
     {
-        mutex2.create_or_get();
+        mutex2 = new NamedMutex(NAME);
     }
     catch (NamedMutexException&)
     {
@@ -64,11 +50,11 @@ TEST(NamedMutex, CreateTwice)
     }
     ASSERT_TRUE(!threw_exception);
     threw_exception = false;
-    // Try to get the existing mutex and succeed
+    // Try to release the second mutex and succeed
     try
     {
-        mutex2.release();
-        mutex2.get_existing();
+        mutex2->release();
+        delete mutex2;
     }
     catch (NamedMutexException&)
     {
@@ -76,80 +62,17 @@ TEST(NamedMutex, CreateTwice)
     }
     ASSERT_TRUE(!threw_exception);
     threw_exception = false;
-    // Try to release and remove the mutex and succeed
+    // Try to release and remove the first mutex and succeed
     try
     {
-        mutex.release();
-        mutex.remove();
+        mutex->release();
+        mutex->remove();
     }
     catch (NamedMutexException&)
     {
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
-}
-
-/// <summary>
-/// Test NamedMutex locking a mutex without obtaining it first
-/// </summary>
-TEST(NamedMutex, NullLock)
-{
-    NamedMutex mutex(NAME);
-    bool threw_exception = false;
-    try
-    {
-        // Remove any prexisting mutex from the system (linux)
-        mutex.remove();
-        // Lock the mutex without obtaining it
-        mutex.lock();
-    }
-    catch (NamedMutexException&)
-    {
-        threw_exception = true;
-    }
-    ASSERT_TRUE(threw_exception);
-}
-
-/// <summary>
-/// Test NamedMutex releasing a mutex without obtaining it first
-/// </summary>
-TEST(NamedMutex, NullRelease)
-{
-    NamedMutex mutex(NAME);
-    bool threw_exception = false;
-    try
-    {
-        // Remove any prexisting mutex from the system (linux)
-        mutex.remove();
-        // Release the mutex without obtaining it
-        mutex.release();
-    }
-    catch (NamedMutexException&)
-    {
-        threw_exception = true;
-    }
-    ASSERT_TRUE(threw_exception);
-}
-
-/// <summary>
-/// Test NamedMutex unlocking a mutex without obtaining it first
-/// </summary>
-TEST(NamedMutex, NullUnlock)
-{
-    NamedMutex mutex(NAME);
-    bool threw_exception = false;
-    try
-    {
-        // Remove any prexisting mutex from the system (linux)
-        mutex.remove();
-        // Unlock the mutex without obtaining it
-        mutex.unlock();
-    }
-    catch (NamedMutexException&)
-    {
-        threw_exception = true;
-    }
-    ASSERT_TRUE(threw_exception);
 }
 
 /// <summary>
@@ -161,9 +84,6 @@ TEST(NamedMutex, LockSerial)
     bool threw_exception = false;
     try
     {
-        // Remove any prexisting mutex from the system (linux)
-        //mutex.remove();
-        mutex.create();
         mutex.lock();
         mutex.unlock();
         mutex.release();
@@ -183,9 +103,6 @@ TEST(NamedMutex, LockParallel)
     bool threw_exception = false;
     try
     {
-        // Remove any prexisting mutex from the system (linux)
-        mutex.remove();
-        mutex.create();
         mutex.lock();
     }
     catch (NamedMutexException&)
