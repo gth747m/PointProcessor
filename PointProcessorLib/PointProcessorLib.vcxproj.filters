@@ -15,12 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AveragePoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -33,9 +27,6 @@
     <ClInclude Include="Point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PointProcessorLib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Quality.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -45,14 +36,11 @@
     <ClInclude Include="SumPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PointProcessorLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="PointProcessorLib.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

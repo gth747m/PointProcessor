@@ -152,10 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AveragePoint.h" />
-    <ClInclude Include="framework.h" />
     <ClInclude Include="Frequency.h" />
     <ClInclude Include="NamedMutex.h" />
-    <ClInclude Include="pch.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="PointProcessorLib.h" />
     <ClInclude Include="Quality.h" />
@@ -166,13 +164,6 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Frequency.cpp" />
     <ClCompile Include="NamedMutex.cpp" />
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="PointProcessorLib.cpp" />
     <ClCompile Include="Quality.cpp" />
     <ClCompile Include="SharedMemory.cpp" />
   </ItemGroup>

@@ -80,7 +80,7 @@ TEST(NamedMutex, CreateTwice)
         mutex.release();
         mutex.remove();
     }
-    catch (NamedMutexException& ex)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -167,7 +167,7 @@ TEST(NamedMutex, LockSerial)
         mutex.release();
         mutex.remove();
     }
-    catch (NamedMutexException& ex)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -186,7 +186,7 @@ TEST(NamedMutex, LockParallel)
         mutex.create();
         mutex.lock();
     }
-    catch (NamedMutexException& ex)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -204,7 +204,7 @@ TEST(NamedMutex, LockParallel)
     {
         mutex.unlock();
     }
-    catch (NamedMutexException& ex)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -218,7 +218,7 @@ TEST(NamedMutex, LockParallel)
         mutex.release();
         mutex.remove();
     }
-    catch (NamedMutexException& ex)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
