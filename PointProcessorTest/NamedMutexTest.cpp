@@ -29,6 +29,7 @@ TEST(NamedMutex, CreateTwice)
 {
     bool threw_exception = false;
     NamedMutex mutex(NAME);
+    NamedMutex mutex2(NAME);
     // Create a new mutex
     try
     {
@@ -55,7 +56,7 @@ TEST(NamedMutex, CreateTwice)
     // Try to create or get the same mutex and succeed
     try
     {
-        mutex.create_or_get();
+        mutex2.create_or_get();
     }
     catch (NamedMutexException&)
     {
@@ -66,7 +67,8 @@ TEST(NamedMutex, CreateTwice)
     // Try to get the existing mutex and succeed
     try
     {
-        mutex.get_existing();
+        mutex2.release();
+        mutex2.get_existing();
     }
     catch (NamedMutexException&)
     {
@@ -160,7 +162,7 @@ TEST(NamedMutex, LockSerial)
     try
     {
         // Remove any prexisting mutex from the system (linux)
-        mutex.remove();
+        //mutex.remove();
         mutex.create();
         mutex.lock();
         mutex.unlock();

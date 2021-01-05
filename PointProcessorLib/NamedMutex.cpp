@@ -54,6 +54,13 @@ NamedMutex::NamedMutex(std::string name) :
 /// </summary>
 void NamedMutex::create()
 {
+    if (this->mutex != nullptr)
+    {
+        std::stringstream ss;
+        ss << "Failed to create NamedMutex '"
+            << this->name << "', NamedMutex->mutex is not null.";
+        throw NamedMutexException(ss);
+    }
 #ifdef __linux__
     // local copy of mutex name
     std::string lname = "/" + this->name;
@@ -92,14 +99,8 @@ void NamedMutex::create()
         }
     }
 #elif defined _WIN32
-    if (this->mutex != nullptr)
-    {
-        std::stringstream ss;
-        ss << "Failed to create NamedMutex '"
-            << this->name << "', NamedMutex->mutex is not null.";
-        throw NamedMutexException(ss);
-    }
     HANDLE lmutex = nullptr;
+    SetLastError(ERROR_SUCCESS);
     lmutex = CreateMutexA(
         NULL,
         FALSE,
@@ -128,6 +129,13 @@ void NamedMutex::create()
 /// </summary>
 void NamedMutex::create_or_get()
 {
+    if (this->mutex != nullptr)
+    {
+        std::stringstream ss;
+        ss << "Failed to create NamedMutex '"
+            << this->name << "', NamedMutex->mutex is not null.";
+        throw NamedMutexException(ss);
+    }
 #ifdef __linux__
     // local copy of mutex name
     std::string lname = "/" + this->name;
@@ -168,14 +176,8 @@ void NamedMutex::create_or_get()
         }
     }
 #elif defined _WIN32
-    if (this->mutex != nullptr)
-    {
-        std::stringstream ss;
-        ss << "Failed to create NamedMutex '"
-            << this->name << "', NamedMutex->mutex is not null.";
-        throw NamedMutexException(ss);
-    }
     HANDLE lmutex = nullptr;
+    SetLastError(ERROR_SUCCESS);
     lmutex = CreateMutexA(
         NULL,
         FALSE,
@@ -198,6 +200,13 @@ void NamedMutex::create_or_get()
 /// </summary>
 void NamedMutex::get_existing()
 {
+    if (this->mutex != nullptr)
+    {
+        std::stringstream ss;
+        ss << "Failed to create NamedMutex '"
+            << this->name << "', NamedMutex->mutex is not null.";
+        throw NamedMutexException(ss);
+    }
 #ifdef __linux__
     // local copy of mutex name
     std::string lname = "/" + this->name;
@@ -242,14 +251,8 @@ void NamedMutex::get_existing()
         }
     }
 #elif defined _WIN32
-    if (this->mutex != nullptr)
-    {
-        std::stringstream ss;
-        ss << "Failed to create NamedMutex '"
-            << this->name << "', NamedMutex->mutex is not null.";
-        throw NamedMutexException(ss);
-    }
     HANDLE lmutex = nullptr;
+    SetLastError(ERROR_SUCCESS);
     lmutex = CreateMutexA(
         NULL,
         FALSE,
@@ -342,6 +345,7 @@ void NamedMutex::release()
     BOOL ignore = CloseHandle(this->mutex);
     UNREFERENCED_PARAMETER(ignore);
 #endif
+    this->mutex = nullptr;
 }
 
 /// <summary>
