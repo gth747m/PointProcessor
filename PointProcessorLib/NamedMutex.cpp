@@ -7,6 +7,7 @@
 #ifdef __linux__
 #    include <errno.h>
 #    include <fcntl.h>
+#    include <limits.h>
 #    include <stdlib.h>
 #    include <string.h>
 #    include <sys/stat.h>
@@ -41,16 +42,17 @@ NamedMutex::NamedMutex(const char* name) :
     name(std::string(name)),
     mutex(nullptr)
 {
-    if (this->mutex != nullptr)
-    {
-        std::stringstream ss;
-        ss << "Failed to create NamedMutex '"
-            << this->name << "', NamedMutex->mutex is not null.";
-        throw NamedMutexException(ss);
-    }
 #ifdef __linux__
     // local copy of mutex name
     std::string lname = "/" + this->name;
+    if (lname.length() > NAME_MAX)
+    {
+        // Name too long
+        std::stringstream ss;
+        ss << "Failed to create or get NamedMutex '"
+            << this->name << "' its name is too long.";
+        throw NamedMutexException(ss);
+    }
     // local pointer to mutex
     sem_t* lmutex = nullptr;
     // Try to create the mutex
@@ -88,8 +90,15 @@ NamedMutex::NamedMutex(const char* name) :
         }
     }
 #elif defined _WIN32
+    if (this->name.length() > MAX_PATH)
+    {
+        // Name too long
+        std::stringstream ss;
+        ss << "Failed to create or get NamedMutex '"
+            << this->name << "' its name is too long.";
+        throw NamedMutexException(ss);
+    }
     HANDLE lmutex = nullptr;
-    SetLastError(ERROR_SUCCESS);
     lmutex = CreateMutexA(
         NULL,
         FALSE,
@@ -156,22 +165,72 @@ void NamedMutex::lock()
 }
 
 /// <summary>
+/// Try to lock the named mutex, don't wait for it to unlock
+/// </summary>
+/// <returns>Returns true on success and false on failure</returns>
+bool NamedMutex::try_lock()
+{
+#ifdef __linux__
+    return (sem_trywait(this->mutex, &wait_timespec) == 0);
+#elif defined _WIN32
+    switch (WaitForSingleObject(this->mutex, 0))
+    {
+    case WAIT_OBJECT_0:
+        return true;
+    default:
+        return false;
+    }
+#endif
+}
+
+/// <summary>
+/// Try to lock the named mutex, give up after wait milliseconds
+/// </summary>
+/// <param name="wait"></param>
+/// <returns>Returns true on success and false on timeout</returns>
+bool NamedMutex::try_lock(std::chrono::duration<long, std::milli> wait)
+{
+#ifdef __linux__
+    const auto timeout = std::chrono::system_clock::now() + wait;
+    struct timespec wait_timespec;
+    wait_timespec.tv_sec = std::chrono::system_clock::to_time_t(timeout);
+    wait_timespec.tv_nsec = std::chrono::duration_cast<std::chrono::nanoseconds, long>(
+        timeout.time_since_epoch() - std::chrono::duration_cast<std::chrono::seconds, long>(
+        timeout.time_since_epoch())).count();
+    return (sem_timedwait(this->mutex, &wait_timespec) == 0);
+#elif defined _WIN32
+    switch (WaitForSingleObject(this->mutex, wait.count()))
+    {
+    case WAIT_OBJECT_0:
+        return true;
+    default:
+        return false;
+    }
+#endif
+}
+
+/// <summary>
 /// Unlock a named mutex
 /// </summary>
 void NamedMutex::unlock()
 {
     if (this->mutex == nullptr)
     {
-        throw NamedMutexException("Failed to unlock mutex, it was a nullptr.");
+        std::stringstream ss;
+        ss << "Failed to unlock NamedMutex '" << this->name
+            << "', it was a nullptr.";
+        throw NamedMutexException(ss);
     }
 #ifdef __linux__
-    sem_post(this->mutex);
+    if (sem_post(this->mutex) != 0)
 #elif defined _WIN32
     if (!ReleaseMutex(this->mutex))
-    {
-        throw NamedMutexException("Failed to unlock mutex");
-    }
 #endif
+    {
+        std::stringstream ss;
+        ss << "Failed to unlock NamedMutex '" << this->name << "'.";
+        throw NamedMutexException(ss);
+    }
     return;
 }
 
@@ -182,17 +241,21 @@ void NamedMutex::release()
 {
     if (this->mutex == nullptr)
     {
-        throw NamedMutexException("Failed to release mutex, it was a nullptr.");
+        std::stringstream ss;
+        ss << "Failed to release NamedMutex '" << this->name
+            << "', it was a nullptr.";
+        throw NamedMutexException(ss);
     }
 #ifdef __linux__
     if (sem_close(this->mutex) == -1)
-    {
-        throw NamedMutexException("Failed to release mutex.");
-    }
 #elif defined _WIN32
-    BOOL ignore = CloseHandle(this->mutex);
-    UNREFERENCED_PARAMETER(ignore);
+    if (!CloseHandle(this->mutex))
 #endif
+    {
+        std::stringstream ss;
+        ss << "Failed to release NamedMutex '" << this->name << "'.";
+        throw NamedMutexException(ss);
+    }
     this->mutex = nullptr;
 }
 
@@ -212,11 +275,31 @@ void NamedMutex::remove()
             return;
         // Else we failed
         } else {
-            throw NamedMutexException("Failed to remove mutex.");
+            std::stringstream ss;
+            ss << "Failed to remove NamedMutex '" << this->name << "'.";
+            throw NamedMutexException(ss);
         }
     }
 #elif defined _WIN32
     return;
 #endif
 }
+
+#ifdef __linux__
+/// <summary>
+/// Get the underlying semaphore
+/// </summary>
+sem_t* NamedMutex::get_sem() const
+{
+    return this->mutex;
+}
+#elif defined _WIN32
+/// <summary>
+/// Get the underlying handle to the Windows mutex
+/// </summary>
+HANDLE NamedMutex::get_handle() const
+{
+    return this->mutex;
+}
+#endif
 

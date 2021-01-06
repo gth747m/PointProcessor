@@ -3,7 +3,7 @@
 #include <iostream>
 #include <thread>
 
-static const char* const NAME = "MyNamedMutex";
+static const char* const NAME = "MyTestNamedMutex";
 
 /// <summary>
 /// Helper thread function for incrementing an integer
@@ -50,6 +50,12 @@ TEST(NamedMutex, Create)
     }
     ASSERT_TRUE(!threw_exception);
     threw_exception = false;
+    // Check if the two mutex's are the same thing
+#ifdef __linux__
+#elif defined _WIN32
+    BOOL match = CompareObjectHandles(mutex->get_handle(), mutex2->get_handle());
+    ASSERT_TRUE(match == TRUE);
+#endif
     // Try to release the second mutex and succeed
     try
     {
@@ -142,3 +148,134 @@ TEST(NamedMutex, LockParallel)
         threw_exception = true;
     }
 }
+
+TEST(NamedMutex, TryLock)
+{
+    NamedMutex mutex(NAME);
+    NamedMutex mutex2(NAME);
+    bool threw_exception = false;
+    try
+    {
+        mutex.lock();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    threw_exception = false;
+    // Check if the two mutex's are the same thing
+#ifdef __linux__
+#elif defined _WIN32
+    BOOL match = CompareObjectHandles(mutex.get_handle(), mutex2.get_handle());
+    ASSERT_TRUE(match == TRUE);
+#endif
+    try
+    {
+        bool locked = mutex2.try_lock();
+        ASSERT_EQ(locked, false);
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    threw_exception = false;
+    try
+    {
+        mutex.unlock();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    threw_exception = false;
+    try
+    {
+        ASSERT_EQ(mutex2.try_lock(std::chrono::milliseconds(1)), true);
+        mutex2.unlock();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    threw_exception = false;
+    try
+    {
+        mutex2.unlock();
+        mutex2.release();
+        mutex2.remove();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+}
+
+/// Test NamedMutex timed locking
+/// </summary>
+TEST(NamedMutex, TimedLock)
+{
+    NamedMutex mutex(NAME);
+    NamedMutex mutex2(NAME);
+    bool threw_exception = false;
+    try
+    {
+        mutex.lock();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    threw_exception = false;
+    try
+    {
+        bool unlocked = mutex2.try_lock(std::chrono::milliseconds(10));
+        ASSERT_EQ(unlocked, false);
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    threw_exception = false;
+    try
+    {
+        mutex.unlock();
+        mutex.release();
+        mutex.remove();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    threw_exception = false;
+    try
+    {
+        ASSERT_EQ(mutex2.try_lock(std::chrono::milliseconds(10)), true);
+        mutex2.unlock();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    threw_exception = false;
+    try
+    {
+        mutex.unlock();
+        mutex.release();
+        mutex.remove();
+    }
+    catch (NamedMutexException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+}
+

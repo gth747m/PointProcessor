@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #include <cstdint>
 #include <exception>
 #include <memory>
@@ -48,6 +49,17 @@ public:
     /// </summary>
     void lock();
     /// <summary>
+    /// Try to lock the named mutex, don't wait for it to unlock
+    /// </summary>
+    /// <returns>Returns true on success and false on failure</returns>
+    bool try_lock();
+    /// <summary>
+    /// Try to lock the named mutex, give up after wait milliseconds
+    /// </summary>
+    /// <param name="wait"></param>
+    /// <returns>Returns true on success and false on timeout</returns>
+    bool try_lock(std::chrono::duration<long, std::milli> wait);
+    /// <summary>
     /// Unlock a named mutex
     /// </summary>
     void unlock();
@@ -59,6 +71,17 @@ public:
     /// Remove this mutex from the system
     /// </summary>
     void remove();
+#ifdef __linux__
+    /// <summary>
+    /// Get the underlying semaphore
+    /// </summary>
+    sem_t* get_sem() const;
+#elif defined _WIN32
+    /// <summary>
+    /// Get the underlying handle to the Windows mutex
+    /// </summary>
+    HANDLE get_handle() const;
+#endif
 protected:
     /// <summary>
     /// Mutex name
