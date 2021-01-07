@@ -34,8 +34,7 @@ const char* NamedMutexException::what() const throw()
 }
 
 /// <summary>
-/// Create a named mutex object, this does not create or obtain a handle
-/// to the mutex, it simply constructs the object
+/// Create or get an existing named mutex object
 /// </summary>
 /// <param name="name">Mutex name</param>
 NamedMutex::NamedMutex(const char* name) :
@@ -117,8 +116,7 @@ NamedMutex::NamedMutex(const char* name) :
 }
 
 /// <summary>
-/// Create a named mutex object, this does not create or obtain a handle
-/// to the mutex, it simply constructs the object
+/// Create or get an existing named mutex object
 /// </summary>
 /// <param name="name">Mutex name</param>
 NamedMutex::NamedMutex(std::string name)
@@ -127,7 +125,7 @@ NamedMutex::NamedMutex(std::string name)
 }
 
 /// <summary>
-/// Destructor
+/// Destructor, release the mutex if it hasn't been already
 /// </summary>
 NamedMutex::~NamedMutex()
 {

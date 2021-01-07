@@ -1,92 +1,63 @@
 #include "pch.h"
 
-static const char* const NAME = "MySharedMemory";
-
-/// <summary>
-/// Get a random ASCII character
-/// </summary>
-/// <returns>Random ASCII character</returns>
-static char random_char()
-{
-    const char* chars = "0123456789"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz";
-    return chars[rand() % 62];
-}
-
-/// <summary>
-/// Put a random string of length len in name
-/// </summary>
-/// <param name="name">Name string to fill in</param>
-/// <param name="len">String length</param>
-static void random_name(char* name, size_t len)
-{
-    for (size_t i = 0; i < (len - 1); i++)
-    {
-        name[i] = random_char();
-    }
-    name[(len - 1)] = '\0';
-}
-
-/// <summary>
-/// Test closing shared memory
-/// </summary>
-TEST(SharedMemory, Clear)
-{
-    SharedMemory shm;
-    int32_t status = shared_memory_get(&shm, NAME, sizeof(SharedMemory));
-    ASSERT_TRUE((status == SHM_CREATED) || (status == SHM_SUCCESS));
-    status = shared_memory_close(&shm);
-    ASSERT_EQ(status, SHM_SUCCESS);
-}
+static const char* const NAME = "MyTestSharedMemory";
 
 /// <summary>
 /// Test creating shared memory
 /// </summary>
 TEST(SharedMemory, Create)
 {
-    SharedMemory shm;
-    int32_t status = shared_memory_get(&shm, NAME, sizeof(SharedMemory));
-    ASSERT_EQ(status, SHM_CREATED);
-    status = shared_memory_close(&shm);
-    ASSERT_EQ(status, SHM_SUCCESS);
+    std::unique_ptr<SharedMemory<int>> shm;
+    SharedMemory<int>* shm2;
+    bool threw_exception = false;
+    try
+    {
+        shm = std::make_unique<SharedMemory<int>>(NAME);
+    }
+    catch (SharedMemoryException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    try
+    {
+        shm2 = new SharedMemory<int>(NAME);
+    }
+    catch (SharedMemoryException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
+    try
+    {
+        delete shm2;
+    }
+    catch (SharedMemoryException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
 }
 
-/// <summary>
-/// Test functions passed a NULL SharedMemory pointer
-/// </summary>
-TEST(SharedMemory, Null)
+TEST(SharedMemory, SharedIntIncrement)
 {
-    int32_t status = shared_memory_get(NULL, NAME, sizeof(SharedMemory));
-    ASSERT_EQ(status, SHM_NULL);
-    status = shared_memory_close(NULL);
-    ASSERT_EQ(status, SHM_NULL);
-}
-
-/// <summary>
-/// Test obtaining existing shared memory
-/// </summary>
-TEST(SharedMemory, Get)
-{
-    SharedMemory shm;
-    SharedMemory shm2;
-    int32_t status = shared_memory_get(&shm, NAME, sizeof(SharedMemory));
-    ASSERT_EQ(status, SHM_CREATED);
-    status = shared_memory_get(&shm2, NAME, sizeof(SharedMemory));
-    ASSERT_EQ(status, SHM_SUCCESS);
-    status = shared_memory_close(&shm);
-    ASSERT_EQ(status, SHM_SUCCESS);
-}
-
-/// <summary>
-/// Test shared memory passed too long of a name
-/// </summary>
-TEST(SharedMemory, LongName)
-{
-    SharedMemory shm;
-    char name[(SHM_NAME_LEN * 2) + 1] = { 0 };
-    int32_t status = 0;
-    random_name(name, (SHM_NAME_LEN * 2) + 1);
-    status = shared_memory_get(&shm, name, sizeof(SharedMemory));
-    ASSERT_EQ(status, SHM_NAME_TOO_LONG);
+    SharedMemory<int> shm(NAME);
+    SharedMemory<int> shm2(NAME);
+    bool threw_exception = false;
+    try
+    {
+        ASSERT_EQ(*shm.get(), 0);
+        ASSERT_EQ(*shm2.get(), 0);
+        (*shm.get())++;
+        ASSERT_EQ(*shm.get(), 1);
+        ASSERT_EQ(*shm2.get(), 1);
+        (*shm2.get())++;
+        ASSERT_EQ(*shm.get(), 2);
+        ASSERT_EQ(*shm2.get(), 2);
+    }
+    catch (SharedMemoryException&)
+    {
+        threw_exception = true;
+    }
+    ASSERT_TRUE(!threw_exception);
 }

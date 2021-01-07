@@ -29,19 +29,17 @@ class NamedMutex
 {
 public:
     /// <summary>
-    /// Create a named mutex object, this does not create or obtain a handle
-    /// to the mutex, it simply constructs the object
+    /// Create or get an existing named mutex object
     /// </summary>
     /// <param name="name">Mutex name</param>
     NamedMutex(const char* name);
     /// <summary>
-    /// Create a named mutex object, this does not create or obtain a handle
-    /// to the mutex, it simply constructs the object
+    /// Create or get an existing named mutex object
     /// </summary>
     /// <param name="name">Mutex name</param>
     NamedMutex(std::string name);
     /// <summary>
-    /// Destructor
+    /// Destructor, release the mutex if it hasn't been already
     /// </summary>
     virtual ~NamedMutex();
     /// <summary>
