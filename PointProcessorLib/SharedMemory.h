@@ -155,12 +155,30 @@ public:
     SharedMemory(std::string name) :
         SharedMemory(name.c_str()) {}
     /// <summary>
-    /// Destructor, release handle to shared memory if not yet done
+    /// Destructor, if the handle to shared memory isn't released it
+    /// releases it like release() but noexcept
     /// </summary>
-    virtual ~SharedMemory() throw()
+    virtual ~SharedMemory()
     {
         if (this->shm_ptr != nullptr)
-            this->release();
+        {
+#ifdef __linux__
+            if (this->shm_ptr == nullptr)
+                return;
+            munmap(this->shm_ptr, this->shm_size);
+            shm_unlink(this->name.c_str());
+#elif defined _WIN32
+            if (this->shm_ptr != nullptr)
+            {
+                FlushViewOfFile(this->shm_ptr, this->shm_size);
+                UnmapViewOfFile(this->shm_ptr);
+            }
+            if (this->handle != nullptr)
+            {
+                CloseHandle(this->handle);
+            }
+#endif
+        }
     }
     /// <summary>
     /// Get the pointer to object in shared memory

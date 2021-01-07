@@ -125,12 +125,19 @@ NamedMutex::NamedMutex(std::string name)
 }
 
 /// <summary>
-/// Destructor, release the mutex if it hasn't been already
+/// Destructor, if the mutex isn't released it
+/// releases it like release() but noexcept
 /// </summary>
 NamedMutex::~NamedMutex()
 {
     if (this->mutex != nullptr)
-        this->release();
+    {
+#ifdef __linux__
+        sem_close(this->mutex);
+#elif defined _WIN32
+        CloseHandle(this->mutex);
+#endif
+    }
 }
 
 /// <summary>

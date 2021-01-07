@@ -39,7 +39,8 @@ public:
     /// <param name="name">Mutex name</param>
     NamedMutex(std::string name);
     /// <summary>
-    /// Destructor, release the mutex if it hasn't been already
+    /// Destructor, if the mutex isn't released it
+    /// releases it like release() but noexcept
     /// </summary>
     virtual ~NamedMutex();
     /// <summary>
