@@ -6,22 +6,7 @@
 static const char* const NAME = "MyTestNamedMutex";
 
 /// <summary>
-/// Helper thread function for incrementing an integer
-/// </summary>
-/// <param name="i">Pointer to int to increment</param>
-static void mutex_increment_int(int32_t *i)
-{
-    NamedMutex mutex(NAME);
-    mutex.lock();
-    if (i)
-    {
-        (*i)++;
-    }
-    mutex.unlock();
-}
-
-/// <summary>
-/// Test NamedMutex create twice
+/// Test NamedMutex creation
 /// </summary>
 TEST(NamedMutex, Create)
 {
@@ -150,7 +135,10 @@ TEST(NamedMutex, LockParallel)
     ASSERT_TRUE(!threw_exception);
 }
 
-TEST(NamedMutex, TryLockParallel)
+/// <summary>
+/// Test NamedMutex try locking
+/// </summary>
+TEST(NamedMutex, TryLock)
 {
     // Create a mutex and lock it
     NamedMutex mutex(NAME);
@@ -211,6 +199,7 @@ TEST(NamedMutex, TryLockParallel)
     ASSERT_TRUE(!threw_exception);
 }
 
+/// <summary>
 /// Test NamedMutex timed locking
 /// </summary>
 TEST(NamedMutex, TimedLock)
