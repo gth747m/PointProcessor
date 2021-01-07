@@ -18,7 +18,6 @@ static void mutex_increment_int(int32_t *i)
         (*i)++;
     }
     mutex.unlock();
-    mutex.release();
 }
 
 /// <summary>
@@ -49,17 +48,9 @@ TEST(NamedMutex, Create)
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
-    threw_exception = false;
-    // Check if the two mutex's are the same thing
-#ifdef __linux__
-#elif defined _WIN32
-    BOOL match = CompareObjectHandles(mutex->get_handle(), mutex2->get_handle());
-    ASSERT_TRUE(match == TRUE);
-#endif
     // Try to release the second mutex and succeed
     try
     {
-        mutex2->release();
         delete mutex2;
     }
     catch (NamedMutexException&)
@@ -67,11 +58,9 @@ TEST(NamedMutex, Create)
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
-    threw_exception = false;
     // Try to release and remove the first mutex and succeed
     try
     {
-        mutex->release();
         mutex->remove();
     }
     catch (NamedMutexException&)
@@ -84,7 +73,7 @@ TEST(NamedMutex, Create)
 /// <summary>
 /// Test NamedMutex locking/unlocking (non-parallel)
 /// </summary>
-TEST(NamedMutex, LockSerial)
+TEST(NamedMutex, LockAndUnlock)
 {
     NamedMutex mutex(NAME);
     bool threw_exception = false;
@@ -92,7 +81,6 @@ TEST(NamedMutex, LockSerial)
     {
         mutex.lock();
         mutex.unlock();
-        mutex.release();
         mutex.remove();
     }
     catch (NamedMutexException&)
@@ -102,6 +90,9 @@ TEST(NamedMutex, LockSerial)
     ASSERT_TRUE(!threw_exception);
 }
 
+/// <summary>
+/// Test NamedMutex locking with child thread
+/// </summary>
 TEST(NamedMutex, LockParallel)
 {
     int32_t i = 0;
@@ -116,8 +107,18 @@ TEST(NamedMutex, LockParallel)
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
+    // Mutex locked increment function
+    auto func = [](int32_t* i) -> void {
+        NamedMutex mutex2(NAME);
+        mutex2.lock();
+        if (i)
+        {
+            (*i)++;
+        }
+        mutex2.unlock();
+    };
     // Create child thread to increment i
-    std::thread child (mutex_increment_int, &i);
+    std::thread child (func, &i);
     // Check that thread is 0 still because mutex is locked
     ASSERT_EQ(i, 0);
     // increment i
@@ -140,19 +141,20 @@ TEST(NamedMutex, LockParallel)
     ASSERT_EQ(i, 2);
     try 
     {
-        mutex.release();
         mutex.remove();
     }
     catch (NamedMutexException&)
     {
         threw_exception = true;
     }
+    ASSERT_TRUE(!threw_exception);
 }
 
-TEST(NamedMutex, TryLock)
+TEST(NamedMutex, TryLockParallel)
 {
+    // Create a mutex and lock it
     NamedMutex mutex(NAME);
-    NamedMutex mutex2(NAME);
+    int32_t i = 0;
     bool threw_exception = false;
     try
     {
@@ -163,24 +165,26 @@ TEST(NamedMutex, TryLock)
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
-    threw_exception = false;
-    // Check if the two mutex's are the same thing
-#ifdef __linux__
-#elif defined _WIN32
-    BOOL match = CompareObjectHandles(mutex.get_handle(), mutex2.get_handle());
-    ASSERT_TRUE(match == TRUE);
-#endif
-    try
+    // Create a thread that tries to unlock the mutex 
+    // and increment i if it succeeds
+    auto func = [](int32_t* i) -> void {
+        NamedMutex mutex2(NAME);
+        if (mutex2.try_lock())
+        { 
+            if (i)
+            {
+                (*i)++;
+            }
+            mutex2.unlock();
+        }
+    };
+    // Increment i if the mutex is free, this should fail
     {
-        bool locked = mutex2.try_lock();
-        ASSERT_EQ(locked, false);
+        std::thread child(func, &i);
+        child.join();
     }
-    catch (NamedMutexException&)
-    {
-        threw_exception = true;
-    }
-    ASSERT_TRUE(!threw_exception);
-    threw_exception = false;
+    ASSERT_EQ(i, 0);
+    // Unlock the mutex
     try
     {
         mutex.unlock();
@@ -190,23 +194,15 @@ TEST(NamedMutex, TryLock)
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
-    threw_exception = false;
-    try
+    // Increment i if the mutex is free, this should succeed
     {
-        ASSERT_EQ(mutex2.try_lock(std::chrono::milliseconds(1)), true);
-        mutex2.unlock();
+        std::thread child(func, &i);
+        child.join();
     }
-    catch (NamedMutexException&)
+    ASSERT_EQ(i, 1);
+    try 
     {
-        threw_exception = true;
-    }
-    ASSERT_TRUE(!threw_exception);
-    threw_exception = false;
-    try
-    {
-        mutex2.unlock();
-        mutex2.release();
-        mutex2.remove();
+        mutex.remove();
     }
     catch (NamedMutexException&)
     {
@@ -220,7 +216,7 @@ TEST(NamedMutex, TryLock)
 TEST(NamedMutex, TimedLock)
 {
     NamedMutex mutex(NAME);
-    NamedMutex mutex2(NAME);
+    int32_t i = 0;
     bool threw_exception = false;
     try
     {
@@ -231,43 +227,41 @@ TEST(NamedMutex, TimedLock)
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
-    threw_exception = false;
-    try
+    // Create a thread that tries to unlock the mutex 
+    // and increment i if it succeeds
+    auto func = [](int32_t* i) -> void {
+        NamedMutex mutex2(NAME);
+        if (mutex2.try_lock(std::chrono::milliseconds(5)))
+        { 
+            if (i)
+            {
+                (*i)++;
+            }
+            mutex2.unlock();
+        }
+    };
     {
-        ASSERT_EQ(mutex2.try_lock(std::chrono::milliseconds(10)), false);
+        std::thread child(func, &i);
+        child.join();
     }
-    catch (NamedMutexException&)
-    {
-        threw_exception = true;
-    }
-    ASSERT_TRUE(!threw_exception);
-    threw_exception = false;
+    ASSERT_EQ(i, 0);
     try
     {
         mutex.unlock();
-        mutex.release();
     }
     catch (NamedMutexException&)
     {
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
-    threw_exception = false;
+    {
+        std::thread child(func, &i);
+        child.join();
+    }
+    ASSERT_EQ(i, 1);
     try
     {
-        ASSERT_EQ(mutex2.try_lock(std::chrono::milliseconds(10)), true);
-    }
-    catch (NamedMutexException&)
-    {
-        threw_exception = true;
-    }
-    ASSERT_TRUE(!threw_exception);
-    threw_exception = false;
-    try
-    {
-        mutex2.unlock();
-        mutex2.release();
-        mutex2.remove();
+        mutex.remove();
     }
     catch (NamedMutexException&)
     {
