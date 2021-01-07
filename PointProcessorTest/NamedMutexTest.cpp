@@ -234,8 +234,7 @@ TEST(NamedMutex, TimedLock)
     threw_exception = false;
     try
     {
-        bool unlocked = mutex2.try_lock(std::chrono::milliseconds(10));
-        ASSERT_EQ(unlocked, false);
+        ASSERT_EQ(mutex2.try_lock(std::chrono::milliseconds(10)), false);
     }
     catch (NamedMutexException&)
     {
@@ -247,7 +246,6 @@ TEST(NamedMutex, TimedLock)
     {
         mutex.unlock();
         mutex.release();
-        mutex.remove();
     }
     catch (NamedMutexException&)
     {
@@ -258,7 +256,6 @@ TEST(NamedMutex, TimedLock)
     try
     {
         ASSERT_EQ(mutex2.try_lock(std::chrono::milliseconds(10)), true);
-        mutex2.unlock();
     }
     catch (NamedMutexException&)
     {
@@ -268,9 +265,9 @@ TEST(NamedMutex, TimedLock)
     threw_exception = false;
     try
     {
-        mutex.unlock();
-        mutex.release();
-        mutex.remove();
+        mutex2.unlock();
+        mutex2.release();
+        mutex2.remove();
     }
     catch (NamedMutexException&)
     {

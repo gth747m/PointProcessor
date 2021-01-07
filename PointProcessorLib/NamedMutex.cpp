@@ -171,7 +171,7 @@ void NamedMutex::lock()
 bool NamedMutex::try_lock()
 {
 #ifdef __linux__
-    return (sem_trywait(this->mutex, &wait_timespec) == 0);
+    return (sem_trywait(this->mutex) == 0);
 #elif defined _WIN32
     switch (WaitForSingleObject(this->mutex, 0))
     {
