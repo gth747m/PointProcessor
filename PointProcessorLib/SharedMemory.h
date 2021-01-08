@@ -7,7 +7,14 @@
 #include <sstream>
 #include <string>
 
-#ifdef _WIN32
+#ifdef __linux__
+#    include <fcntl.h>
+#    include <sys/mman.h>
+#    include <sys/stat.h>
+#    include <sys/types.h>
+#    include <unistd.h>
+#    include <string.h>
+#elif defined _WIN32
 #    define WIN32_LEAN_AND_MEAN
 #    include <Windows.h>
 #endif
@@ -60,13 +67,19 @@ public:
                     S_IRUSR | S_IWUSR);
                 if (shm_fd == -1)
                 {
-                    return SHM_FAILURE;
+                    std::stringstream ss;
+                    ss << "Failed to create SharedMemory '"
+                        << this->name << "'.";
+                    throw SharedMemoryException(ss);
                 }
             }
             // OH NO, WTF HAPPENED?!?!?!
             else
             {
-                return SHM_FAILURE;
+                std::stringstream ss;
+                ss << "Failed to create SharedMemory '"
+                    << this->name << "'.";
+                throw SharedMemoryException(ss);
             }
         }
         // Created shared memory object (first one to do so)
@@ -74,38 +87,38 @@ public:
         {
             init = true;
             // Resize shared region
-            if (ftruncate(shm_fd, size) == -1)
+            if (ftruncate(shm_fd, this->shm_size) == -1)
             {
-                return SHM_FAILURE;
+                std::stringstream ss;
+                ss << "Failed to size SharedMemory '"
+                    << this->name << "'.";
+                throw SharedMemoryException(ss);
             }
         }
         // Map shared memory object
-        void *lmem = mmap(
+        this->shm_ptr = (T*)mmap(
             NULL, 
-            size, 
+            this->shm_size, 
             PROT_READ | PROT_WRITE,
             MAP_SHARED, 
             shm_fd, 
             0);
         // Mapping failed
-        if (lmem == MAP_FAILED)
+        if (this->shm_ptr == MAP_FAILED)
         {
-            return SHM_FAILURE;
+            std::stringstream ss;
+            ss << "Failed to map SharedMemory '"
+                << this->name << "'.";
+            throw SharedMemoryException(ss);
         }
         // Close the shared memory object file descriptor
         // This does not free the memory mapped file
         close(shm_fd);
-        // Save the name of the mapped region
-        if (strlen(name) > (SHM_NAME_LEN - 1))
+        // Zero out memory if this is the first instance to be created
+        if (init)
         {
-            return SHM_NAME_TOO_LONG;
+            memset(this->shm_ptr, 0, this->shm_size);
         }
-        memset(memory->name, 0, SHM_NAME_LEN);
-        strncpy(memory->name, name, SHM_NAME_LEN - 1);
-        // Save the pointer to shared memory
-        memory->memory = lmem;
-        // Save the size of the mapped region
-        memory->size = size;
 #elif defined _WIN32
         BOOL init = FALSE;
         // Save the handle to the file mapping
@@ -163,8 +176,6 @@ public:
         if (this->shm_ptr != nullptr)
         {
 #ifdef __linux__
-            if (this->shm_ptr == nullptr)
-                return;
             munmap(this->shm_ptr, this->shm_size);
             shm_unlink(this->name.c_str());
 #elif defined _WIN32
@@ -212,7 +223,6 @@ public:
                 << this->name << "', failed to unlink shared memory.";
             throw SharedMemoryException(ss);
         }
-        return SHM_FAILURE;
 #elif defined _WIN32
         if (this->shm_ptr == nullptr || this->handle == nullptr)
         {
