@@ -9,7 +9,6 @@
 #    include <fcntl.h>
 #    include <limits.h>
 #    include <stdlib.h>
-#    include <string.h>
 #    include <sys/ipc.h>
 #    include <sys/sem.h>
 #    include <sys/stat.h>
@@ -54,6 +53,16 @@ NamedMutex::NamedMutex(const char* name) :
             << this->name << "' its name is too long.";
         throw NamedMutexException(ss);
     }
+    // Try to create the temp file needed for the semaphore
+    int fd = creat(lname.c_str(), 0660); 
+    if (fd == -1)
+    {
+        std::stringstream ss;
+        ss << "Failed to create NamedMutex '"
+            << this->name << "'.";
+        throw NamedMutexException(ss);
+    }
+    close(fd);
     key_t s_key = ftok(lname.c_str(), 69);
     if (s_key == -1)
     {
