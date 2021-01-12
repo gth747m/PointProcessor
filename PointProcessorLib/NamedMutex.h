@@ -8,7 +8,7 @@
 #include <string>
 
 #ifdef __linux__
-#    include <semaphore.h>
+#    include <unistd.h>
 #elif defined _WIN32
 #    define WIN32_LEAN_AND_MEAN
 #    include <Windows.h>
@@ -55,7 +55,7 @@ public:
     /// <summary>
     /// Try to lock the named mutex, give up after wait milliseconds
     /// </summary>
-    /// <param name="wait"></param>
+    /// <param name="wait">Milliseconds to wait to lock</param>
     /// <returns>Returns true on success and false on timeout</returns>
     bool try_lock(std::chrono::duration<long, std::milli> wait);
     /// <summary>
@@ -70,17 +70,6 @@ public:
     /// Remove this mutex from the system
     /// </summary>
     void remove();
-#ifdef __linux__
-    /// <summary>
-    /// Get the underlying semaphore
-    /// </summary>
-    sem_t* get_sem() const;
-#elif defined _WIN32
-    /// <summary>
-    /// Get the underlying handle to the Windows mutex
-    /// </summary>
-    HANDLE get_handle() const;
-#endif
 protected:
     /// <summary>
     /// Mutex name
@@ -88,9 +77,9 @@ protected:
     std::string name;
 #ifdef __linux__
     /// <summary>
-    /// Linux semaphore
+    /// Linux temporary file descriptor
     /// </summary>
-    sem_t* mutex;
+    std::unique_ptr<int> mutex;
 #elif defined _WIN32
     /// <summary>
     /// Windows mutex

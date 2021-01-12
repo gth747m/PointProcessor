@@ -10,6 +10,8 @@
 #    include <limits.h>
 #    include <stdlib.h>
 #    include <string.h>
+#    include <sys/ipc.h>
+#    include <sys/sem.h>
 #    include <sys/stat.h>
 #endif
 
@@ -42,8 +44,8 @@ NamedMutex::NamedMutex(const char* name) :
     mutex(nullptr)
 {
 #ifdef __linux__
-    // local copy of mutex name
-    std::string lname = "/" + this->name;
+    // local copy of the name, prepend /tmp for temporary file
+    std::string lname = "/tmp/" + this->name;
     if (lname.length() > NAME_MAX)
     {
         // Name too long
@@ -52,42 +54,50 @@ NamedMutex::NamedMutex(const char* name) :
             << this->name << "' its name is too long.";
         throw NamedMutexException(ss);
     }
-    // local pointer to mutex
-    sem_t* lmutex = nullptr;
-    // Try to create the mutex
-    lmutex = sem_open(
-        lname.c_str(), 
-        O_CREAT | O_EXCL, 
-        S_IRUSR | S_IWUSR, 
-        1);
-    // Success, we are the first to create this mutex
-    if (lmutex != SEM_FAILED)
+    key_t s_key = ftok(lname.c_str(), 69);
+    if (s_key == -1)
     {
-        // Store it 
-        this->mutex = lmutex;
-        return;
+        std::stringstream ss;
+        ss << "Failed to create NamedMutex '"
+            << this->name << "'.";
+        throw NamedMutexException(ss);
     }
-    // Failed to create the mutex
-    else
+    // Try to create the mutex 
+    int sem_id = semget(s_key, 1, IPC_EXCL | IPC_CREAT | 0660);
+    // Failed to create semaphore
+    if (sem_id == -1)
     {
-        // Mutex already exists
+        // Failed because it already exists
         if (errno == EEXIST)
         {
-            // Connect to the preexisting mutex
-            lmutex = sem_open(lname.c_str(), O_CREAT);
-            // Store it 
-            this->mutex = lmutex;
-            return;
+            // Get it as is
+            sem_id = semget(s_key, 1, IPC_CREAT | 0660);
+            // Failed again
+            if (sem_id == -1)
+            {
+                std::stringstream ss;
+                ss << "Failed to get NamedMutex '"
+                    << this->name << "'.";
+                throw NamedMutexException(ss);
+            }
         }
+        // Some other error occurred
         else
         {
-            // Failed
             std::stringstream ss;
             ss << "Failed to create NamedMutex '"
                 << this->name << "'.";
             throw NamedMutexException(ss);
         }
     }
+    // Got the semaphore, we're the first
+    else
+    {
+        // Initialize semaphore
+        semctl(sem_id, 0, SETVAL, 1);
+    }
+    // Success, store it 
+    this->mutex = std::make_unique<int>(sem_id);
 #elif defined _WIN32
     if (this->name.length() > MAX_PATH)
     {
@@ -133,7 +143,7 @@ NamedMutex::~NamedMutex()
     if (this->mutex != nullptr)
     {
 #ifdef __linux__
-        sem_close(this->mutex);
+        close(*this->mutex);
 #elif defined _WIN32
         CloseHandle(this->mutex);
 #endif
@@ -153,20 +163,27 @@ void NamedMutex::lock()
         throw NamedMutexException(ss);
     }
 #ifdef __linux__
-    sem_wait(this->mutex);
+    struct sembuf sops;
+    sops.sem_num = 0;
+    // Lock mutex
+    sops.sem_op = -1;
+    // Release lock on program exit
+    sops.sem_flg = SEM_UNDO; 
+    if (semop(*this->mutex, &sops, 1) != 0)
+    {
 #elif defined _WIN32
     switch (WaitForSingleObject(this->mutex, INFINITE))
     {
     case WAIT_OBJECT_0:
         return;
     case WAIT_ABANDONED:
+#endif
         // Failed
         std::stringstream ss;
         ss << "Failed to lock NamedMutex '" << this->name
             << "', wait abandoned.";
         throw NamedMutexException(ss);
     }
-#endif
 }
 
 /// <summary>
@@ -176,7 +193,13 @@ void NamedMutex::lock()
 bool NamedMutex::try_lock()
 {
 #ifdef __linux__
-    return (sem_trywait(this->mutex) == 0);
+    struct sembuf sops;
+    sops.sem_num = 0;
+    // Lock mutex
+    sops.sem_op = -1; 
+    // Release lock on program exit, don't wait for lock 
+    sops.sem_flg = SEM_UNDO | IPC_NOWAIT; 
+    return (semop(*this->mutex, &sops, 1) == 0);
 #elif defined _WIN32
     switch (WaitForSingleObject(this->mutex, 0))
     {
@@ -191,18 +214,22 @@ bool NamedMutex::try_lock()
 /// <summary>
 /// Try to lock the named mutex, give up after wait milliseconds
 /// </summary>
-/// <param name="wait"></param>
+/// <param name="wait">Milliseconds to wait to lock</param>
 /// <returns>Returns true on success and false on timeout</returns>
 bool NamedMutex::try_lock(std::chrono::duration<long, std::milli> wait)
 {
 #ifdef __linux__
-    const auto timeout = std::chrono::system_clock::now() + wait;
     struct timespec wait_timespec;
-    wait_timespec.tv_sec = std::chrono::system_clock::to_time_t(timeout);
-    wait_timespec.tv_nsec = std::chrono::duration_cast<std::chrono::nanoseconds, long>(
-        timeout.time_since_epoch() - std::chrono::duration_cast<std::chrono::seconds, long>(
-        timeout.time_since_epoch())).count();
-    return (sem_timedwait(this->mutex, &wait_timespec) == 0);
+    auto secs = std::chrono::duration_cast<std::chrono::seconds>(wait);
+    wait_timespec.tv_sec = secs.count();
+    wait_timespec.tv_nsec = std::chrono::duration_cast<std::chrono::nanoseconds>(wait - secs).count();
+    struct sembuf sops;
+    sops.sem_num = 0;
+    // Lock mutex
+    sops.sem_op = -1; 
+    // Release lock on program exit, wait for lock 
+    sops.sem_flg = SEM_UNDO;
+    return (semtimedop(*this->mutex, &sops, 1, &wait_timespec) == 0);
 #elif defined _WIN32
     switch (WaitForSingleObject(this->mutex, wait.count()))
     {
@@ -227,7 +254,12 @@ void NamedMutex::unlock()
         throw NamedMutexException(ss);
     }
 #ifdef __linux__
-    if (sem_post(this->mutex) != 0)
+    struct sembuf sops;
+    sops.sem_num = 0;
+    // Unlock Mutex
+    sops.sem_op = 1; 
+    sops.sem_flg = 0;
+    if (semop(*this->mutex, &sops, 1) != 0)
 #elif defined _WIN32
     if (!ReleaseMutex(this->mutex))
 #endif
@@ -252,16 +284,16 @@ void NamedMutex::release()
         throw NamedMutexException(ss);
     }
 #ifdef __linux__
-    if (sem_close(this->mutex) == -1)
+    this->mutex.reset();
 #elif defined _WIN32
     if (!CloseHandle(this->mutex))
-#endif
     {
         std::stringstream ss;
         ss << "Failed to release NamedMutex '" << this->name << "'.";
         throw NamedMutexException(ss);
     }
     this->mutex = nullptr;
+#endif
 }
 
 /// <summary>
@@ -270,10 +302,15 @@ void NamedMutex::release()
 void NamedMutex::remove()
 {
 #ifdef __linux__
-    // local copy of mutex name
-    std::string lname = "/" + this->name;
+    if (this->mutex == nullptr)
+    {
+        std::stringstream ss;
+        ss << "Failed to remove NamedMutex '" << this->name
+            << "', it was a nullptr.";
+        throw NamedMutexException(ss);
+    }
     // Unlink the mutex
-    if (sem_unlink(lname.c_str()) == -1)
+    if (semctl(*this->mutex, 0, IPC_RMID) == -1)
     {
         // If it didn't exist, that's okay
         if (errno == ENOENT) {
@@ -289,22 +326,3 @@ void NamedMutex::remove()
     return;
 #endif
 }
-
-#ifdef __linux__
-/// <summary>
-/// Get the underlying semaphore
-/// </summary>
-sem_t* NamedMutex::get_sem() const
-{
-    return this->mutex;
-}
-#elif defined _WIN32
-/// <summary>
-/// Get the underlying handle to the Windows mutex
-/// </summary>
-HANDLE NamedMutex::get_handle() const
-{
-    return this->mutex;
-}
-#endif
-

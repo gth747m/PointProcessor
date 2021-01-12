@@ -220,7 +220,7 @@ TEST(NamedMutex, TimedLock)
     // and increment i if it succeeds
     auto func = [](int32_t* i) -> void {
         NamedMutex mutex2(NAME);
-        if (mutex2.try_lock(std::chrono::milliseconds(5)))
+        if (mutex2.try_lock(std::chrono::milliseconds(10)))
         { 
             if (i)
             {
@@ -258,4 +258,3 @@ TEST(NamedMutex, TimedLock)
     }
     ASSERT_TRUE(!threw_exception);
 }
-
