@@ -21,7 +21,10 @@
 #include "Point.h"
 #include "Quality.h"
 #include "Frequency.h"
+// PointProcessorLib Points
 #include "AveragePoint.h"
+#include "CToFPoint.h"
+#include "FToCPoint.h"
 #include "SumPoint.h"
 
 #include "gtest/gtest.h"
