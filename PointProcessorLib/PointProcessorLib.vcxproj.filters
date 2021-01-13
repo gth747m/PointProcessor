@@ -39,6 +39,12 @@
     <ClInclude Include="PointProcessorLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CToFPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FToCPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

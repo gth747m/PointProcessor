@@ -29,7 +29,7 @@ namespace PointProcessor
         {
             using namespace std::chrono;
             steady_clock::time_point t1 = steady_clock::now();
-            V val = (this->input_point->get_value() - 32) / 1.8;
+            V val = (V)((this->input_point->get_value() - 32) / 1.8);
             this->value = static_cast<T>(val);
             auto calc_duration = duration_cast<duration<int, std::micro>>(
                     std::chrono::steady_clock::now() - t1);
@@ -49,6 +49,6 @@ namespace PointProcessor
         /// <summary>
         /// Input points
         /// </summary>
-        Point<V>* input_point;
+        Point<V>* input_point = nullptr;
     };
 }
