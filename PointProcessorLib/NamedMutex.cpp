@@ -331,6 +331,15 @@ void NamedMutex::remove()
             throw NamedMutexException(ss);
         }
     }
+    // Remove the tmp file
+    // local copy of the name, prepend /tmp for temporary file
+    std::string lname = "/tmp/" + this->name;
+    if (unlink(lname.c_str()) == -1)
+    {
+        std::stringstream ss;
+        ss << "Failed to remove NamedMutex '" << this->name << "' /tmp file.";
+        throw NamedMutexException(ss);
+    }
 #elif defined _WIN32
     return;
 #endif
