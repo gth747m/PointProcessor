@@ -176,7 +176,7 @@ namespace PointProcessor
             os  << "    Value       = " << point.get_value() << std::endl
                 << "    Quality     = " << point.get_quality() << std::endl
                 << "    Frequency   = " << point.get_freqeuncy() << std::endl
-                << "  Avg Calc Time = " << point.get_average_calc_time().count()
+                << "    Avg Calc    = " << point.get_average_calc_time().count()
                                         << " usec" << std::endl
                 ;
             return os;
