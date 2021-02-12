@@ -189,7 +189,7 @@ namespace PointProcessor
         /// <summary>
         /// Point calculation
         /// </summary>
-        inline virtual void _calc() {};
+        inline virtual void calc() {};
         /// <summary>
         /// Point quality
         /// </summary>

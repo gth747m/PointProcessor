@@ -28,7 +28,7 @@ namespace PointProcessor
         /// <summary>
         /// Average the value of the input points
         /// </summary>
-        inline virtual void _calc()
+        inline virtual void calc()
         {
             V val = V();
             for (auto point = this->input_points.cbegin();

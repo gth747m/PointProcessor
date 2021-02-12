@@ -26,7 +26,7 @@ namespace PointProcessor
         /// <summary>
         /// Convert the input point's value from Farenheit to Celcius
         /// </summary>
-        inline virtual void _calc()
+        inline virtual void calc()
         {
             V val = (V)((this->input_point->get_value() - 32) / 1.8);
             this->value = static_cast<T>(val);
