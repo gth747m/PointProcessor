@@ -25,13 +25,12 @@ namespace PointProcessor
         {
             this->input_points.push_back(point);
         }
+    protected:
         /// <summary>
-        /// Calculate this point's value
+        /// Average the value of the input points
         /// </summary>
-        inline void calculate()
+        inline virtual void _calc()
         {
-            using namespace std::chrono;
-            steady_clock::time_point t1 = steady_clock::now();
             V val = V();
             for (auto point = this->input_points.cbegin();
                 point != this->input_points.cend(); point++)
@@ -39,21 +38,7 @@ namespace PointProcessor
                 val += (*point)->get_value();
             }
             this->value = static_cast<T>(val) / static_cast<T>(this->input_points.size());
-            auto calc_duration = duration_cast<duration<int, std::micro>>(
-                    std::chrono::steady_clock::now() - t1);
-            if (this->average_calc_time.count() == 0)
-            {
-                this->average_calc_time = calc_duration;
-            }
-            else
-            {
-                auto avg = 0.1 * calc_duration.count() +
-                    0.9 * this->average_calc_time.count();
-                auto int_avg = static_cast<int>(avg);
-                this->average_calc_time = duration<int, std::micro>(int_avg);
-            }
         }
-    protected:
     private:
         /// <summary>
         /// List of input points

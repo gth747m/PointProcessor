@@ -136,7 +136,25 @@ namespace PointProcessor
         /// <summary>
         /// Calculate the point value
         /// </summary>
-        void calculate() = delete;
+        void calculate()
+        {
+            using namespace std::chrono;
+            steady_clock::time_point t1 = steady_clock::now();
+            this->_calc();
+            auto calc_duration = duration_cast<duration<int, std::micro>>(
+                    std::chrono::steady_clock::now() - t1);
+            if (this->average_calc_time.count() == 0)
+            {
+                this->average_calc_time = calc_duration;
+            }
+            else
+            {
+                auto avg = 0.1 * calc_duration.count() +
+                    0.9 * this->average_calc_time.count();
+                auto int_avg = static_cast<int>(avg);
+                this->average_calc_time = duration<int, std::micro>(int_avg);
+            }
+        }
         /// <summary>
         /// Print the point summary to an output stream
         /// </summary>
@@ -168,6 +186,10 @@ namespace PointProcessor
         /// Point value
         /// </summary>
         T value;
+        /// <summary>
+        /// Point calculation
+        /// </summary>
+        inline virtual void _calc() {};
         /// <summary>
         /// Point quality
         /// </summary>

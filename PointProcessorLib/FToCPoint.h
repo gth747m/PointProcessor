@@ -22,29 +22,15 @@ namespace PointProcessor
         {
             this->input_point = point;
         }
+    protected:
         /// <summary>
         /// Convert the input point's value from Farenheit to Celcius
         /// </summary>
-        inline void calculate()
+        inline virtual void _calc()
         {
-            using namespace std::chrono;
-            steady_clock::time_point t1 = steady_clock::now();
             V val = (V)((this->input_point->get_value() - 32) / 1.8);
             this->value = static_cast<T>(val);
-            auto calc_duration = duration_cast<duration<int, std::micro>>(
-                    std::chrono::steady_clock::now() - t1);
-            if (this->average_calc_time.count() == 0)
-            {
-                this->average_calc_time = calc_duration;
-            }
-            else
-            {
-                this->average_calc_time = duration<int, std::micro>(
-                    static_cast<int>(0.1 * calc_duration.count() + 
-                        0.9 * this->average_calc_time.count()));
-            }
         }
-    protected:
     private:
         /// <summary>
         /// Input points
