@@ -9,132 +9,132 @@ namespace PointProcessor
     /// <summary>
     /// Possible point qualities.
     /// </summary>
-    enum class Quality
+    enum class Quality : uint
     {
         /// <summary>
         /// Let the point processor determine the quality
         /// </summary>
-        AUTO_DETERMINED = -1,
+        AUTO_DETERMINED = 0xFFFFFFFF,
         /// <summary>
         /// Point quality is unkown
         /// </summary>
-        UNKNOWN = 0,
+        UNKNOWN = 0x00000001,
         /// <summary>
         /// Deleted from processing
         /// </summary>
-        DELETED = 1,
+        DELETED = 0x00000002,
         /// <summary>
         /// Couldn't calculate
         /// </summary>
-        NOT_CALCULABLE = 2,
+        NOT_CALCULABLE = 0x00000004,
         /// <summary>
         /// Invalid
         /// </summary>
-        INVALID = 3,
+        INVALID = 0x00000008,
         /// <summary>
         /// Sensor read error
         /// </summary>
-        READ_ERROR = 4,
+        READ_ERROR = 0x00000010,
         /// <summary>
         /// Open thermocouple detection
         /// </summary>
-        OPEN_THRM_CPL = 5,
+        OPEN_THRM_CPL = 0x00000020,
         /// <summary>
         ///  Input counts out of sensor range
         /// </summary>
-        BAD = 6,
+        BAD = 0x00000040,
         /// <summary>
         /// Unreasonably high
         /// </summary>
-        HI_RSN_LIMIT = 7,
+        HI_RSN_LIMIT = 0x00000080,
         /// <summary>
         /// Unreasonably Low
         /// </summary>
-        LOW_RSN_LIMIT = 8,
+        LOW_RSN_LIMIT = 0x00000100,
         /// <summary>
         /// Old data
         /// </summary>
-        OLD = 9,
+        OLD = 0x00000200,
         /// <summary>
         /// Suspect value above HIHI limit
         /// </summary>
-        SUSPECT_HIHI = 10,
+        SUSPECT_HIHI = 0x00000400,
         /// <summary>
         /// Suspect value below LOLO limit
         /// </summary>
-        SUSPECT_LOLO = 11,
+        SUSPECT_LOLO = 0x00000800,
         /// <summary>
         /// Suspect value above HI warning limit
         /// </summary>
-        SUSPECT_HI = 12,
+        SUSPECT_HI = 0x00001000,
         /// <summary>
         /// Suspect value below LO warning limit
         /// </summary>
-        SUSPECT_LO = 13,
+        SUSPECT_LO = 0x00002000,
         /// <summary>
         /// Suspect data
         /// </summary>
-        SUSPECT = 14,
+        SUSPECT = 0x00004000,
         /// <summary>
         /// Digital suspect alarm
         /// </summary>
-        SUSPECT_ALARM = 15,
+        SUSPECT_ALARM = 0x00008000,
         /// <summary>
         /// Inserted value above HIHI limit
         /// </summary>
-        INSERTED_HIHI = 16,
+        INSERTED_HIHI = 0x00010000,
         /// <summary>
         /// Inserted value below LOLO limit
         /// </summary>
-        INSERTED_LOLO = 17,
+        INSERTED_LOLO = 0x00020000,
         /// <summary>
         /// Inserted value above HI warning limit
         /// </summary>
-        INSERTED_HI = 18,
+        INSERTED_HI = 0x00040000,
         /// <summary>
         /// Inserted value below LO warning limit
         /// </summary>
-        INSERTED_LO = 19,
+        INSERTED_LO = 0x00080000,
         /// <summary>
         /// Inserted value
         /// </summary>
-        INSERTED = 20,
+        INSERTED = 0x00100000,
         /// <summary>
         /// Digital inserted status in alarm
         /// </summary>
-        INSERTED_ALARM = 21,
+        INSERTED_ALARM = 0x00200000,
         /// <summary>
         ///  Logical change-of-state alarm
         /// </summary>
-        ALARM = 22,
+        ALARM = 0x00400000,
         /// <summary>
         /// HI alarm
         /// </summary>
-        HIHI = 23,
+        HIHI = 0x00800000,
         /// <summary>
         /// LO alarm
         /// </summary>
-        LOLO = 24,
+        LOLO = 0x01000000,
         /// <summary>
         /// HI warning
         /// </summary>
-        HI = 25,
+        HI = 0x02000000,
         /// <summary>
         /// LO warning
         /// </summary>
-        LO = 26,
+        LO = 0x04000000,
         /// <summary>
         /// Deleted from alarm checks
         /// </summary>
-        DELETED_ALARM = 27,
+        DELETED_ALARM = 0x08000000,
         /// <summary>
         /// Inhibited by cutout point
         /// </summary>
-        INHIBITED = 28,
+        INHIBITED = 0x10000000,
         /// <summary>
         /// Good
         /// </summary>
-        GOOD = 29
+        GOOD = 0x20000000
     };
 
 
@@ -143,39 +143,39 @@ namespace PointProcessor
     /// </summary>
     inline std::ostream& operator<<(std::ostream& os, Quality qual)
     {
-        switch ((int)qual)
+        switch ((uint)qual)
         {
-            case (-1): os << "AUTO_DETERMINED"; break;
-            case (0):  os << "UNKNOWN";         break;
-            case (1):  os << "DELETED";         break;
-            case (2):  os << "NOT_CALCULABLE";  break;
-            case (3):  os << "INVALID";         break;
-            case (4):  os << "READ_ERROR";      break;
-            case (5):  os << "OPEN_THRM_CPL";   break;
-            case (6):  os << "BAD";             break;
-            case (7):  os << "HI_RSN_LIMIT";    break;
-            case (8):  os << "LOW_RSN_LIMIT";   break;
-            case (9):  os << "OLD";             break;
-            case (10): os << "SUSPECT_HIHI";    break;
-            case (11): os << "SUSPECT_LOLO";    break;
-            case (12): os << "SUSPECT_HI";      break;
-            case (13): os << "SUSPECT_LO";      break;
-            case (14): os << "SUSPECT";         break;
-            case (15): os << "SUSPECT_ALARM";   break;
-            case (16): os << "INSERTED_HIHI";   break;
-            case (17): os << "INSERTED_LOLO";   break;
-            case (18): os << "INSERTED_HI";     break;
-            case (19): os << "INSERTED_LO";     break;
-            case (20): os << "INSERTED";        break;
-            case (21): os << "INSERTED_ALARM";  break;
-            case (22): os << "ALARM";           break;
-            case (23): os << "HIHI";            break;
-            case (24): os << "LOLO";            break;
-            case (25): os << "HI";              break;
-            case (26): os << "LO";              break;
-            case (27): os << "DELETED_ALARM";   break;
-            case (28): os << "INHIBITED";       break;
-            case (29): os << "GOOD";            break;
+            case (0xFFFFFFFF): os << "AUTO_DETERMINED"; break;
+            case (0x00000001): os << "UNKNOWN";         break;
+            case (0x00000002): os << "DELETED";         break;
+            case (0x00000004): os << "NOT_CALCULABLE";  break;
+            case (0x00000008): os << "INVALID";         break;
+            case (0x00000010): os << "READ_ERROR";      break;
+            case (0x00000020): os << "OPEN_THRM_CPL";   break;
+            case (0x00000040): os << "BAD";             break;
+            case (0x00000080): os << "HI_RSN_LIMIT";    break;
+            case (0x00000100): os << "LOW_RSN_LIMIT";   break;
+            case (0x00000200): os << "OLD";             break;
+            case (0x00000400): os << "SUSPECT_HIHI";    break;
+            case (0x00000800): os << "SUSPECT_LOLO";    break;
+            case (0x00001000): os << "SUSPECT_HI";      break;
+            case (0x00002000): os << "SUSPECT_LO";      break;
+            case (0x00004000): os << "SUSPECT";         break;
+            case (0x00008000): os << "SUSPECT_ALARM";   break;
+            case (0x00010000): os << "INSERTED_HIHI";   break;
+            case (0x00020000): os << "INSERTED_LOLO";   break;
+            case (0x00040000): os << "INSERTED_HI";     break;
+            case (0x00080000): os << "INSERTED_LO";     break;
+            case (0x00100000): os << "INSERTED";        break;
+            case (0x00200000): os << "INSERTED_ALARM";  break;
+            case (0x00400000): os << "ALARM";           break;
+            case (0x00800000): os << "HIHI";            break;
+            case (0x01000000): os << "LOLO";            break;
+            case (0x02000000): os << "HI";              break;
+            case (0x04000000): os << "LO";              break;
+            case (0x08000000): os << "DELETED_ALARM";   break;
+            case (0x10000000): os << "INHIBITED";       break;
+            case (0x20000000): os << "GOOD";            break;
         }
         return os;
     }
@@ -185,5 +185,12 @@ namespace PointProcessor
     /// </summary>
     /// <param name="qual">[IN] Integer value of the PMS quality.</param>
     /// <returns>Quality enumerator</returns>
-    Quality ConvertQuality(const int qual);
+    Quality ConvertQuality(const uint qual);
+
+    /// <summary>
+    /// Check if this quality is usable for calculations
+    /// <summary>
+    /// <param name="qual">[IN] Quality to test</param>
+    /// <returns>Whether or not the quality is usable for calculation</returns>
+    bool IsUsableQuality(const Quality qual);
 }

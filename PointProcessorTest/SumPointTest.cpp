@@ -14,6 +14,9 @@ TEST(SumPoint, SumInt32)
     inpA.set_value(1);
     inpB.set_value(2);
     inpC.set_value(3);
+    inpA.set_quality(Quality::GOOD);
+    inpB.set_quality(Quality::GOOD);
+    inpC.set_quality(Quality::GOOD);
     sum.calculate();
     ASSERT_EQ(sum.get_value(), 6);
     inpA.set_value(4);
@@ -35,6 +38,9 @@ TEST(SumPoint, SumInt64)
     inpA.set_value(1);
     inpB.set_value(2);
     inpC.set_value(3);
+    inpA.set_quality(Quality::GOOD);
+    inpB.set_quality(Quality::GOOD);
+    inpC.set_quality(Quality::GOOD);
     sum.calculate();
     ASSERT_EQ(sum.get_value(), 6);
     inpA.set_value(4);
@@ -56,6 +62,9 @@ TEST(SumPoint, SumFloat)
     inpA.set_value(1.5);
     inpB.set_value(2.2);
     inpC.set_value(3.3);
+    inpA.set_quality(Quality::GOOD);
+    inpB.set_quality(Quality::GOOD);
+    inpC.set_quality(Quality::GOOD);
     sum.calculate();
     ASSERT_EQ(sum.get_value(), 7.0);
     inpA.set_value(15);
@@ -77,6 +86,9 @@ TEST(SumPoint, SumDouble)
     inpA.set_value(1.5);
     inpB.set_value(2.2);
     inpC.set_value(3.3);
+    inpA.set_quality(Quality::GOOD);
+    inpB.set_quality(Quality::GOOD);
+    inpC.set_quality(Quality::GOOD);
     sum.calculate();
     ASSERT_EQ(sum.get_value(), 7.0);
     inpA.set_value(15);

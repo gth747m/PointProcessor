@@ -28,8 +28,14 @@ namespace PointProcessor
         /// </summary>
         inline virtual void calc()
         {
-            V val = (V)(this->input_point->get_value() * 1.8 + 32);
-            this->value = static_cast<T>(val);
+            if (input_point == nullptr)
+            {
+                this->quality = Quality::NOT_CALCULABLE;
+                return;
+            }
+            this->value = static_cast<T>(
+                (this->input_point->get_value() * 1.8 + 32));
+            this->quality = this->input_point->get_quality();
         }
     private:
         /// <summary>

@@ -84,6 +84,11 @@ namespace PointProcessor
         {
             return this->value;
         }
+        /// <summary>
+        /// Get the point value as type V
+        /// </summary>
+        /// <typeparam name="V">Type to cast this value to</typeparam>
+        /// <returns>Point value</returns>
         template <typename V>
         V get_value() const
         {
@@ -140,7 +145,7 @@ namespace PointProcessor
         {
             using namespace std::chrono;
             steady_clock::time_point t1 = steady_clock::now();
-            this->_calc();
+            this->calc();
             auto calc_duration = duration_cast<duration<int, std::micro>>(
                     std::chrono::steady_clock::now() - t1);
             if (this->average_calc_time.count() == 0)

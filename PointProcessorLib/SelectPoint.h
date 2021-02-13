@@ -11,11 +11,19 @@ namespace PointProcessor
     /// </summary>
     /// <typeparam name="T">Point value type</typeparam>
     /// <typeparam name="V">Input point type</typeparam>
-    template <typename T, typename V = T>
-    class AveragePoint :
+    /// <typeparam name="I">Index point type</typeparam>
+    template <typename T, typename V = T, typename I = uint>
+    class SelectPoint :
         public Point<T>
     {
     public:
+        /// <summary>
+        /// Set the point to be used as the selector
+        /// </summary>
+        inline void set_select_point(Point<I>* point)
+        {
+            this->select_point = point;
+        }
         /// <summary>
         /// Add a point the the list of inputs to average
         /// </summary>
@@ -26,31 +34,31 @@ namespace PointProcessor
         }
     protected:
         /// <summary>
-        /// Average the value of the input points
+        /// Select the appropriate point
         /// </summary>
         inline virtual void calc()
         {
-            if (this->input_points.size() == 0)
+            if (select_point == nullptr)
             {
                 this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
-            Quality qual = Quality::GOOD;
-            V val = V();
-            for (auto point = this->input_points.cbegin();
-                point != this->input_points.cend(); point++)
+            uint index = (uint)select_point->get_value();
+            if (index > input_points.size())
             {
-                val += (*point)->get_value();
-                if (!IsUsableQuality((*point)->get_quality()))
-                {
-                    qual = Quality::NOT_CALCULABLE;
-                    return;
-                }
+                this->quality = Quality::NOT_CALCULABLE;
+                return;
             }
-            this->value = static_cast<T>(val) / static_cast<T>(this->input_points.size());
-            this->quality = qual;
+            auto inp_point = this->input_points.at(index);
+            this->value = static_cast<T>(
+                inp_point->get_value());
+            this->quality = inp_point->get_quality();
         }
     private:
+        /// <summary>
+        /// Selection point
+        /// </summary>
+        Point<I>* select_point = nullptr;
         /// <summary>
         /// List of input points
         /// </summary>

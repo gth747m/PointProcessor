@@ -14,6 +14,9 @@ TEST(AveragePoint, AverageInt32)
     inpA.set_value(2);
     inpB.set_value(4);
     inpC.set_value(3);
+    inpA.set_quality(Quality::GOOD);
+    inpB.set_quality(Quality::GOOD);
+    inpC.set_quality(Quality::GOOD);
     avg.calculate();
     ASSERT_EQ(avg.get_value(), 3);
 }
@@ -30,6 +33,9 @@ TEST(AveragePoint, AverageInt64)
     inpA.set_value(25);
     inpB.set_value(45);
     inpC.set_value(20);
+    inpA.set_quality(Quality::GOOD);
+    inpB.set_quality(Quality::GOOD);
+    inpC.set_quality(Quality::GOOD);
     avg.calculate();
     ASSERT_EQ(avg.get_value(), 30);
 }
@@ -45,6 +51,9 @@ TEST(AveragePoint, AverageFloat)
     avg.add_input(&inpC);
     inpA.set_value(2.5);
     inpB.set_value(9.5);
+    inpA.set_quality(Quality::GOOD);
+    inpB.set_quality(Quality::GOOD);
+    inpC.set_quality(Quality::GOOD);
     avg.calculate();
     ASSERT_EQ(avg.get_value(), 4.0);
 }
@@ -58,6 +67,8 @@ TEST(AveragePoint, AverageDouble)
     avg.add_input(&inpB);
     inpA.set_value(25.25);
     inpB.set_value(45.25);
+    inpA.set_quality(Quality::GOOD);
+    inpB.set_quality(Quality::GOOD);
     avg.calculate();
     ASSERT_EQ(avg.get_value(), 35.25);
 }
