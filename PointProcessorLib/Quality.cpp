@@ -7,7 +7,7 @@ namespace PointProcessor
     /// </summary>
     /// <param name="qual">[IN] Integer value of the PMS quality.</param>
     /// <returns>Quality enumerator</returns>
-    Quality ConvertQuality(const uint qual)
+    Quality ConvertQuality(const uint32_t qual)
     {
         switch (qual)
         {
@@ -52,27 +52,27 @@ namespace PointProcessor
     /// <returns>Whether or not the quality is usable for calculation</returns>
     bool IsUsableQuality(const Quality qual)
     {
-        return (uint)qual & (
-            (uint)Quality::HI_RSN_LIMIT   |
-            (uint)Quality::LOW_RSN_LIMIT  |
-            (uint)Quality::SUSPECT_HIHI   |
-            (uint)Quality::SUSPECT_LOLO   |
-            (uint)Quality::SUSPECT_HI     |
-            (uint)Quality::SUSPECT_LO     |
-            (uint)Quality::SUSPECT        |
-            (uint)Quality::SUSPECT_ALARM  |
-            (uint)Quality::INSERTED_HIHI  |
-            (uint)Quality::INSERTED_LOLO  |
-            (uint)Quality::INSERTED_HI    |
-            (uint)Quality::INSERTED_LO    |
-            (uint)Quality::INSERTED       |
-            (uint)Quality::INSERTED_ALARM |
-            (uint)Quality::ALARM          |
-            (uint)Quality::HIHI           |
-            (uint)Quality::LOLO           |
-            (uint)Quality::HI             |
-            (uint)Quality::LO             |
-            (uint)Quality::GOOD
+        return (uint32_t)qual & (
+            (uint32_t)Quality::HI_RSN_LIMIT   |
+            (uint32_t)Quality::LOW_RSN_LIMIT  |
+            (uint32_t)Quality::SUSPECT_HIHI   |
+            (uint32_t)Quality::SUSPECT_LOLO   |
+            (uint32_t)Quality::SUSPECT_HI     |
+            (uint32_t)Quality::SUSPECT_LO     |
+            (uint32_t)Quality::SUSPECT        |
+            (uint32_t)Quality::SUSPECT_ALARM  |
+            (uint32_t)Quality::INSERTED_HIHI  |
+            (uint32_t)Quality::INSERTED_LOLO  |
+            (uint32_t)Quality::INSERTED_HI    |
+            (uint32_t)Quality::INSERTED_LO    |
+            (uint32_t)Quality::INSERTED       |
+            (uint32_t)Quality::INSERTED_ALARM |
+            (uint32_t)Quality::ALARM          |
+            (uint32_t)Quality::HIHI           |
+            (uint32_t)Quality::LOLO           |
+            (uint32_t)Quality::HI             |
+            (uint32_t)Quality::LO             |
+            (uint32_t)Quality::GOOD
         );
     }
 }

@@ -7,7 +7,7 @@
 namespace PointProcessor
 {
     /// <summary>
-    /// Averaging point
+    /// Select point
     /// </summary>
     /// <typeparam name="T">Point value type</typeparam>
     /// <typeparam name="V">Input point type</typeparam>

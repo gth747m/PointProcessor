@@ -4,9 +4,9 @@ using namespace PointProcessor;
 
 TEST(SumPoint, SumInt32)
 {
-    auto inpA = Point<int32_t>();
-    auto inpB = Point<int32_t>();
-    auto inpC = Point<int32_t>();
+    auto inpA = ExternalPoint<int32_t>();
+    auto inpB = ExternalPoint<int32_t>();
+    auto inpC = ExternalPoint<int32_t>();
     auto sum = SumPoint<int32_t>();
     sum.add_input(&inpA);
     sum.add_input(&inpB);
@@ -28,9 +28,9 @@ TEST(SumPoint, SumInt32)
 
 TEST(SumPoint, SumInt64)
 {
-    auto inpA = Point<int64_t>();
-    auto inpB = Point<int64_t>();
-    auto inpC = Point<int64_t>();
+    auto inpA = ExternalPoint<int64_t>();
+    auto inpB = ExternalPoint<int64_t>();
+    auto inpC = ExternalPoint<int64_t>();
     auto sum = SumPoint<int64_t>();
     sum.add_input(&inpA);
     sum.add_input(&inpB);
@@ -52,9 +52,9 @@ TEST(SumPoint, SumInt64)
 
 TEST(SumPoint, SumFloat)
 {
-    auto inpA = Point<float>();
-    auto inpB = Point<float>();
-    auto inpC = Point<float>();
+    auto inpA = ExternalPoint<float>();
+    auto inpB = ExternalPoint<float>();
+    auto inpC = ExternalPoint<float>();
     auto sum = SumPoint<float>();
     sum.add_input(&inpA);
     sum.add_input(&inpB);
@@ -76,9 +76,9 @@ TEST(SumPoint, SumFloat)
 
 TEST(SumPoint, SumDouble)
 {
-    auto inpA = Point<double>();
-    auto inpB = Point<double>();
-    auto inpC = Point<double>();
+    auto inpA = ExternalPoint<double>();
+    auto inpB = ExternalPoint<double>();
+    auto inpC = ExternalPoint<double>();
     auto sum = SumPoint<double>();
     sum.add_input(&inpA);
     sum.add_input(&inpB);

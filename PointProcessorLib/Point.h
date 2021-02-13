@@ -95,28 +95,12 @@ namespace PointProcessor
             return static_cast<V>(this->value);
         }
         /// <summary>
-        /// Set the point value
-        /// </summary>
-        /// <param name="value">Point value</param>
-        void set_value(T value)
-        {
-            this->value = value;
-        }
-        /// <summary>
         /// Get the point quality
         /// </summary>
         /// <returns>Point quality</returns>
         Quality get_quality() const
         {
             return this->quality;
-        }
-        /// <summary>
-        /// Set the point quality
-        /// </summary>
-        /// <param name="quality">Point quality</param>
-        void set_quality(Quality quality)
-        {
-            this->quality = quality;
         }
         /// <summary>
         /// Get the point processing frequency

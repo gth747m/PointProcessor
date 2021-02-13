@@ -22,6 +22,7 @@
 #include "Quality.h"
 #include "Frequency.h"
 // PointProcessorLib Points
+#include "ExternalPoint.h"
 #include "AveragePoint.h"
 #include "CToFPoint.h"
 #include "FToCPoint.h"

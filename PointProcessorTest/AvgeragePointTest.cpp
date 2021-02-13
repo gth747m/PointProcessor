@@ -4,9 +4,9 @@ using namespace PointProcessor;
 
 TEST(AveragePoint, AverageInt32)
 {
-    auto inpA = Point<int32_t>();
-    auto inpB = Point<int32_t>();
-    auto inpC = Point<int32_t>();
+    auto inpA = ExternalPoint<int32_t>();
+    auto inpB = ExternalPoint<int32_t>();
+    auto inpC = ExternalPoint<int32_t>();
     auto avg = AveragePoint<int32_t>();
     avg.add_input(&inpA);
     avg.add_input(&inpB);
@@ -23,9 +23,9 @@ TEST(AveragePoint, AverageInt32)
 
 TEST(AveragePoint, AverageInt64)
 {
-    auto inpA = Point<int64_t>();
-    auto inpB = Point<int64_t>();
-    auto inpC = Point<int64_t>();
+    auto inpA = ExternalPoint<int64_t>();
+    auto inpB = ExternalPoint<int64_t>();
+    auto inpC = ExternalPoint<int64_t>();
     auto avg = AveragePoint<int64_t>();
     avg.add_input(&inpA);
     avg.add_input(&inpB);
@@ -42,9 +42,9 @@ TEST(AveragePoint, AverageInt64)
 
 TEST(AveragePoint, AverageFloat)
 {
-    auto inpA = Point<float>();
-    auto inpB = Point<float>();
-    auto inpC = Point<float>();
+    auto inpA = ExternalPoint<float>();
+    auto inpB = ExternalPoint<float>();
+    auto inpC = ExternalPoint<float>();
     auto avg = AveragePoint<float>();
     avg.add_input(&inpA);
     avg.add_input(&inpB);
@@ -60,8 +60,8 @@ TEST(AveragePoint, AverageFloat)
 
 TEST(AveragePoint, AverageDouble)
 {
-    auto inpA = Point<double>();
-    auto inpB = Point<double>();
+    auto inpA = ExternalPoint<double>();
+    auto inpB = ExternalPoint<double>();
     auto avg = AveragePoint<double>();
     avg.add_input(&inpA);
     avg.add_input(&inpB);

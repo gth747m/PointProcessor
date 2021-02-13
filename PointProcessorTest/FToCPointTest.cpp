@@ -4,7 +4,7 @@ using namespace PointProcessor;
 
 TEST(FToCPoint, FToCFloat)
 {
-    auto inp = Point<float>();
+    auto inp = ExternalPoint<float>();
     auto celsius = FToCPoint<float>();
     celsius.set_input(&inp);
     inp.set_value(32.0f);
@@ -20,7 +20,7 @@ TEST(FToCPoint, FToCFloat)
 
 TEST(FToCPoint, FToCDouble)
 {
-    auto inp = Point<double>();
+    auto inp = ExternalPoint<double>();
     auto celsius = FToCPoint<double>();
     celsius.set_input(&inp);
     inp.set_value(32.0);

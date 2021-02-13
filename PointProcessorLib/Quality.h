@@ -9,7 +9,7 @@ namespace PointProcessor
     /// <summary>
     /// Possible point qualities.
     /// </summary>
-    enum class Quality : uint
+    enum class Quality : uint32_t
     {
         /// <summary>
         /// Let the point processor determine the quality
@@ -143,7 +143,7 @@ namespace PointProcessor
     /// </summary>
     inline std::ostream& operator<<(std::ostream& os, Quality qual)
     {
-        switch ((uint)qual)
+        switch ((uint32_t)qual)
         {
             case (0xFFFFFFFF): os << "AUTO_DETERMINED"; break;
             case (0x00000001): os << "UNKNOWN";         break;
@@ -185,7 +185,7 @@ namespace PointProcessor
     /// </summary>
     /// <param name="qual">[IN] Integer value of the PMS quality.</param>
     /// <returns>Quality enumerator</returns>
-    Quality ConvertQuality(const uint qual);
+    Quality ConvertQuality(const uint32_t qual);
 
     /// <summary>
     /// Check if this quality is usable for calculations
