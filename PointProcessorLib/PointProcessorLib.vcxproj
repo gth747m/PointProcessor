@@ -159,7 +159,9 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="PointProcessorLib.h" />
     <ClInclude Include="Quality.h" />
+    <ClInclude Include="SelectPoint.h" />
     <ClInclude Include="SharedMemory.h" />
+    <ClInclude Include="SubtractPoint.h" />
     <ClInclude Include="SumPoint.h" />
   </ItemGroup>
   <ItemGroup>

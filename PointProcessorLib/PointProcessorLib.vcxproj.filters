@@ -45,6 +45,12 @@
     <ClInclude Include="FToCPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SubtractPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

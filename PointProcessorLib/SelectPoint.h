@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <vector>
 
 #include "Point.h"
@@ -12,7 +13,7 @@ namespace PointProcessor
     /// <typeparam name="T">Point value type</typeparam>
     /// <typeparam name="V">Input point type</typeparam>
     /// <typeparam name="I">Index point type</typeparam>
-    template <typename T, typename V = T, typename I = uint>
+    template <typename T, typename V = T, typename I = uint32_t>
     class SelectPoint :
         public Point<T>
     {
@@ -43,7 +44,7 @@ namespace PointProcessor
                 this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
-            uint index = (uint)select_point->get_value();
+            uint32_t index = (uint32_t)select_point->get_value();
             if (index > input_points.size())
             {
                 this->quality = Quality::NOT_CALCULABLE;

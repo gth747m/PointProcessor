@@ -49,13 +49,13 @@ TEST(AveragePoint, AverageFloat)
     avg.add_input(&inpA);
     avg.add_input(&inpB);
     avg.add_input(&inpC);
-    inpA.set_value(2.5);
-    inpB.set_value(9.5);
+    inpA.set_value(2.5f);
+    inpB.set_value(9.5f);
     inpA.set_quality(Quality::GOOD);
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     avg.calculate();
-    ASSERT_EQ(avg.get_value(), 4.0);
+    EXPECT_FLOAT_EQ(avg.get_value(), 4.0f);
 }
 
 TEST(AveragePoint, AverageDouble)
@@ -70,5 +70,5 @@ TEST(AveragePoint, AverageDouble)
     inpA.set_quality(Quality::GOOD);
     inpB.set_quality(Quality::GOOD);
     avg.calculate();
-    ASSERT_EQ(avg.get_value(), 35.25);
+    EXPECT_DOUBLE_EQ(avg.get_value(), 35.25);
 }

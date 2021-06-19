@@ -22,11 +22,14 @@
 #include "Quality.h"
 #include "Frequency.h"
 // PointProcessorLib Points
-#include "ExternalPoint.h"
 #include "AveragePoint.h"
 #include "CToFPoint.h"
+#include "ExternalPoint.h"
 #include "FToCPoint.h"
+#include "SelectPoint.h"
+#include "SubtractPoint.h"
 #include "SumPoint.h"
 
+// Google Test
 #include "gtest/gtest.h"
 

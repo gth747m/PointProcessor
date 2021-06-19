@@ -59,19 +59,19 @@ TEST(SumPoint, SumFloat)
     sum.add_input(&inpA);
     sum.add_input(&inpB);
     sum.add_input(&inpC);
-    inpA.set_value(1.5);
-    inpB.set_value(2.2);
-    inpC.set_value(3.3);
+    inpA.set_value(1.5f);
+    inpB.set_value(2.2f);
+    inpC.set_value(3.3f);
     inpA.set_quality(Quality::GOOD);
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     sum.calculate();
-    ASSERT_EQ(sum.get_value(), 7.0);
-    inpA.set_value(15);
-    inpB.set_value(35.2);
-    inpC.set_value(18.8);
+    EXPECT_FLOAT_EQ(sum.get_value(), 7.0f);
+    inpA.set_value(15.0f);
+    inpB.set_value(35.2f);
+    inpC.set_value(18.8f);
     sum.calculate();
-    ASSERT_EQ(sum.get_value(), 69.0);
+    EXPECT_FLOAT_EQ(sum.get_value(), 69.0f);
 }
 
 TEST(SumPoint, SumDouble)
@@ -90,10 +90,10 @@ TEST(SumPoint, SumDouble)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     sum.calculate();
-    ASSERT_EQ(sum.get_value(), 7.0);
+    EXPECT_DOUBLE_EQ(sum.get_value(), 7.0);
     inpA.set_value(15);
     inpB.set_value(35.2);
     inpC.set_value(18.8);
     sum.calculate();
-    ASSERT_EQ(sum.get_value(), 69.0);
+    EXPECT_DOUBLE_EQ(sum.get_value(), 69.0);
 }

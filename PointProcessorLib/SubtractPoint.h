@@ -7,17 +7,17 @@
 namespace PointProcessor
 {
     /// <summary>
-    /// Summation point
+    /// Subtraction point
     /// </summary>
     /// <typeparam name="T">Point value type</typeparam>
     /// <typeparam name="V">Input point type</typeparam>
     template <typename T, typename V = T>
-    class SumPoint :
+    class SubtractPoint :
         public Point<T>
     {
     public:
         /// <summary>
-        /// Add a point the the list of inputs to sum
+        /// Add a point the the list of inputs to subtract
         /// </summary>
         /// <param name="point">Point to add</param>
         inline void add_input(Point<V>* point)
@@ -26,7 +26,7 @@ namespace PointProcessor
         }
     protected:
         /// <summary>
-        /// Sum the value of the input points
+        /// Subtract the value of the input points
         /// </summary>
         inline virtual void calc()
         {
@@ -48,7 +48,7 @@ namespace PointProcessor
                 }
                 else
                 {
-                    val += (*point)->get_value();
+                    val -= (*point)->get_value();
                 }
                 if (!IsUsableQuality((*point)->get_quality()))
                 {

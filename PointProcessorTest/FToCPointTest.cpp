@@ -9,13 +9,13 @@ TEST(FToCPoint, FToCFloat)
     celsius.set_input(&inp);
     inp.set_value(32.0f);
     celsius.calculate();
-    ASSERT_EQ(celsius.get_value(), 0.0f);
-    inp.set_value(68.0);
+    EXPECT_FLOAT_EQ(celsius.get_value(), 0.0f);
+    inp.set_value(68.0f);
     celsius.calculate();
-    ASSERT_EQ(celsius.get_value(), 20.0f);
+    EXPECT_FLOAT_EQ(celsius.get_value(), 20.0f);
     inp.set_value(212.0f);
     celsius.calculate();
-    ASSERT_EQ(celsius.get_value(), 100.0f);
+    EXPECT_FLOAT_EQ(celsius.get_value(), 100.0f);
 }
 
 TEST(FToCPoint, FToCDouble)
@@ -25,11 +25,11 @@ TEST(FToCPoint, FToCDouble)
     celsius.set_input(&inp);
     inp.set_value(32.0);
     celsius.calculate();
-    ASSERT_EQ(celsius.get_value(), 0.0);
+    EXPECT_DOUBLE_EQ(celsius.get_value(), 0.0);
     inp.set_value(68.0);
     celsius.calculate();
-    ASSERT_EQ(celsius.get_value(), 20.0);
+    EXPECT_DOUBLE_EQ(celsius.get_value(), 20.0);
     inp.set_value(212.0);
     celsius.calculate();
-    ASSERT_EQ(celsius.get_value(), 100.0);
+    EXPECT_DOUBLE_EQ(celsius.get_value(), 100.0);
 }
