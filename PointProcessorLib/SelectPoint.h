@@ -19,11 +19,11 @@ namespace PointProcessor
     {
     public:
         /// <summary>
-        /// Set the point to be used as the selector
+        /// Set the point to be used as the index selector
         /// </summary>
-        inline void set_select_point(Point<I>* point)
+        inline void set_index_point(Point<I>* point)
         {
-            this->select_point = point;
+            this->index_point = point;
         }
         /// <summary>
         /// Add a point the the list of inputs to average
@@ -39,12 +39,17 @@ namespace PointProcessor
         /// </summary>
         inline virtual void calc()
         {
-            if (select_point == nullptr)
+            if (index_point == nullptr)
             {
                 this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
-            uint32_t index = (uint32_t)select_point->get_value();
+            uint32_t index = (uint32_t)this->index_point->get_value() - 1;
+            if (!IsUsableQuality(index_point->get_quality()))
+            {
+                this->quality = Quality::NOT_CALCULABLE;
+                return;
+            }
             if (index > input_points.size())
             {
                 this->quality = Quality::NOT_CALCULABLE;
@@ -59,7 +64,7 @@ namespace PointProcessor
         /// <summary>
         /// Selection point
         /// </summary>
-        Point<I>* select_point = nullptr;
+        Point<I>* index_point = nullptr;
         /// <summary>
         /// List of input points
         /// </summary>
