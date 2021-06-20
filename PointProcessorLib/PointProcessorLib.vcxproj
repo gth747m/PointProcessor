@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AveragePoint.h" />
+    <ClInclude Include="ChauvenetAveragePoint.h" />
     <ClInclude Include="CToFPoint.h" />
     <ClInclude Include="Frequency.h" />
     <ClInclude Include="FToCPoint.h" />

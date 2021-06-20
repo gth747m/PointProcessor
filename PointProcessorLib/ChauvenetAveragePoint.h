@@ -7,12 +7,12 @@
 namespace PointProcessor
 {
     /// <summary>
-    /// Averaging point
+    /// Chauvenet Averaging point
     /// </summary>
     /// <typeparam name="T">Point value type</typeparam>
     /// <typeparam name="V">Input point type</typeparam>
     template <typename T, typename V = T>
-    class AveragePoint :
+    class ChauvenetAveragePoint :
         public Point<T>
     {
     public:
@@ -37,18 +37,19 @@ namespace PointProcessor
             }
             Quality qual = Quality::GOOD;
             bool first = true;
-            V val = V();
+            // TODO: Get the average
+            V avg = V();
             for (auto point = this->input_points.cbegin();
                 point != this->input_points.cend(); point++)
             {
                 if (first)
                 {
-                    val = (*point)->get_value();
+                    avg = (*point)->get_value();
                     first = false;
                 }
                 else
                 {
-                    val += (*point)->get_value();
+                    avg += (*point)->get_value();
                 }
                 if (!IsUsableQuality((*point)->get_quality()))
                 {
@@ -56,7 +57,11 @@ namespace PointProcessor
                     return;
                 }
             }
-            this->value = static_cast<T>(val) / static_cast<T>(this->input_points.size());
+            avg = static_cast<T>(avg) / static_cast<T>(this->input_points.size());
+            // TODO: Get standard deviation
+            V stdev = V();
+            // TODO: Set value
+            //this->value = 
             this->quality = qual;
         }
     private:
