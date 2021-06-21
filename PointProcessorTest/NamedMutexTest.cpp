@@ -105,11 +105,11 @@ TEST(NamedMutex, LockParallel)
     // Create child thread to increment i
     std::thread child (func, &i);
     // Check that thread is 0 still because mutex is locked
-    ASSERT_EQ(i, 0);
+    EXPECT_EQ(i, 0);
     // increment i
     i++;
     // Check that i is 1 now
-    ASSERT_EQ(i, 1);
+    EXPECT_EQ(i, 1);
     // unlock mutex
     try 
     {
@@ -123,7 +123,7 @@ TEST(NamedMutex, LockParallel)
     // Wait for the threads to finish
     child.join();
     // Check that i is 2 because the child can now increment it
-    ASSERT_EQ(i, 2);
+    EXPECT_EQ(i, 2);
     try 
     {
         mutex.remove();
@@ -171,7 +171,7 @@ TEST(NamedMutex, TryLock)
         std::thread child(func, &i);
         child.join();
     }
-    ASSERT_EQ(i, 0);
+    EXPECT_EQ(i, 0);
     // Unlock the mutex
     try
     {
@@ -187,7 +187,7 @@ TEST(NamedMutex, TryLock)
         std::thread child(func, &i);
         child.join();
     }
-    ASSERT_EQ(i, 1);
+    EXPECT_EQ(i, 1);
     try 
     {
         mutex.remove();
@@ -233,7 +233,7 @@ TEST(NamedMutex, TimedLock)
         std::thread child(func, &i);
         child.join();
     }
-    ASSERT_EQ(i, 0);
+    EXPECT_EQ(i, 0);
     try
     {
         mutex.unlock();
@@ -247,7 +247,7 @@ TEST(NamedMutex, TimedLock)
         std::thread child(func, &i);
         child.join();
     }
-    ASSERT_EQ(i, 1);
+    EXPECT_EQ(i, 1);
     try
     {
         mutex.remove();

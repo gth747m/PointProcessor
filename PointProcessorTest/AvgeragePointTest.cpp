@@ -18,7 +18,7 @@ TEST(AveragePoint, AverageInt32)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     avg.calculate();
-    ASSERT_EQ(avg.get_value<int32_t>(), 3);
+    EXPECT_EQ(avg.get_value<int32_t>(), 3);
 }
 
 TEST(AveragePoint, AverageInt64)
@@ -37,7 +37,7 @@ TEST(AveragePoint, AverageInt64)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     avg.calculate();
-    ASSERT_EQ(avg.get_value<int64_t>(), 30);
+    EXPECT_EQ(avg.get_value<int64_t>(), 30);
 }
 
 TEST(AveragePoint, AverageFloat)

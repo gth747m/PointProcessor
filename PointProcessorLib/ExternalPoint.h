@@ -21,7 +21,7 @@ namespace PointProcessor
         /// <param name="value">Point value</param>
         void set_value(T value)
         {
-            this->value = value;
+            this->value = static_cast<double>(value);
         }
         /// <summary>
         /// Set the point quality

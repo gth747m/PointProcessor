@@ -55,7 +55,7 @@ namespace PointProcessor
                     return;
                 }
             }
-            this->value = static_cast<T>(val);
+            this->value = static_cast<double>(val);
             this->quality = qual;
         }
     private:

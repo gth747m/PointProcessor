@@ -22,23 +22,23 @@ TEST(SelectPoint, SelectUInt32)
     inpC.set_quality(Quality::GOOD);
     indx.set_quality(Quality::GOOD);
     point.calculate();
-    ASSERT_EQ(point.get_value<int32_t>(), 2);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_value<int32_t>(), 2);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(2);
     point.calculate();
-    ASSERT_EQ(point.get_value<int32_t>(), 4);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_value<int32_t>(), 4);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(3);
     point.calculate();
-    ASSERT_EQ(point.get_value<int32_t>(), 6);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_value<int32_t>(), 6);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(0);
     point.calculate();
-    ASSERT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
+    EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
     indx.set_value(1);
     indx.set_quality(Quality::DELETED);
     point.calculate();
-    ASSERT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
+    EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
 }
 
 TEST(SelectPoint, SelectInt32)
@@ -61,23 +61,23 @@ TEST(SelectPoint, SelectInt32)
     inpC.set_quality(Quality::GOOD);
     indx.set_quality(Quality::GOOD);
     point.calculate();
-    ASSERT_EQ(point.get_value<int32_t>(), 2);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_value<int32_t>(), 2);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(2);
     point.calculate();
-    ASSERT_EQ(point.get_value<int32_t>(), 4);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_value<int32_t>(), 4);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(3);
     point.calculate();
-    ASSERT_EQ(point.get_value<int32_t>(), 6);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_value<int32_t>(), 6);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(0);
     point.calculate();
-    ASSERT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
+    EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
     indx.set_value(1);
     indx.set_quality(Quality::DELETED);
     point.calculate();
-    ASSERT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
+    EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
 }
 
 TEST(SelectPoint, SelectInt64)
@@ -100,23 +100,23 @@ TEST(SelectPoint, SelectInt64)
     inpC.set_quality(Quality::GOOD);
     indx.set_quality(Quality::GOOD);
     point.calculate();
-    ASSERT_EQ(point.get_value<int64_t>(), 2);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_value<int64_t>(), 2);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(2);
     point.calculate();
-    ASSERT_EQ(point.get_value<int64_t>(), 4);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_value<int64_t>(), 4);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(3);
     point.calculate();
-    ASSERT_EQ(point.get_value<int64_t>(), 6);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_value<int64_t>(), 6);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(0);
     point.calculate();
-    ASSERT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
+    EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
     indx.set_value(1);
     indx.set_quality(Quality::DELETED);
     point.calculate();
-    ASSERT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
+    EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
 }
 
 TEST(SelectPoint, SelectFloat)
@@ -140,22 +140,22 @@ TEST(SelectPoint, SelectFloat)
     indx.set_quality(Quality::GOOD);
     point.calculate();
     EXPECT_FLOAT_EQ(point.get_value<float>(), 2.5f);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(2);
     point.calculate();
     EXPECT_FLOAT_EQ(point.get_value<float>(), 4.2f);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(3);
     point.calculate();
     EXPECT_FLOAT_EQ(point.get_value<float>(), 6.7f);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(0);
     point.calculate();
-    ASSERT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
+    EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
     indx.set_value(1);
     indx.set_quality(Quality::DELETED);
     point.calculate();
-    ASSERT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
+    EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
 }
 
 TEST(SelectPoint, SelectDouble)
@@ -164,7 +164,7 @@ TEST(SelectPoint, SelectDouble)
     auto inpB = ExternalPoint<double>();
     auto inpC = ExternalPoint<double>();
     auto indx = ExternalPoint<int64_t>();
-    auto point = SelectPoint<float>();
+    auto point = SelectPoint<double>();
     point.add_input(&inpA);
     point.add_input(&inpB);
     point.add_input(&inpC);
@@ -178,21 +178,21 @@ TEST(SelectPoint, SelectDouble)
     inpC.set_quality(Quality::GOOD);
     indx.set_quality(Quality::GOOD);
     point.calculate();
-    EXPECT_DOUBLE_EQ(point.get_value<double>(), 2.5f);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_DOUBLE_EQ(point.get_value<double>(), 2.5);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(2);
     point.calculate();
-    EXPECT_DOUBLE_EQ(point.get_value<double>(), 4.2f);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_DOUBLE_EQ(point.get_value<double>(), 4.2);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(3);
     point.calculate();
-    EXPECT_DOUBLE_EQ(point.get_value<double>(), 6.7f);
-    ASSERT_EQ(point.get_quality(), Quality::GOOD);
+    EXPECT_DOUBLE_EQ(point.get_value<double>(), 6.7);
+    EXPECT_EQ(point.get_quality(), Quality::GOOD);
     indx.set_value(0);
     point.calculate();
-    ASSERT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
+    EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
     indx.set_value(1);
     indx.set_quality(Quality::DELETED);
     point.calculate();
-    ASSERT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
+    EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
 }

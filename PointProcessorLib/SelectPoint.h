@@ -54,7 +54,7 @@ namespace PointProcessor
                 return;
             }
             auto inp_point = this->input_points.at(index);
-            this->value = inp_point->get_value<T>();
+            this->value = inp_point->get_value<double>();
             this->quality = inp_point->get_quality();
         }
     private:

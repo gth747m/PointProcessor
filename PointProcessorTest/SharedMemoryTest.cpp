@@ -46,14 +46,14 @@ TEST(SharedMemory, SharedIntIncrement)
     bool threw_exception = false;
     try
     {
-        ASSERT_EQ(*shm.get(), 0);
-        ASSERT_EQ(*shm2.get(), 0);
+        EXPECT_EQ(*shm.get(), 0);
+        EXPECT_EQ(*shm2.get(), 0);
         (*shm.get())++;
-        ASSERT_EQ(*shm.get(), 1);
-        ASSERT_EQ(*shm2.get(), 1);
+        EXPECT_EQ(*shm.get(), 1);
+        EXPECT_EQ(*shm2.get(), 1);
         (*shm2.get())++;
-        ASSERT_EQ(*shm.get(), 2);
-        ASSERT_EQ(*shm2.get(), 2);
+        EXPECT_EQ(*shm.get(), 2);
+        EXPECT_EQ(*shm2.get(), 2);
     }
     catch (SharedMemoryException&)
     {

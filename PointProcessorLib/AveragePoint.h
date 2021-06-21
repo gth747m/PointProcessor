@@ -55,7 +55,7 @@ namespace PointProcessor
                     return;
                 }
             }
-            this->value = static_cast<T>(val) / static_cast<T>(this->input_points.size());
+            this->value = static_cast<double>(val / this->input_points.size());
             this->quality = qual;
         }
     private:

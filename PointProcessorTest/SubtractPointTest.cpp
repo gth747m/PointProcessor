@@ -18,12 +18,12 @@ TEST(SubtractPoint, SubtractInt32)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     subtract.calculate();
-    ASSERT_EQ(subtract.get_value<int32_t>(), -4);
+    EXPECT_EQ(subtract.get_value<int32_t>(), -4);
     inpA.set_value(6);
     inpB.set_value(2);
     inpC.set_value(1);
     subtract.calculate();
-    ASSERT_EQ(subtract.get_value<int32_t>(), 3);
+    EXPECT_EQ(subtract.get_value<int32_t>(), 3);
 }
 
 TEST(SubtractPoint, SubtractInt64)
@@ -42,12 +42,12 @@ TEST(SubtractPoint, SubtractInt64)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     subtract.calculate();
-    ASSERT_EQ(subtract.get_value<int64_t>(), -4);
+    EXPECT_EQ(subtract.get_value<int64_t>(), -4);
     inpA.set_value(6);
     inpB.set_value(2);
     inpC.set_value(1);
     subtract.calculate();
-    ASSERT_EQ(subtract.get_value<int64_t>(), 3);
+    EXPECT_EQ(subtract.get_value<int64_t>(), 3);
 }
 
 TEST(SubtractPoint, SubtractFloat)

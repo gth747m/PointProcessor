@@ -18,12 +18,12 @@ TEST(SumPoint, SumInt32)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     sum.calculate();
-    ASSERT_EQ(sum.get_value<int32_t>(), 6);
+    EXPECT_EQ(sum.get_value<int32_t>(), 6);
     inpA.set_value(4);
     inpB.set_value(5);
     inpC.set_value(6);
     sum.calculate();
-    ASSERT_EQ(sum.get_value<int32_t>(), 15);
+    EXPECT_EQ(sum.get_value<int32_t>(), 15);
 }
 
 TEST(SumPoint, SumInt64)
@@ -42,12 +42,12 @@ TEST(SumPoint, SumInt64)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     sum.calculate();
-    ASSERT_EQ(sum.get_value<int64_t>(), 6);
+    EXPECT_EQ(sum.get_value<int64_t>(), 6);
     inpA.set_value(4);
     inpB.set_value(5);
     inpC.set_value(6);
     sum.calculate();
-    ASSERT_EQ(sum.get_value<int64_t>(), 15);
+    EXPECT_EQ(sum.get_value<int64_t>(), 15);
 }
 
 TEST(SumPoint, SumFloat)
