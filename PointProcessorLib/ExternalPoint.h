@@ -12,7 +12,7 @@ namespace PointProcessor
     /// <typeparam name="T">Point value type</typeparam>
     template <typename T>
     class ExternalPoint :
-        public Point<T>
+        public Point
     {
     public:
         /// <summary>

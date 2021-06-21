@@ -10,17 +10,16 @@ namespace PointProcessor
     /// Subtraction point
     /// </summary>
     /// <typeparam name="T">Point value type</typeparam>
-    /// <typeparam name="V">Input point type</typeparam>
-    template <typename T, typename V = T>
+    template <typename T>
     class SubtractPoint :
-        public Point<T>
+        public Point
     {
     public:
         /// <summary>
         /// Add a point the the list of inputs to subtract
         /// </summary>
         /// <param name="point">Point to add</param>
-        inline void add_input(Point<V>* point)
+        inline void add_input(Point* point)
         {
             this->input_points.push_back(point);
         }
@@ -37,18 +36,18 @@ namespace PointProcessor
             }
             Quality qual = Quality::GOOD;
             bool first = true;
-            V val = V();
+            T val = T();
             for (auto point = this->input_points.cbegin();
                 point != this->input_points.cend(); point++)
             {
                 if (first)
                 {
-                    val = (*point)->get_value();
+                    val = (*point)->get_value<T>();
                     first = false;
                 }
                 else
                 {
-                    val -= (*point)->get_value();
+                    val -= (*point)->get_value<T>();
                 }
                 if (!IsUsableQuality((*point)->get_quality()))
                 {
@@ -63,6 +62,6 @@ namespace PointProcessor
         /// <summary>
         /// List of input points
         /// </summary>
-        std::vector<Point<V>*> input_points;
+        std::vector<Point*> input_points;
     };
 }

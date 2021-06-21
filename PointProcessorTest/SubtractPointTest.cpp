@@ -18,12 +18,12 @@ TEST(SubtractPoint, SubtractInt32)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     subtract.calculate();
-    ASSERT_EQ(subtract.get_value(), -4);
+    ASSERT_EQ(subtract.get_value<int32_t>(), -4);
     inpA.set_value(6);
     inpB.set_value(2);
     inpC.set_value(1);
     subtract.calculate();
-    ASSERT_EQ(subtract.get_value(), 3);
+    ASSERT_EQ(subtract.get_value<int32_t>(), 3);
 }
 
 TEST(SubtractPoint, SubtractInt64)
@@ -42,12 +42,12 @@ TEST(SubtractPoint, SubtractInt64)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     subtract.calculate();
-    ASSERT_EQ(subtract.get_value(), -4);
+    ASSERT_EQ(subtract.get_value<int64_t>(), -4);
     inpA.set_value(6);
     inpB.set_value(2);
     inpC.set_value(1);
     subtract.calculate();
-    ASSERT_EQ(subtract.get_value(), 3);
+    ASSERT_EQ(subtract.get_value<int64_t>(), 3);
 }
 
 TEST(SubtractPoint, SubtractFloat)
@@ -66,12 +66,12 @@ TEST(SubtractPoint, SubtractFloat)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     subtract.calculate();
-    EXPECT_FLOAT_EQ(subtract.get_value(), -4.0f);
+    EXPECT_FLOAT_EQ(subtract.get_value<float>(), -4.0f);
     inpA.set_value(35.2f);
     inpB.set_value(15.0f);
     inpC.set_value(10.2f);
     subtract.calculate();
-    EXPECT_FLOAT_EQ(subtract.get_value(), 10.0f);
+    EXPECT_FLOAT_EQ(subtract.get_value<float>(), 10.0f);
 }
 
 TEST(SubtractPoint, SubtractDouble)
@@ -90,10 +90,10 @@ TEST(SubtractPoint, SubtractDouble)
     inpB.set_quality(Quality::GOOD);
     inpC.set_quality(Quality::GOOD);
     subtract.calculate();
-    EXPECT_DOUBLE_EQ(subtract.get_value(), -4.0);
+    EXPECT_DOUBLE_EQ(subtract.get_value<double>(), -4.0);
     inpA.set_value(35.2);
     inpB.set_value(15);
     inpC.set_value(10.2);
     subtract.calculate();
-    EXPECT_DOUBLE_EQ(subtract.get_value(), 10.0);
+    EXPECT_DOUBLE_EQ(subtract.get_value<double>(), 10.0);
 }

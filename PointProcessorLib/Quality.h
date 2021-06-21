@@ -40,7 +40,7 @@ namespace PointProcessor
         /// </summary>
         OPEN_THRM_CPL = 0x00000020,
         /// <summary>
-        ///  Input counts out of sensor range
+        /// Input counts out of sensor range
         /// </summary>
         BAD = 0x00000040,
         /// <summary>
@@ -104,7 +104,7 @@ namespace PointProcessor
         /// </summary>
         INSERTED_ALARM = 0x00200000,
         /// <summary>
-        ///  Logical change-of-state alarm
+        /// Logical change-of-state alarm
         /// </summary>
         ALARM = 0x00400000,
         /// <summary>
@@ -136,7 +136,6 @@ namespace PointProcessor
         /// </summary>
         GOOD = 0x20000000
     };
-
 
     /// <summary>
     /// Print quality enumerator to an output stream

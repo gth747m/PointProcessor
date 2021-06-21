@@ -13,8 +13,6 @@ namespace PointProcessor
     /// <summary>
     /// Base Point class
     /// </summary>
-    /// <typeparam name="T">Value held by this point</typeparam>
-    template <typename T>
     class Point
     {
     public:
@@ -22,7 +20,7 @@ namespace PointProcessor
         /// Point constructor
         /// </summary>
         Point() :
-            value(T()),
+            value(0),
             quality(Quality::UNKNOWN),
             frequency(Frequency::UNKNOWN),
             average_calc_time()
@@ -77,22 +75,14 @@ namespace PointProcessor
             this->aliases.push_back(alias);
         }
         /// <summary>
-        /// Get the point value
+        /// Get the point value as type T
         /// </summary>
+        /// <typeparam name="T">Type to cast this value to</typeparam>
         /// <returns>Point value</returns>
+        template <typename T>
         T get_value() const
         {
-            return this->value;
-        }
-        /// <summary>
-        /// Get the point value as type V
-        /// </summary>
-        /// <typeparam name="V">Type to cast this value to</typeparam>
-        /// <returns>Point value</returns>
-        template <typename V>
-        V get_value() const
-        {
-            return static_cast<V>(this->value);
+            return static_cast<T>(this->value);
         }
         /// <summary>
         /// Get the point quality
@@ -150,7 +140,7 @@ namespace PointProcessor
         /// <param name="os">Output stream</param>
         /// <param name="point">Point</param>
         /// <returns>Output stream</returns>
-        friend std::ostream& operator<<(std::ostream& os, Point<T>& point)
+        friend std::ostream& operator<<(std::ostream& os, Point& point)
         {
             os  << "POINT" << std::endl
                 << "    ID          = " << point.get_id() << std::endl
@@ -162,7 +152,7 @@ namespace PointProcessor
             {
                 os << "                  " << *it << std::endl;
             }
-            os  << "    Value       = " << point.get_value() << std::endl
+            os  << "    Value       = " << point.get_value<double>() << std::endl
                 << "    Quality     = " << point.get_quality() << std::endl
                 << "    Frequency   = " << point.get_freqeuncy() << std::endl
                 << "    Avg Calc    = " << point.get_average_calc_time().count()
@@ -174,7 +164,7 @@ namespace PointProcessor
         /// <summary>
         /// Point value
         /// </summary>
-        T value;
+        double value;
         /// <summary>
         /// Point calculation
         /// </summary>

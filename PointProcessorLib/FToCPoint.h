@@ -8,17 +8,16 @@ namespace PointProcessor
     /// Farenheit to Celsius point
     /// </summary>
     /// <typeparam name="T">Point value type</typeparam>
-    /// <typeparam name="V">Input point type</typeparam>
-    template <typename T, typename V = T>
+    template <typename T>
     class FToCPoint :
-        public Point<T>
+        public Point
     {
     public:
         /// <summary>
         /// Set the input point
         /// </summary>
         /// <param name="point">Input point who's value is Farenheit</param>
-        inline void set_input(Point<V>* point)
+        inline void set_input(Point* point)
         {
             this->input_point = point;
         }
@@ -34,13 +33,13 @@ namespace PointProcessor
                 return;
             }
             this->value = static_cast<T>(
-                ((this->input_point->get_value() - 32) / 1.8));
+                ((this->input_point->get_value<T>() - 32) / 1.8));
             this->quality = this->input_point->get_quality();
         }
     private:
         /// <summary>
         /// Input points
         /// </summary>
-        Point<V>* input_point = nullptr;
+        Point* input_point = nullptr;
     };
 }

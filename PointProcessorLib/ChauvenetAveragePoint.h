@@ -10,17 +10,16 @@ namespace PointProcessor
     /// Chauvenet Averaging point
     /// </summary>
     /// <typeparam name="T">Point value type</typeparam>
-    /// <typeparam name="V">Input point type</typeparam>
-    template <typename T, typename V = T>
+    template <typename T>
     class ChauvenetAveragePoint :
-        public Point<T>
+        public Point
     {
     public:
         /// <summary>
         /// Add a point the the list of inputs to average
         /// </summary>
         /// <param name="point">Point to add</param>
-        inline void add_input(Point<V>* point)
+        inline void add_input(Point* point)
         {
             this->input_points.push_back(point);
         }
@@ -44,12 +43,12 @@ namespace PointProcessor
             {
                 if (first)
                 {
-                    avg = (*point)->get_value();
+                    avg = (*point)->get_value<T>();
                     first = false;
                 }
                 else
                 {
-                    avg += (*point)->get_value();
+                    avg += (*point)->get_value<T>();
                 }
                 if (!IsUsableQuality((*point)->get_quality()))
                 {
@@ -68,6 +67,6 @@ namespace PointProcessor
         /// <summary>
         /// List of input points
         /// </summary>
-        std::vector<Point<V>*> input_points;
+        std::vector<Point*> input_points;
     };
 }
