@@ -169,6 +169,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Frequency.cpp" />
     <ClCompile Include="NamedMutex.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="Quality.cpp" />
     <ClCompile Include="SharedMemory.cpp" />
   </ItemGroup>
