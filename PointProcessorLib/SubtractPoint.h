@@ -51,7 +51,7 @@ namespace PointProcessor
                 }
                 if (!IsUsableQuality((*point)->get_quality()))
                 {
-                    qual = Quality::NOT_CALCULABLE;
+                    this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
             }

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AvgeragePointTest.cpp" />
+    <ClCompile Include="ChauvenetAveragePointTest.cpp" />
     <ClCompile Include="CToFPointTest.cpp" />
     <ClCompile Include="FToCPointTest.cpp" />
     <ClCompile Include="main.cpp" />
