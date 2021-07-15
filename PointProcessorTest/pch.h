@@ -26,12 +26,22 @@
 #include "AveragePoint.h"
 #include "CToFPoint.h"
 #include "ChauvenetAveragePoint.h"
+#include "DigitalFilterPoint.h"
 #include "ExternalPoint.h"
 #include "FToCPoint.h"
+#include "PolynomialPoint.h"
 #include "SelectPoint.h"
 #include "SubtractPoint.h"
 #include "SumPoint.h"
 
 // Google Test
+#if defined _WIN32
+#pragma warning(push)
+#pragma warning(disable: 26495)
+#pragma warning(disable: 26812)
+#endif
 #include "gtest/gtest.h"
+#if defined _WIN32
+#pragma warning(pop)
+#endif
 

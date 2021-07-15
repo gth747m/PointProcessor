@@ -154,11 +154,13 @@
     <ClInclude Include="AveragePoint.h" />
     <ClInclude Include="ChauvenetAveragePoint.h" />
     <ClInclude Include="CToFPoint.h" />
+    <ClInclude Include="DigitalFilterPoint.h" />
     <ClInclude Include="Frequency.h" />
     <ClInclude Include="FToCPoint.h" />
     <ClInclude Include="NamedMutex.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="PointProcessorLib.h" />
+    <ClInclude Include="PolynomialPoint.h" />
     <ClInclude Include="Quality.h" />
     <ClInclude Include="SelectPoint.h" />
     <ClInclude Include="SharedMemory.h" />

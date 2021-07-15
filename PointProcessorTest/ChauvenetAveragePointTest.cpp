@@ -23,6 +23,7 @@ TEST(ChauvenetAveragePoint, ChauvenetAverageInt32)
     num.set_quality(Quality::GOOD);
     avg.calculate();
     EXPECT_EQ(avg.get_value<int32_t>(), 2);
+    EXPECT_EQ(avg.get_quality(), Quality::GOOD);
 }
 
 TEST(ChauvenetAveragePoint, ChauvenetAverageInt64)
@@ -50,6 +51,7 @@ TEST(ChauvenetAveragePoint, ChauvenetAverageInt64)
     num.set_quality(Quality::GOOD);
     avg.calculate();
     EXPECT_EQ(avg.get_value<int64_t>(), 25);
+    EXPECT_EQ(avg.get_quality(), Quality::GOOD);
 }
 
 TEST(ChauvenetAveragePoint, ChauvenetAverageFloat)
@@ -91,6 +93,7 @@ TEST(ChauvenetAveragePoint, ChauvenetAverageFloat)
     num.set_quality(Quality::GOOD);
     avg.calculate();
     EXPECT_FLOAT_EQ(avg.get_value<float>(), 2.5f);
+    EXPECT_EQ(avg.get_quality(), Quality::GOOD);
 }
 
 TEST(ChauvenetAveragePoint, ChauvenetAverageDouble)
@@ -118,4 +121,5 @@ TEST(ChauvenetAveragePoint, ChauvenetAverageDouble)
     num.set_quality(Quality::GOOD);
     avg.calculate();
     EXPECT_DOUBLE_EQ(avg.get_value<double>(), 25.25);
+    EXPECT_EQ(avg.get_quality(), Quality::GOOD);
 }

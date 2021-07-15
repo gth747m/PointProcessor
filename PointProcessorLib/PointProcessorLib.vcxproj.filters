@@ -54,6 +54,12 @@
     <ClInclude Include="ChauvenetAveragePoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PolynomialPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DigitalFilterPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
