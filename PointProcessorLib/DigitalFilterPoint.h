@@ -50,13 +50,13 @@ namespace PointProcessor
             }
             if (initialized)
             {
-#ifdef _MSC_PLATFORM_TOOLSET
+#ifdef _WIN32
 #pragma warning(push)
 #pragma warning(disable: 26451)
 #endif
                 this->value = static_cast<double>(static_cast<T>((1.0 - this->filter_fraction) * this->value) + 
                     static_cast<T>(this->filter_fraction * this->input_point->get_value<T>()));
-#ifdef _MSC_PLATFORM_TOOLSET
+#ifdef _WIN32
 #pragma warning(pop)
 #endif
             }

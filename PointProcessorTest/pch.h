@@ -35,13 +35,13 @@
 #include "SumPoint.h"
 
 // Google Test
-#ifdef _MSC_PLATFORM_TOOLSET
+#ifdef _WIN32
 #pragma warning(push)
 #pragma warning(disable: 26495)
 #pragma warning(disable: 26812)
 #endif
 #include "gtest/gtest.h"
-#ifdef _MSC_PLATFORM_TOOLSET
+#ifdef _WIN32
 #pragma warning(pop)
 #endif
 
