@@ -38,16 +38,10 @@ namespace PointProcessor
         /// </summary>
         inline virtual void calc()
         {
-            if (this->input_point == nullptr)
+            if ((this->input_point == nullptr) ||
+                (!IsUsableQuality(this->input_point->get_quality())))
             {
-                std::cerr << "Input point not set." << std::endl;
                 this->quality = Quality::NOT_CALCULABLE;
-                return;
-            }
-            if (!IsUsableQuality(this->input_point->get_quality()))
-            {
-                std::cerr << "Input point bad quality." << std::endl;
-                this->quality = this->input_point->get_quality();
                 return;
             }
             this->value = static_cast<double>(
@@ -62,6 +56,6 @@ namespace PointProcessor
         /// <summary>
         /// Power to which the input point is raised
         /// </summary>
-        T power = 1.0;
+        T power = static_cast<T>(1.0);
     };
 }

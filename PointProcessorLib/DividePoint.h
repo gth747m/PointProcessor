@@ -7,25 +7,25 @@
 namespace PointProcessor
 {
     /// <summary>
-    /// Summation point
+    /// Division point
     /// </summary>
     /// <typeparam name="T">Point value type</typeparam>
     template <typename T>
-    class SumPoint :
+    class DividePoint :
         public Point
     {
     public:
         /// <summary>
-        /// Add a point the the list of inputs to sum
+        /// Add a point the the list of inputs to divide
         /// </summary>
-        /// <param name="point">Point to add</param>
+        /// <param name="point">Point to divide</param>
         inline void add_input(Point* point)
         {
             this->input_points.push_back(point);
         }
     protected:
         /// <summary>
-        /// Sum the value of the input points
+        /// Divide the value of the input points
         /// </summary>
         inline virtual void calc()
         {
@@ -45,14 +45,23 @@ namespace PointProcessor
                     this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
+                T nextVal = (*point)->get_value<T>();
                 if (first)
                 {
-                    val = (*point)->get_value<T>();
+                    val = nextVal;
                     first = false;
                 }
                 else
                 {
-                    val += (*point)->get_value<T>();
+                    if (nextVal == 0)
+                    {
+                        this->quality = Quality::NOT_CALCULABLE;
+                        return;
+                    }
+                    else
+                    {
+                        val /= nextVal;
+                    }
                 }
             }
             this->value = static_cast<double>(val);

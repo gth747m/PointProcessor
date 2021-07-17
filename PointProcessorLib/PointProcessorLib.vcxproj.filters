@@ -60,6 +60,15 @@
     <ClInclude Include="DigitalFilterPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MultiplyPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DividePoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

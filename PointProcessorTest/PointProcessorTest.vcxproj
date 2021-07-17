@@ -46,8 +46,10 @@
     <ClCompile Include="ChauvenetAveragePointTest.cpp" />
     <ClCompile Include="CToFPointTest.cpp" />
     <ClCompile Include="DigitalFilterPointTest.cpp" />
+    <ClCompile Include="DividePointTest.cpp" />
     <ClCompile Include="FToCPointTest.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MultiplyPointTest.cpp" />
     <ClCompile Include="NamedMutexTest.cpp" />
     <ClCompile Include="PolynomialPointTest.cpp" />
     <ClCompile Include="PowerPointTest.cpp" />

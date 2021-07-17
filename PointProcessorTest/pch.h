@@ -27,8 +27,10 @@
 #include "CToFPoint.h"
 #include "ChauvenetAveragePoint.h"
 #include "DigitalFilterPoint.h"
+#include "DividePoint.h"
 #include "ExternalPoint.h"
 #include "FToCPoint.h"
+#include "MultiplyPoint.h"
 #include "PolynomialPoint.h"
 #include "PowerPoint.h"
 #include "SelectPoint.h"
@@ -38,6 +40,7 @@
 // Google Test
 #ifdef _WIN32
 #pragma warning(push)
+// Ignore VC++ warnings, since I don't control gtest
 #pragma warning(disable: 26495)
 #pragma warning(disable: 26812)
 #endif

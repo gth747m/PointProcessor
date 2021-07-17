@@ -7,25 +7,25 @@
 namespace PointProcessor
 {
     /// <summary>
-    /// Summation point
+    /// Multiply point
     /// </summary>
     /// <typeparam name="T">Point value type</typeparam>
     template <typename T>
-    class SumPoint :
+    class MultiplyPoint :
         public Point
     {
     public:
         /// <summary>
-        /// Add a point the the list of inputs to sum
+        /// Add a point the the list of inputs to multiply
         /// </summary>
-        /// <param name="point">Point to add</param>
+        /// <param name="point">Point to multiply</param>
         inline void add_input(Point* point)
         {
             this->input_points.push_back(point);
         }
     protected:
         /// <summary>
-        /// Sum the value of the input points
+        /// Multiply the value of the input points
         /// </summary>
         inline virtual void calc()
         {
@@ -52,7 +52,7 @@ namespace PointProcessor
                 }
                 else
                 {
-                    val += (*point)->get_value<T>();
+                    val *= (*point)->get_value<T>();
                 }
             }
             this->value = static_cast<double>(val);
