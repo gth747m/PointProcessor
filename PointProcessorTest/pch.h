@@ -30,6 +30,7 @@
 #include "ExternalPoint.h"
 #include "FToCPoint.h"
 #include "PolynomialPoint.h"
+#include "PowerPoint.h"
 #include "SelectPoint.h"
 #include "SubtractPoint.h"
 #include "SumPoint.h"
