@@ -161,6 +161,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="PointProcessorLib.h" />
     <ClInclude Include="PolynomialPoint.h" />
+    <ClInclude Include="PowerPoint.h" />
     <ClInclude Include="Quality.h" />
     <ClInclude Include="SelectPoint.h" />
     <ClInclude Include="SharedMemory.h" />

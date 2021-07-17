@@ -50,6 +50,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NamedMutexTest.cpp" />
     <ClCompile Include="PolynomialPointTest.cpp" />
+    <ClCompile Include="PowerPointTest.cpp" />
     <ClCompile Include="SelectPointTest.cpp" />
     <ClCompile Include="SharedMemoryTest.cpp" />
     <ClCompile Include="pch.cpp">
