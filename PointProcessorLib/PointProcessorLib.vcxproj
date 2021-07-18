@@ -105,7 +105,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="AveragePoint.h" />
     <ClInclude Include="ChauvenetAveragePoint.h" />
+    <ClInclude Include="CounterPoint.h" />
     <ClInclude Include="CToFPoint.h" />
     <ClInclude Include="DigitalFilterPoint.h" />
     <ClInclude Include="DividePoint.h" />

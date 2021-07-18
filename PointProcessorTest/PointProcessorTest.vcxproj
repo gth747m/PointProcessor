@@ -33,10 +33,13 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\PointProcessorLib;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\PointProcessorLib</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)\PointProcessorLib;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)\PointProcessorLib</IncludePath>
   </PropertyGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -44,6 +47,7 @@
   <ItemGroup>
     <ClCompile Include="AvgeragePointTest.cpp" />
     <ClCompile Include="ChauvenetAveragePointTest.cpp" />
+    <ClCompile Include="CounterPointTest.cpp" />
     <ClCompile Include="CToFPointTest.cpp" />
     <ClCompile Include="DigitalFilterPointTest.cpp" />
     <ClCompile Include="DividePointTest.cpp" />
@@ -90,6 +94,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
