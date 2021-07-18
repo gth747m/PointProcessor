@@ -26,6 +26,7 @@
 #include "AveragePoint.h"
 #include "CToFPoint.h"
 #include "ChauvenetAveragePoint.h"
+#include "CounterPoint.h"
 #include "DigitalFilterPoint.h"
 #include "DividePoint.h"
 #include "ExternalPoint.h"
