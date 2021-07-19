@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(DigitalFilterPoint, DigitalFilterFloat)
+TEST(DigitalFilterPoint, FilterFloat)
 {
     auto inp = ExternalPoint<float>();
     auto filter = DigitalFilterPoint<float>();
@@ -37,7 +37,7 @@ TEST(DigitalFilterPoint, DigitalFilterFloat)
     EXPECT_EQ(filter.get_quality(), Quality::GOOD);
 }
 
-TEST(DigitalFilterPoint, DigitalFilterDouble)
+TEST(DigitalFilterPoint, Double)
 {
     auto inp = ExternalPoint<double>();
     auto filter = DigitalFilterPoint<double>();

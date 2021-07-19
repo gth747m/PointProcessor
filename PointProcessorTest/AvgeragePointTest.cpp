@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(AveragePoint, AverageInt32)
+TEST(AveragePoint, Int32)
 {
     auto inpA = ExternalPoint<int32_t>();
     auto inpB = ExternalPoint<int32_t>();
@@ -21,7 +21,7 @@ TEST(AveragePoint, AverageInt32)
     EXPECT_EQ(avg.get_value<int32_t>(), 3);
 }
 
-TEST(AveragePoint, AverageInt64)
+TEST(AveragePoint, Int64)
 {
     auto inpA = ExternalPoint<int64_t>();
     auto inpB = ExternalPoint<int64_t>();
@@ -40,7 +40,7 @@ TEST(AveragePoint, AverageInt64)
     EXPECT_EQ(avg.get_value<int64_t>(), 30);
 }
 
-TEST(AveragePoint, AverageFloat)
+TEST(AveragePoint, Float)
 {
     auto inpA = ExternalPoint<float>();
     auto inpB = ExternalPoint<float>();
@@ -58,7 +58,7 @@ TEST(AveragePoint, AverageFloat)
     EXPECT_FLOAT_EQ(avg.get_value<float>(), 4.0f);
 }
 
-TEST(AveragePoint, AverageDouble)
+TEST(AveragePoint, Double)
 {
     auto inpA = ExternalPoint<double>();
     auto inpB = ExternalPoint<double>();

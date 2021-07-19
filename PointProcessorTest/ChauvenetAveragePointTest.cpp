@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(ChauvenetAveragePoint, ChauvenetAverageInt32)
+TEST(ChauvenetAveragePoint, Int32)
 {
     auto inpA = ExternalPoint<int32_t>();
     auto inpB = ExternalPoint<int32_t>();
@@ -26,7 +26,7 @@ TEST(ChauvenetAveragePoint, ChauvenetAverageInt32)
     EXPECT_EQ(avg.get_quality(), Quality::GOOD);
 }
 
-TEST(ChauvenetAveragePoint, ChauvenetAverageInt64)
+TEST(ChauvenetAveragePoint, Int64)
 {
     auto inpA = ExternalPoint<int64_t>();
     auto inpB = ExternalPoint<int64_t>();
@@ -54,7 +54,7 @@ TEST(ChauvenetAveragePoint, ChauvenetAverageInt64)
     EXPECT_EQ(avg.get_quality(), Quality::GOOD);
 }
 
-TEST(ChauvenetAveragePoint, ChauvenetAverageFloat)
+TEST(ChauvenetAveragePoint, Float)
 {
     auto inpA = ExternalPoint<float>();
     auto inpB = ExternalPoint<float>();
@@ -96,7 +96,7 @@ TEST(ChauvenetAveragePoint, ChauvenetAverageFloat)
     EXPECT_EQ(avg.get_quality(), Quality::GOOD);
 }
 
-TEST(ChauvenetAveragePoint, ChauvenetAverageDouble)
+TEST(ChauvenetAveragePoint, Double)
 {
     auto inpA = ExternalPoint<double>();
     auto inpB = ExternalPoint<double>();

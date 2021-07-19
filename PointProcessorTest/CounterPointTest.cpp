@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(CounterPoint, CounterPointInt32)
+TEST(CounterPoint, Int32)
 {
     auto counter = CounterPoint<int32_t>();
     for (int i = 0; i < 10; i++)
@@ -25,7 +25,7 @@ TEST(CounterPoint, CounterPointInt32)
     EXPECT_EQ(counter.get_quality(), Quality::GOOD);
 }
 
-TEST(CounterPoint, CounterPointInt64)
+TEST(CounterPoint, Int64)
 {
     auto counter = CounterPoint<int64_t>();
     for (int i = 0; i < 10; i++)

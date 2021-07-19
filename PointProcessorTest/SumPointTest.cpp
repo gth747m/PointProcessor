@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(SumPoint, SumInt32)
+TEST(SumPoint, Int32)
 {
     auto inpA = ExternalPoint<int32_t>();
     auto inpB = ExternalPoint<int32_t>();
@@ -28,7 +28,7 @@ TEST(SumPoint, SumInt32)
     EXPECT_EQ(sum.get_quality(), Quality::GOOD);
 }
 
-TEST(SumPoint, SumInt64)
+TEST(SumPoint, Int64)
 {
     auto inpA = ExternalPoint<int64_t>();
     auto inpB = ExternalPoint<int64_t>();
@@ -54,7 +54,7 @@ TEST(SumPoint, SumInt64)
     EXPECT_EQ(sum.get_quality(), Quality::GOOD);
 }
 
-TEST(SumPoint, SumFloat)
+TEST(SumPoint, Float)
 {
     auto inpA = ExternalPoint<float>();
     auto inpB = ExternalPoint<float>();
@@ -80,7 +80,7 @@ TEST(SumPoint, SumFloat)
     EXPECT_EQ(sum.get_quality(), Quality::GOOD);
 }
 
-TEST(SumPoint, SumDouble)
+TEST(SumPoint, Double)
 {
     auto inpA = ExternalPoint<double>();
     auto inpB = ExternalPoint<double>();

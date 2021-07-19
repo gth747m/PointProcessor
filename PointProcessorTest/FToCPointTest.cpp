@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(FToCPoint, FToCFloat)
+TEST(FToCPoint, Float)
 {
     auto inp = ExternalPoint<float>();
     auto celsius = FToCPoint<float>();
@@ -22,7 +22,7 @@ TEST(FToCPoint, FToCFloat)
     EXPECT_EQ(celsius.get_quality(), Quality::GOOD);
 }
 
-TEST(FToCPoint, FToCDouble)
+TEST(FToCPoint, Double)
 {
     auto inp = ExternalPoint<double>();
     auto celsius = FToCPoint<double>();

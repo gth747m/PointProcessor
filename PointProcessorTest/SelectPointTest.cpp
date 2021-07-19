@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(SelectPoint, SelectUInt32)
+TEST(SelectPoint, UInt32)
 {
     auto inpA = ExternalPoint<int32_t>();
     auto inpB = ExternalPoint<int32_t>();
@@ -41,7 +41,7 @@ TEST(SelectPoint, SelectUInt32)
     EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
 }
 
-TEST(SelectPoint, SelectInt32)
+TEST(SelectPoint, Int32)
 {
     auto inpA = ExternalPoint<int32_t>();
     auto inpB = ExternalPoint<int32_t>();
@@ -80,7 +80,7 @@ TEST(SelectPoint, SelectInt32)
     EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
 }
 
-TEST(SelectPoint, SelectInt64)
+TEST(SelectPoint, Int64)
 {
     auto inpA = ExternalPoint<int64_t>();
     auto inpB = ExternalPoint<int64_t>();
@@ -119,7 +119,7 @@ TEST(SelectPoint, SelectInt64)
     EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
 }
 
-TEST(SelectPoint, SelectFloat)
+TEST(SelectPoint, Float)
 {
     auto inpA = ExternalPoint<float>();
     auto inpB = ExternalPoint<float>();
@@ -158,7 +158,7 @@ TEST(SelectPoint, SelectFloat)
     EXPECT_EQ(point.get_quality(), Quality::NOT_CALCULABLE);
 }
 
-TEST(SelectPoint, SelectDouble)
+TEST(SelectPoint, Double)
 {
     auto inpA = ExternalPoint<double>();
     auto inpB = ExternalPoint<double>();

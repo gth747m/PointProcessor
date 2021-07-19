@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(PolynomialPoint, PolynomialInt32)
+TEST(PolynomialPoint, Int32)
 {
     auto coeffA = ExternalPoint<int32_t>();
     auto varA = ExternalPoint<int32_t>();
@@ -51,7 +51,7 @@ TEST(PolynomialPoint, PolynomialInt32)
     EXPECT_EQ(poly.get_quality(), Quality::GOOD);
 }
 
-TEST(PolynomialPoint, PolynomialInt64)
+TEST(PolynomialPoint, Int64)
 {
     auto coeffA = ExternalPoint<int64_t>();
     auto varA = ExternalPoint<int64_t>();
@@ -88,7 +88,7 @@ TEST(PolynomialPoint, PolynomialInt64)
     EXPECT_EQ(poly.get_quality(), Quality::GOOD);
 }
 
-TEST(PolynomialPoint, PolynomialFloat)
+TEST(PolynomialPoint, Float)
 {
     auto coeffA = ExternalPoint<float>();
     auto varA = ExternalPoint<float>();
@@ -137,7 +137,7 @@ TEST(PolynomialPoint, PolynomialFloat)
     EXPECT_EQ(poly.get_quality(), Quality::GOOD);
 }
 
-TEST(PolynomialPoint, PolynomialDouble)
+TEST(PolynomialPoint, Double)
 {
     auto coeffA = ExternalPoint<double>();
     auto varA = ExternalPoint<double>();

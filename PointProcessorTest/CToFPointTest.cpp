@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(CToFPoint, CToFFloat)
+TEST(CToFPoint, Float)
 {
     auto inp = ExternalPoint<float>();
     auto farenheit = CToFPoint<float>();
@@ -22,7 +22,7 @@ TEST(CToFPoint, CToFFloat)
     EXPECT_EQ(farenheit.get_quality(), Quality::GOOD);
 }
 
-TEST(CToFPoint, CToFDouble)
+TEST(CToFPoint, Double)
 {
     auto inp = ExternalPoint<double>();
     auto farenheit = CToFPoint<double>();

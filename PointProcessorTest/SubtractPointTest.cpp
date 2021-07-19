@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(SubtractPoint, SubtractInt32)
+TEST(SubtractPoint, Int32)
 {
     auto inpA = ExternalPoint<int32_t>();
     auto inpB = ExternalPoint<int32_t>();
@@ -28,7 +28,7 @@ TEST(SubtractPoint, SubtractInt32)
     EXPECT_EQ(subtract.get_quality(), Quality::GOOD);
 }
 
-TEST(SubtractPoint, SubtractInt64)
+TEST(SubtractPoint, Int64)
 {
     auto inpA = ExternalPoint<int64_t>();
     auto inpB = ExternalPoint<int64_t>();
@@ -54,7 +54,7 @@ TEST(SubtractPoint, SubtractInt64)
     EXPECT_EQ(subtract.get_quality(), Quality::GOOD);
 }
 
-TEST(SubtractPoint, SubtractFloat)
+TEST(SubtractPoint, Float)
 {
     auto inpA = ExternalPoint<float>();
     auto inpB = ExternalPoint<float>();
@@ -80,7 +80,7 @@ TEST(SubtractPoint, SubtractFloat)
     EXPECT_EQ(subtract.get_quality(), Quality::GOOD);
 }
 
-TEST(SubtractPoint, SubtractDouble)
+TEST(SubtractPoint, Double)
 {
     auto inpA = ExternalPoint<double>();
     auto inpB = ExternalPoint<double>();

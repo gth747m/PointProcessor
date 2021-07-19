@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(PowerPointTest, PowerPointInt32)
+TEST(PowerPointTest, Int32)
 {
     auto inp = ExternalPoint<int32_t>();
     auto power = PowerPoint<int32_t>();
@@ -23,7 +23,7 @@ TEST(PowerPointTest, PowerPointInt32)
     EXPECT_EQ(power.get_quality(), Quality::GOOD);
 }
 
-TEST(PowerPointTest, PowerPointInt64)
+TEST(PowerPointTest, Int64)
 {
     auto inp = ExternalPoint<int64_t>();
     auto power = PowerPoint<int64_t>();
@@ -44,7 +44,7 @@ TEST(PowerPointTest, PowerPointInt64)
     EXPECT_EQ(power.get_quality(), Quality::GOOD);
 }
 
-TEST(PowerPointTest, PowerPointFloat)
+TEST(PowerPointTest, Float)
 {
     auto inp = ExternalPoint<float>();
     auto power = PowerPoint<float>();
@@ -70,7 +70,7 @@ TEST(PowerPointTest, PowerPointFloat)
     EXPECT_EQ(power.get_quality(), Quality::GOOD);
 }
 
-TEST(PowerPointTest, PowerPointDouble)
+TEST(PowerPointTest, Double)
 {
     auto inp = ExternalPoint<double>();
     auto power = PowerPoint<double>();

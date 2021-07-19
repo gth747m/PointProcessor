@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(MultiplyPoint, MultiplyPointInt32)
+TEST(MultiplyPoint, Int32)
 {
     auto inpA = ExternalPoint<int32_t>();
     auto inpB = ExternalPoint<int32_t>();
@@ -22,7 +22,7 @@ TEST(MultiplyPoint, MultiplyPointInt32)
     EXPECT_EQ(div.get_quality(), Quality::GOOD);
 }
 
-TEST(MultiplyPoint, MultiplyPointInt64)
+TEST(MultiplyPoint, Int64)
 {
     auto inpA = ExternalPoint<int64_t>();
     auto inpB = ExternalPoint<int64_t>();
@@ -42,7 +42,7 @@ TEST(MultiplyPoint, MultiplyPointInt64)
     EXPECT_EQ(div.get_quality(), Quality::GOOD);
 }
 
-TEST(MultiplyPoint, MultiplyPointFloat)
+TEST(MultiplyPoint, Float)
 {
     auto inpA = ExternalPoint<float>();
     auto inpB = ExternalPoint<float>();
@@ -62,7 +62,7 @@ TEST(MultiplyPoint, MultiplyPointFloat)
     EXPECT_EQ(div.get_quality(), Quality::GOOD);
 }
 
-TEST(MultiplyPoint, MultiplyPointDouble)
+TEST(MultiplyPoint, Double)
 {
     auto inpA = ExternalPoint<double>();
     auto inpB = ExternalPoint<double>();

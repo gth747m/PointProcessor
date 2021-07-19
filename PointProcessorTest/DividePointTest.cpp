@@ -2,7 +2,7 @@
 
 using namespace PointProcessor;
 
-TEST(DividePoint, DividePointInt32)
+TEST(DividePoint, Int32)
 {
     auto inpA = ExternalPoint<int32_t>();
     auto inpB = ExternalPoint<int32_t>();
@@ -25,7 +25,7 @@ TEST(DividePoint, DividePointInt32)
     EXPECT_EQ(div.get_quality(), Quality::NOT_CALCULABLE);
 }
 
-TEST(DividePoint, DividePointInt64)
+TEST(DividePoint, Int64)
 {
     auto inpA = ExternalPoint<int64_t>();
     auto inpB = ExternalPoint<int64_t>();
@@ -48,7 +48,7 @@ TEST(DividePoint, DividePointInt64)
     EXPECT_EQ(div.get_quality(), Quality::NOT_CALCULABLE);
 }
 
-TEST(DividePoint, DividePointFloat)
+TEST(DividePoint, Float)
 {
     auto inpA = ExternalPoint<float>();
     auto inpB = ExternalPoint<float>();
@@ -71,7 +71,7 @@ TEST(DividePoint, DividePointFloat)
     EXPECT_EQ(div.get_quality(), Quality::NOT_CALCULABLE);
 }
 
-TEST(DividePoint, DividePointDouble)
+TEST(DividePoint, Double)
 {
     auto inpA = ExternalPoint<double>();
     auto inpB = ExternalPoint<double>();
