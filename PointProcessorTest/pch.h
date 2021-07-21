@@ -5,14 +5,16 @@
 
 #pragma once
 
+#ifdef __linux__
+#include <pthread.h>
+#else if defined _WIN32
+#define NOMINMAX
+#endif
+
 #include <limits>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#ifdef __linux__
-#include <pthread.h>
-#endif
 
 // PointProcessorLib System Libraries
 #include "NamedMutex.h"

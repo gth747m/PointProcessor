@@ -72,6 +72,12 @@
     <ClInclude Include="CounterPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AlarmInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExternalPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

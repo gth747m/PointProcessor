@@ -151,12 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AlarmInterface.h" />
     <ClInclude Include="AveragePoint.h" />
     <ClInclude Include="ChauvenetAveragePoint.h" />
     <ClInclude Include="CounterPoint.h" />
     <ClInclude Include="CToFPoint.h" />
     <ClInclude Include="DigitalFilterPoint.h" />
     <ClInclude Include="DividePoint.h" />
+    <ClInclude Include="ExternalPoint.h" />
     <ClInclude Include="Frequency.h" />
     <ClInclude Include="FToCPoint.h" />
     <ClInclude Include="MultiplyPoint.h" />
