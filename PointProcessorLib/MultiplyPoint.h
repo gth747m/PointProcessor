@@ -47,12 +47,12 @@ namespace PointProcessor
                 }
                 if (first)
                 {
-                    val = (*point)->get_value<T>();
+                    val = (*point)->template get_value<T>();
                     first = false;
                 }
                 else
                 {
-                    val *= (*point)->get_value<T>();
+                    val *= (*point)->template get_value<T>();
                 }
             }
             this->value = static_cast<double>(val);

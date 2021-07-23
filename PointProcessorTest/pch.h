@@ -7,7 +7,7 @@
 
 #ifdef __linux__
 #include <pthread.h>
-#else if defined _WIN32
+#elif defined _WIN32
 #define NOMINMAX
 #endif
 

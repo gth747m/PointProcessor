@@ -45,7 +45,7 @@ namespace PointProcessor
                 return;
             }
             this->value = static_cast<double>(
-                std::pow(this->input_point->get_value<T>(), static_cast<T>(this->power)));
+                std::pow(this->input_point->template get_value<T>(), static_cast<T>(this->power)));
             this->quality = this->input_point->get_quality();
         }
     private:

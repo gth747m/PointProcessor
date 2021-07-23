@@ -6,6 +6,9 @@ set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     # Using Clang
+    # Using Clang
+    set (CLANG_COMPILE_FLAGS "-Wall -Wextra -Wpedantic")
+    set (CMAKE_CXX_FLAGS ${CLANG_COMPILE_FLAGS})
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     # Using GCC
     set (GCC_COMPILE_FLAGS "-Wall -Wextra -Wpedantic")

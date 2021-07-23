@@ -33,7 +33,7 @@ namespace PointProcessor
                 return;
             }
             this->value = static_cast<T>(
-                ((this->input_point->get_value<T>() - static_cast<T>(32)) 
+                ((this->input_point->template get_value<T>() - static_cast<T>(32)) 
                     / static_cast<T>(1.8)));
             this->quality = this->input_point->get_quality();
         }

@@ -52,12 +52,12 @@ namespace PointProcessor
                 }
                 if (power > 0)
                 {
-                    val += static_cast<T>(pointPair->first->get_value<T>() *
-                        std::pow(pointPair->second->get_value<T>(), static_cast<T>(power)));
+                    val += static_cast<T>(pointPair->first->template get_value<T>() *
+                        std::pow(pointPair->second->template get_value<T>(), static_cast<T>(power)));
                 }
                 else
                 {
-                    val += pointPair->first->get_value<T>();
+                    val += pointPair->first->template get_value<T>();
                 }
                 power += 1;
             }

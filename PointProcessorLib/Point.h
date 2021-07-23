@@ -126,6 +126,4 @@ namespace PointProcessor
         std::chrono::duration<int, std::micro> average_calc_time;
     private:
     };
-
-
 }

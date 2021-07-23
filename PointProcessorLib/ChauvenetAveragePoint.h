@@ -52,7 +52,7 @@ namespace PointProcessor
                 T avg = T();
                 qual = Quality::GOOD;
                 bool first = true;
-                if ((usedPoints.size() < this->min_good_points->get_value<uint64_t>()) ||
+                if ((usedPoints.size() < this->min_good_points->template get_value<uint64_t>()) ||
                     (usedPoints.size() < 3))
                 {
                     this->quality = Quality::NOT_CALCULABLE;
@@ -70,12 +70,12 @@ namespace PointProcessor
                     }
                     if (first)
                     {
-                        avg = (*point)->get_value<T>();
+                        avg = (*point)->template get_value<T>();
                         first = false;
                     }
                     else
                     {
-                        avg += (*point)->get_value<T>();
+                        avg += (*point)->template get_value<T>();
                     }
                 }
                 // If we need to remove a point for a bad quality, do so and redo the calculation
@@ -93,14 +93,14 @@ namespace PointProcessor
                 {
                     if (first)
                     {
-                        stdev = (avg - (*point)->get_value<double>()) 
-                            * (avg - (*point)->get_value<double>());
+                        stdev = (avg - (*point)->template get_value<double>()) 
+                            * (avg - (*point)->template get_value<double>());
                         first = false;
                     }
                     else
                     {
-                        stdev += (avg - (*point)->get_value<double>()) 
-                            * (avg - (*point)->get_value<double>());
+                        stdev += (avg - (*point)->template get_value<double>()) 
+                            * (avg - (*point)->template get_value<double>());
                     }
                 }
                 stdev = sqrt(stdev / static_cast<uint64_t>(usedPoints.size()));
@@ -138,7 +138,7 @@ namespace PointProcessor
                     pointToRemove = usedPoints.cend();
                     for (auto point = usedPoints.cbegin(); point != usedPoints.cend(); point++)
                     {
-                        if ((abs((*point)->get_value<T>() - avg) / stdev) > chau)
+                        if ((abs((*point)->template get_value<T>() - avg) / stdev) > chau)
                         {
                             pointToRemove = point;
                             break;

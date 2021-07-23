@@ -45,7 +45,7 @@ namespace PointProcessor
                     this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
-                T nextVal = (*point)->get_value<T>();
+                T nextVal = (*point)->template get_value<T>();
                 if (first)
                 {
                     val = nextVal;

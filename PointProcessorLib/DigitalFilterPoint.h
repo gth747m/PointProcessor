@@ -53,14 +53,14 @@ namespace PointProcessor
 #endif
                 this->value = static_cast<double>(
                     static_cast<T>((1.0 - this->filter_fraction) * this->value) + 
-                    static_cast<T>(this->filter_fraction * this->input_point->get_value<T>()));
+                    static_cast<T>(this->filter_fraction * this->input_point->template get_value<T>()));
 #ifdef _WIN32
 #pragma warning(pop)
 #endif
             }
             else
             {
-                this->value = this->input_point->get_value<double>();
+                this->value = this->input_point->template get_value<double>();
                 initialized = true;
             }
             this->quality = this->input_point->get_quality();

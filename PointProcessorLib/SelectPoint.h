@@ -42,7 +42,7 @@ namespace PointProcessor
                 this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
-            uint32_t index = (uint32_t)this->index_point->get_value<int32_t>() - 1;
+            uint32_t index = (uint32_t)this->index_point->template get_value<int32_t>() - 1;
             if (!IsUsableQuality(index_point->get_quality()))
             {
                 this->quality = Quality::NOT_CALCULABLE;
@@ -54,7 +54,7 @@ namespace PointProcessor
                 return;
             }
             auto inp_point = this->input_points.at(index);
-            this->value = inp_point->get_value<double>();
+            this->value = inp_point->template get_value<double>();
             this->quality = inp_point->get_quality();
         }
     private:
