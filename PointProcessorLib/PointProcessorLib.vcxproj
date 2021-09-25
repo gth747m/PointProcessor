@@ -161,6 +161,8 @@
     <ClInclude Include="ExternalPoint.h" />
     <ClInclude Include="Frequency.h" />
     <ClInclude Include="FToCPoint.h" />
+    <ClInclude Include="GreaterThanEqualSelectPoint.h" />
+    <ClInclude Include="GreaterThanSelectPoint.h" />
     <ClInclude Include="MultiplyPoint.h" />
     <ClInclude Include="NamedMutex.h" />
     <ClInclude Include="Point.h" />

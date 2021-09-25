@@ -34,6 +34,8 @@
 #include "DividePoint.h"
 #include "ExternalPoint.h"
 #include "FToCPoint.h"
+#include "GreaterThanEqualSelectPoint.h"
+#include "GreaterThanSelectPoint.h"
 #include "MultiplyPoint.h"
 #include "PolynomialPoint.h"
 #include "PowerPoint.h"
