@@ -158,6 +158,7 @@
     <ClInclude Include="CToFPoint.h" />
     <ClInclude Include="DigitalFilterPoint.h" />
     <ClInclude Include="DividePoint.h" />
+    <ClInclude Include="EqualSelectPoint.h" />
     <ClInclude Include="ExternalPoint.h" />
     <ClInclude Include="Frequency.h" />
     <ClInclude Include="FToCPoint.h" />

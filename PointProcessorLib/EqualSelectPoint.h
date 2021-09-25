@@ -5,12 +5,12 @@
 namespace PointProcessor
 {
     /// <summary>
-    /// If the first input is greater than or equal to the second
+    /// If the first input is equal to the second
     /// then select the first output point, else select the second
     /// </summary>
     /// <typeparam name="T">Point value type</typeparam>
     template <typename T>
-    class GreaterThanEqualSelectPoint :
+    class EqualSelectPoint :
         public Point
     {
     public:
@@ -26,8 +26,8 @@ namespace PointProcessor
         /// <summary>
         /// Set the output points
         /// </summary>
-        /// <param name="point1">Output point if point1 >= point2</param>
-        /// <param name="point2">Output point if point1 < point2</param>
+        /// <param name="point1">Output point if point1 == point2</param>
+        /// <param name="point2">Output point if point1 != point2</param>
         inline void set_outputs(Point* point1, Point* point2)
         {
             this->output_points = std::make_pair(point1, point2);
@@ -44,7 +44,7 @@ namespace PointProcessor
                 this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
-            if (this->input_points.first->get_value<T>() >=
+            if (this->input_points.first->get_value<T>() ==
                 this->input_points.second->get_value<T>())
             {
                 if (IsUsableQuality(this->input_points.first->get_quality()))

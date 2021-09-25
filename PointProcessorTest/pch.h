@@ -32,6 +32,7 @@
 #include "CounterPoint.h"
 #include "DigitalFilterPoint.h"
 #include "DividePoint.h"
+#include "EqualSelectPoint.h"
 #include "ExternalPoint.h"
 #include "FToCPoint.h"
 #include "GreaterThanEqualSelectPoint.h"

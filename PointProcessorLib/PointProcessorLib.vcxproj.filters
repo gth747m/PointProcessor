@@ -84,6 +84,9 @@
     <ClInclude Include="GreaterThanEqualSelectPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EqualSelectPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
