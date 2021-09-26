@@ -4,7 +4,7 @@
 
 #include <ostream>
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Point Processing Frequency
@@ -69,17 +69,20 @@ namespace PointProcessor
         return os;
     }
 
-    /// <summary>
-    /// Converts a frequency int (from ime_type) to a Frequency enumerator
-    /// </summary>
-    /// <param name="frequency">[IN] Frequency int from ime_type</param>
-    /// <returns>Frequency enumerator</returns>
-    Frequency ConvertFrequency(const int frequency);
+    namespace frequency
+    {
+        /// <summary>
+        /// Converts a frequency int (from ime_type) to a Frequency enumerator
+        /// </summary>
+        /// <param name="frequency">[IN] Frequency int from ime_type</param>
+        /// <returns>Frequency enumerator</returns>
+        Frequency from(const int frequency);
 
-    /// <summary>
-    /// Converts a Frequency enumerator to the number of seconds per update
-    /// </summary>
-    /// <param name="frequency">[IN] Frequency</param>
-    /// <returns>Number of seconds between updates</returns>
-    float ConvertFrequency(const Frequency frequency);
+        /// <summary>
+        /// Converts a Frequency enumerator to the number of seconds per update
+        /// </summary>
+        /// <param name="frequency">[IN] Frequency</param>
+        /// <returns>Number of seconds between updates</returns>
+        float to_seconds(const Frequency frequency);
+    }
 }

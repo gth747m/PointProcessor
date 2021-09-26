@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <vector>
 
-namespace ModbusLib
+namespace modbus
 {
     class Crc16
     {

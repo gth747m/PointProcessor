@@ -5,7 +5,7 @@
 
 #include "Point.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Chauvenet averaging point
@@ -44,7 +44,7 @@ namespace PointProcessor
                 return;
             }
             // points to be used in the averaging
-            std::vector<Point*> usedPoints = this->input_points;
+            std::vector<Point*> used_points = this->input_points;
             Quality qual;
             // Iterate until we've got a good answer or we run out of points
             while (true)
@@ -52,20 +52,20 @@ namespace PointProcessor
                 T avg = T();
                 qual = Quality::GOOD;
                 bool first = true;
-                if ((usedPoints.size() < this->min_good_points->template get_value<uint64_t>()) ||
-                    (usedPoints.size() < 3))
+                if ((used_points.size() < this->min_good_points->template get_value<uint64_t>()) ||
+                    (used_points.size() < 3))
                 {
                     this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
                 // Get the average
-                std::vector<Point*>::const_iterator pointToRemove = usedPoints.cend();
-                for (auto point = usedPoints.cbegin();
-                    point != usedPoints.cend(); point++)
+                std::vector<Point*>::const_iterator point_to_remove = used_points.cend();
+                for (auto point = used_points.cbegin();
+                    point != used_points.cend(); point++)
                 {
-                    if (!IsUsableQuality((*point)->get_quality()))
+                    if (!quality::is_usable((*point)->get_quality()))
                     {
-                        pointToRemove = point;
+                        point_to_remove = point;
                         break;
                     }
                     if (first)
@@ -79,17 +79,17 @@ namespace PointProcessor
                     }
                 }
                 // If we need to remove a point for a bad quality, do so and redo the calculation
-                if (pointToRemove != usedPoints.cend())
+                if (point_to_remove != used_points.cend())
                 {
-                    usedPoints.erase(pointToRemove);
+                    used_points.erase(point_to_remove);
                     continue;
                 }
                 // We've got good qualities so get their average
-                avg = avg / static_cast<T>(usedPoints.size());
+                avg = avg / static_cast<T>(used_points.size());
                 // Now calculate the standard deviation
                 double stdev = 0;
                 first = true;
-                for (auto point = usedPoints.cbegin(); point != usedPoints.cend(); point++)
+                for (auto point = used_points.cbegin(); point != used_points.cend(); point++)
                 {
                     if (first)
                     {
@@ -103,29 +103,29 @@ namespace PointProcessor
                             * (avg - (*point)->template get_value<double>());
                     }
                 }
-                stdev = sqrt(stdev / static_cast<uint64_t>(usedPoints.size()));
+                stdev = sqrt(stdev / static_cast<uint64_t>(used_points.size()));
                 // Don't divide by zero
                 if (stdev != 0)
                 {
                     // Determine the appropriate criterion
                     double chau = 0;
                     // 3 - 40 input points
-                    if (usedPoints.size() <= 40)
+                    if (used_points.size() <= 40)
                     {
-                        chau = CHAUVENET_TABLE[usedPoints.size() - 3];
+                        chau = CHAUVENET_TABLE[used_points.size() - 3];
                     }
                     // 41 - 50 input points
-                    else if (usedPoints.size() < 50)
+                    else if (used_points.size() < 50)
                     {
                         chau = CHAUVENET_TABLE[38];
                     }
                     // 51 - 100 input points
-                    else if (usedPoints.size() < 100)
+                    else if (used_points.size() < 100)
                     {
                         chau = CHAUVENET_TABLE[39];
                     }
                     // 101 - 500 input points
-                    else if (usedPoints.size() < 500)
+                    else if (used_points.size() < 500)
                     {
                         chau = CHAUVENET_TABLE[40];
                     }
@@ -135,19 +135,19 @@ namespace PointProcessor
                         chau = CHAUVENET_TABLE[41];
                     }
                     // Check for points to remove based on the Chauvenet criteria
-                    pointToRemove = usedPoints.cend();
-                    for (auto point = usedPoints.cbegin(); point != usedPoints.cend(); point++)
+                    point_to_remove = used_points.cend();
+                    for (auto point = used_points.cbegin(); point != used_points.cend(); point++)
                     {
                         if ((abs((*point)->template get_value<T>() - avg) / stdev) > chau)
                         {
-                            pointToRemove = point;
+                            point_to_remove = point;
                             break;
                         }
                     }
                     // If we need to remove a point, do so and redo the calculation
-                    if (pointToRemove != usedPoints.cend())
+                    if (point_to_remove != used_points.cend())
                     {
-                        usedPoints.erase(pointToRemove);
+                        used_points.erase(point_to_remove);
                         continue;
                     }
                 }

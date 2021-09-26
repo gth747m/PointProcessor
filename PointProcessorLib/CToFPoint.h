@@ -2,7 +2,7 @@
 
 #include "PointProcessorLib.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Celsius to Farenheit point

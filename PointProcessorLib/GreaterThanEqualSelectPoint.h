@@ -2,7 +2,7 @@
 
 #include "PointProcessorLib.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// If the first input is greater than or equal to the second
@@ -47,7 +47,7 @@ namespace PointProcessor
             if (this->input_points.first->template get_value<T>() >=
                 this->input_points.second->template get_value<T>())
             {
-                if (IsUsableQuality(this->input_points.first->get_quality()))
+                if (quality::is_usable(this->input_points.first->get_quality()))
                 {
                     this->value = static_cast<double>(this->output_points.first->template get_value<T>());
                     this->quality = this->output_points.first->get_quality();
@@ -61,7 +61,7 @@ namespace PointProcessor
             }
             else
             {
-                if (IsUsableQuality(this->input_points.second->get_quality()))
+                if (quality::is_usable(this->input_points.second->get_quality()))
                 {
                     this->value = static_cast<double>(this->output_points.second->template get_value<T>());
                     this->quality = this->output_points.second->get_quality();

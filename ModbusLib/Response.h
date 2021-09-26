@@ -4,7 +4,7 @@
 
 #include "FunctionCode.h"
 
-namespace ModbusLib
+namespace modbus
 {
     /// <summary>
     /// Class for handling Modbus responses
@@ -29,7 +29,7 @@ namespace ModbusLib
         /// </summary>
         /// <param name="msg">Response message buffer</param>
         /// <returns>New Response object with parsed data</returns>
-        static Response* parse_write_reponse(std::vector<unsigned char>* msg, int expectedRegisterCount);
+        static Response* parse_write_reponse(std::vector<unsigned char>* msg, int expected_register_count);
 
         /// <summary>
         /// Slave address
@@ -40,7 +40,7 @@ namespace ModbusLib
         /// </summary>
         FunctionCode function_code;
         /// <summary>
-        /// Starting register (ParseWriteRequest only)
+        /// Starting register (PARSE_WRITE_REQUEST only)
         /// </summary>
         int start_address;
         /// <summary>
@@ -48,7 +48,7 @@ namespace ModbusLib
         /// </summary>
         int register_count;
         /// <summary>
-        /// Array of Values (ParseReadRequest only)
+        /// Array of Values (PARSE_READ_REQUEST only)
         /// </summary>
         std::vector<float> values;
         /// <summary>

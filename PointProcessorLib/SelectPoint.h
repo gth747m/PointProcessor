@@ -5,7 +5,7 @@
 
 #include "Point.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Select point
@@ -43,7 +43,7 @@ namespace PointProcessor
                 return;
             }
             uint32_t index = (uint32_t)this->index_point->template get_value<int32_t>() - 1;
-            if (!IsUsableQuality(index_point->get_quality()))
+            if (!quality::is_usable(index_point->get_quality()))
             {
                 this->quality = Quality::NOT_CALCULABLE;
                 return;

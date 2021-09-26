@@ -5,7 +5,7 @@
 
 #include "Point.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Counter point

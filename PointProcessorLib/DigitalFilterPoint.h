@@ -4,7 +4,7 @@
 
 #include "Point.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Digital filter point
@@ -39,7 +39,7 @@ namespace PointProcessor
         inline virtual void calc()
         {
             if ((this->input_point == nullptr) || 
-                (!IsUsableQuality(this->input_point->get_quality())))
+                (!quality::is_usable(this->input_point->get_quality())))
             {
                 this->quality = Quality::NOT_CALCULABLE;
                 return;

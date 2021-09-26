@@ -4,7 +4,7 @@
 
 #include "Point.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Division point
@@ -40,27 +40,27 @@ namespace PointProcessor
             for (auto point = this->input_points.cbegin();
                 point != this->input_points.cend(); point++)
             {
-                if (!IsUsableQuality((*point)->get_quality()))
+                if (!quality::is_usable((*point)->get_quality()))
                 {
                     this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
-                T nextVal = (*point)->template get_value<T>();
+                T next_value = (*point)->template get_value<T>();
                 if (first)
                 {
-                    val = nextVal;
+                    val = next_value;
                     first = false;
                 }
                 else
                 {
-                    if (nextVal == 0)
+                    if (next_value == 0)
                     {
                         this->quality = Quality::NOT_CALCULABLE;
                         return;
                     }
                     else
                     {
-                        val /= nextVal;
+                        val /= next_value;
                     }
                 }
             }

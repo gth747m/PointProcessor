@@ -1,16 +1,18 @@
 #include "Frequency.h"
 
-namespace PointProcessor
+namespace point_processor
 {
-    /// <summary>
-    /// Converts a frequency int (from ime_type) to a Frequency enumerator
-    /// </summary>
-    /// <param name="frequency">[IN] Frequency int from ime_type</param>
-    /// <returns>Frequency enumerator</returns>
-    Frequency ConvertFrequency(const int frequency)
+    namespace frequency
     {
-        switch (frequency)
+        /// <summary>
+        /// Converts a frequency int (from ime_type) to a Frequency enumerator
+        /// </summary>
+        /// <param name="frequency">[IN] Frequency int from ime_type</param>
+        /// <returns>Frequency enumerator</returns>
+        Frequency from(const int frequency)
         {
+            switch (frequency)
+            {
             case (1): return Frequency::A;
             case (2): return Frequency::B;
             case (3): return Frequency::C;
@@ -20,18 +22,18 @@ namespace PointProcessor
             case (7): return Frequency::G;
             case (8): return Frequency::H;
             default:  return Frequency::UNKNOWN;
+            }
         }
-    }
 
-    /// <summary>
-    /// Converts a Frequency enumerator to the number of seconds per update
-    /// </summary>
-    /// <param name="frequency">[IN] Frequency</param>
-    /// <returns>Number of seconds between updates</returns>
-    float ConvertFrequency(const Frequency frequency)
-    {
-        switch (frequency)
+        /// <summary>
+        /// Converts a Frequency enumerator to the number of seconds per update
+        /// </summary>
+        /// <param name="frequency">[IN] Frequency</param>
+        /// <returns>Number of seconds between updates</returns>
+        float to_seconds(const Frequency frequency)
         {
+            switch (frequency)
+            {
             case (Frequency::A): return (0.1f);
             case (Frequency::B): return (1.0f);
             case (Frequency::C): return (5.0f);
@@ -41,6 +43,7 @@ namespace PointProcessor
             case (Frequency::G): return (120.0f);
             case (Frequency::H): return (900.0f);
             default:             return (0.0f);
+            }
         }
     }
 }

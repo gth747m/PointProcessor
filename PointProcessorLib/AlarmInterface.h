@@ -2,7 +2,7 @@
 
 #include "Point.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     template<typename T>
     class AlarmedInterface

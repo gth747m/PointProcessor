@@ -4,7 +4,7 @@
 
 #include <ostream>
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Possible point qualities.
@@ -179,17 +179,20 @@ namespace PointProcessor
         return os;
     }
 
-    /// <summary>
-    /// Converts a Quality int into a Quality enumerator.
-    /// </summary>
-    /// <param name="qual">[IN] Integer value of the PMS quality.</param>
-    /// <returns>Quality enumerator</returns>
-    Quality ConvertQuality(const uint32_t qual);
+    namespace quality
+    {
+        /// <summary>
+        /// Converts a Quality int into a Quality enumerator.
+        /// </summary>
+        /// <param name="qual">[IN] Integer value of the PMS quality.</param>
+        /// <returns>Quality enumerator</returns>
+        Quality from(const uint32_t qual);
 
-    /// <summary>
-    /// Check if this quality is usable for calculations
-    /// <summary>
-    /// <param name="qual">[IN] Quality to test</param>
-    /// <returns>Whether or not the quality is usable for calculation</returns>
-    bool IsUsableQuality(const Quality qual);
+        /// <summary>
+        /// Check if this quality is usable for calculations
+        /// <summary>
+        /// <param name="qual">[IN] Quality to test</param>
+        /// <returns>Whether or not the quality is usable for calculation</returns>
+        bool is_usable(const Quality qual);
+    }
 }

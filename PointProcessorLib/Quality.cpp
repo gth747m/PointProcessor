@@ -1,16 +1,18 @@
 #include "Quality.h"
 
-namespace PointProcessor
+namespace point_processor
 {
-    /// <summary>
-    /// Converts a Quality int into a Quality enumerator.
-    /// </summary>
-    /// <param name="qual">[IN] Integer value of the PMS quality.</param>
-    /// <returns>Quality enumerator</returns>
-    Quality ConvertQuality(const uint32_t qual)
+    namespace quality
     {
-        switch (qual)
+        /// <summary>
+        /// Converts a Quality int into a Quality enumerator.
+        /// </summary>
+        /// <param name="qual">[IN] Integer value of the PMS quality.</param>
+        /// <returns>Quality enumerator</returns>
+        Quality from(const uint32_t qual)
         {
+            switch (qual)
+            {
             case (0xFFFFFFFF): return Quality::AUTO_DETERMINED;
             case (0x00000002): return Quality::DELETED;
             case (0x00000004): return Quality::NOT_CALCULABLE;
@@ -42,37 +44,38 @@ namespace PointProcessor
             case (0x10000000): return Quality::INHIBITED;
             case (0x20000000): return Quality::GOOD;
             default:           return Quality::UNKNOWN;
+            }
         }
-    }
 
-    /// <summary>
-    /// Check if this quality is usable for calculations
-    /// <summary>
-    /// <param name="qual">[IN] Quality to test</param>
-    /// <returns>Whether or not the quality is usable for calculation</returns>
-    bool IsUsableQuality(const Quality qual)
-    {
-        return (uint32_t)qual & (
-            (uint32_t)Quality::HI_RSN_LIMIT   |
-            (uint32_t)Quality::LOW_RSN_LIMIT  |
-            (uint32_t)Quality::SUSPECT_HIHI   |
-            (uint32_t)Quality::SUSPECT_LOLO   |
-            (uint32_t)Quality::SUSPECT_HI     |
-            (uint32_t)Quality::SUSPECT_LO     |
-            (uint32_t)Quality::SUSPECT        |
-            (uint32_t)Quality::SUSPECT_ALARM  |
-            (uint32_t)Quality::INSERTED_HIHI  |
-            (uint32_t)Quality::INSERTED_LOLO  |
-            (uint32_t)Quality::INSERTED_HI    |
-            (uint32_t)Quality::INSERTED_LO    |
-            (uint32_t)Quality::INSERTED       |
-            (uint32_t)Quality::INSERTED_ALARM |
-            (uint32_t)Quality::ALARM          |
-            (uint32_t)Quality::HIHI           |
-            (uint32_t)Quality::LOLO           |
-            (uint32_t)Quality::HI             |
-            (uint32_t)Quality::LO             |
-            (uint32_t)Quality::GOOD
-        );
+        /// <summary>
+        /// Check if this quality is usable for calculations
+        /// <summary>
+        /// <param name="qual">[IN] Quality to test</param>
+        /// <returns>Whether or not the quality is usable for calculation</returns>
+        bool is_usable(const Quality qual)
+        {
+            return (uint32_t)qual & (
+                (uint32_t)Quality::HI_RSN_LIMIT |
+                (uint32_t)Quality::LOW_RSN_LIMIT |
+                (uint32_t)Quality::SUSPECT_HIHI |
+                (uint32_t)Quality::SUSPECT_LOLO |
+                (uint32_t)Quality::SUSPECT_HI |
+                (uint32_t)Quality::SUSPECT_LO |
+                (uint32_t)Quality::SUSPECT |
+                (uint32_t)Quality::SUSPECT_ALARM |
+                (uint32_t)Quality::INSERTED_HIHI |
+                (uint32_t)Quality::INSERTED_LOLO |
+                (uint32_t)Quality::INSERTED_HI |
+                (uint32_t)Quality::INSERTED_LO |
+                (uint32_t)Quality::INSERTED |
+                (uint32_t)Quality::INSERTED_ALARM |
+                (uint32_t)Quality::ALARM |
+                (uint32_t)Quality::HIHI |
+                (uint32_t)Quality::LOLO |
+                (uint32_t)Quality::HI |
+                (uint32_t)Quality::LO |
+                (uint32_t)Quality::GOOD
+                );
+        }
     }
 }

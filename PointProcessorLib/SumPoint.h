@@ -4,7 +4,7 @@
 
 #include "Point.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Summation point
@@ -40,7 +40,7 @@ namespace PointProcessor
             for (auto point = this->input_points.cbegin();
                 point != this->input_points.cend(); point++)
             {
-                if (!IsUsableQuality((*point)->get_quality()))
+                if (!quality::is_usable((*point)->get_quality()))
                 {
                     this->quality = Quality::NOT_CALCULABLE;
                     return;

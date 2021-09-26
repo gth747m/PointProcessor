@@ -2,7 +2,7 @@
 
 #include "Crc16.h"
 
-namespace ModbusLib
+namespace modbus
 {
 
     Response::Response() : 
@@ -40,8 +40,8 @@ namespace ModbusLib
             return response;
         }
         response->register_count = static_cast<int>(msg->at(2)) / 2;
-        int valueCount = response->register_count / 2;
-        for (size_t i = 0; i < valueCount; i++)
+        int value_count = response->register_count / 2;
+        for (size_t i = 0; i < value_count; i++)
         {
             union {
                 unsigned char swap_float_bytes[4];

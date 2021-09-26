@@ -1,6 +1,6 @@
 #include "pch.h"
 
-using namespace PointProcessor;
+using namespace point_processor;
 
 TEST(FToCPoint, Float)
 {

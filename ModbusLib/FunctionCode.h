@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace ModbusLib
+namespace modbus
 {
     enum class FunctionCode : unsigned char
     {

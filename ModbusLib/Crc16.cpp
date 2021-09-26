@@ -1,6 +1,6 @@
 #include "Crc16.h"
 
-namespace ModbusLib
+namespace modbus
 {
     /* Table of CRC values for high–order byte */
     static constexpr unsigned char crc_table_hi[] = 

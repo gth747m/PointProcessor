@@ -7,7 +7,7 @@
 #include "Quality.h"
 #include "Frequency.h"
 
-namespace PointProcessor
+namespace point_processor
 {
 
     /// <summary>

@@ -6,7 +6,7 @@
 
 #include "Point.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Polynomial point
@@ -41,23 +41,23 @@ namespace PointProcessor
             Quality qual = Quality::GOOD;
             T val = T();
             int power = 0;
-            for (auto pointPair = this->input_points.cbegin(); 
-                pointPair != this->input_points.cend(); pointPair++)
+            for (auto point_pair = this->input_points.cbegin(); 
+                point_pair != this->input_points.cend(); point_pair++)
             {
-                if (!IsUsableQuality(pointPair->first->get_quality()) ||
-                    !IsUsableQuality(pointPair->second->get_quality()))
+                if (!quality::is_usable(point_pair->first->get_quality()) ||
+                    !quality::is_usable(point_pair->second->get_quality()))
                 {
                     this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
                 if (power > 0)
                 {
-                    val += static_cast<T>(pointPair->first->template get_value<T>() *
-                        std::pow(pointPair->second->template get_value<T>(), static_cast<T>(power)));
+                    val += static_cast<T>(point_pair->first->template get_value<T>() *
+                        std::pow(point_pair->second->template get_value<T>(), static_cast<T>(power)));
                 }
                 else
                 {
-                    val += pointPair->first->template get_value<T>();
+                    val += point_pair->first->template get_value<T>();
                 }
                 power += 1;
             }

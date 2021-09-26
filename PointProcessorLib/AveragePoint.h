@@ -4,7 +4,7 @@
 
 #include "Point.h"
 
-namespace PointProcessor
+namespace point_processor
 {
     /// <summary>
     /// Averaging point
@@ -49,7 +49,7 @@ namespace PointProcessor
                 {
                     val += (*point)->template get_value<T>();
                 }
-                if (!IsUsableQuality((*point)->get_quality()))
+                if (!quality::is_usable((*point)->get_quality()))
                 {
                     this->quality = Quality::NOT_CALCULABLE;
                     return;
