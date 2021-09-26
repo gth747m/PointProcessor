@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PointProcessorLib", "PointP
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PointProcessorTest", "PointProcessorTest\PointProcessorTest.vcxproj", "{53FF5E0B-3271-4AE9-800B-D5DF8D3D251A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ModbusLib", "ModbusLib\ModbusLib.vcxproj", "{A721EA89-39C9-4155-A2C5-1B5942ED2609}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{53FF5E0B-3271-4AE9-800B-D5DF8D3D251A}.Release|x64.Build.0 = Release|x64
 		{53FF5E0B-3271-4AE9-800B-D5DF8D3D251A}.Release|x86.ActiveCfg = Release|Win32
 		{53FF5E0B-3271-4AE9-800B-D5DF8D3D251A}.Release|x86.Build.0 = Release|Win32
+		{A721EA89-39C9-4155-A2C5-1B5942ED2609}.Debug|x64.ActiveCfg = Debug|x64
+		{A721EA89-39C9-4155-A2C5-1B5942ED2609}.Debug|x64.Build.0 = Debug|x64
+		{A721EA89-39C9-4155-A2C5-1B5942ED2609}.Debug|x86.ActiveCfg = Debug|Win32
+		{A721EA89-39C9-4155-A2C5-1B5942ED2609}.Debug|x86.Build.0 = Debug|Win32
+		{A721EA89-39C9-4155-A2C5-1B5942ED2609}.Release|x64.ActiveCfg = Release|x64
+		{A721EA89-39C9-4155-A2C5-1B5942ED2609}.Release|x64.Build.0 = Release|x64
+		{A721EA89-39C9-4155-A2C5-1B5942ED2609}.Release|x86.ActiveCfg = Release|Win32
+		{A721EA89-39C9-4155-A2C5-1B5942ED2609}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

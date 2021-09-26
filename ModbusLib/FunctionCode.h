@@ -4,8 +4,12 @@
 
 namespace ModbusLib
 {
-    enum class FunctionCode : char
+    enum class FunctionCode : unsigned char
     {
+        /// <summary>
+        /// Default code when one is not specified
+        /// </summary>
+        NOT_SET = 0,
         /// <summary>
         /// Function code to read from 1 to 2000 contiguous status of coils
         /// </summary>

@@ -4,15 +4,27 @@
 
 namespace ModbusLib
 {
+
+    Response::Response() : 
+        slave_address(0),
+        function_code(FunctionCode::NOT_SET),
+        start_address(0),
+        register_count(0),
+        values(),
+        crc(0),
+        success(true),
+        error_message()
+    {
+    }
+
     /// <summary>
     /// Parse the Modbus response to a read request
     /// </summary>
     /// <param name="msg">Response message buffer</param>
     /// <returns>New Response object with parsed data</returns>
-    Response* parse_read_response(std::vector<char>* msg)
+    Response* Response::parse_read_response(std::vector<unsigned char>* msg)
     {
         auto response = new Response();
-        response->success = true;
         if (msg->size() < 5)
         {
             response->success = false;
@@ -29,20 +41,21 @@ namespace ModbusLib
         }
         response->register_count = static_cast<int>(msg->at(2)) / 2;
         int valueCount = response->register_count / 2;
-        for (int i = 0; i < valueCount; i++)
+        for (size_t i = 0; i < valueCount; i++)
         {
             union {
-                char swap_float_bytes[4];
+                unsigned char swap_float_bytes[4];
                 float swap_float;
             };
-            swap_float_bytes[0] = msg->at(3 + 1 + (4 * i));
-            swap_float_bytes[1] = msg->at(3 + 1 + (4 * i));
-            swap_float_bytes[2] = msg->at(3 + 1 + (4 * i));
-            swap_float_bytes[3] = msg->at(3 + 1 + (4 * i));
+            auto pos = (4 * i) + 3;
+            swap_float_bytes[0] = msg->at(pos + 1);
+            swap_float_bytes[1] = msg->at(pos + 0);
+            swap_float_bytes[2] = msg->at(pos + 3);
+            swap_float_bytes[3] = msg->at(pos + 2);
             response->values.push_back(swap_float);
         }
         union {
-            char crc_bytes[2];
+            unsigned char crc_bytes[2];
             uint16_t crc;
         };
         crc_bytes[0] = msg->at(msg->size() - 2);
@@ -67,11 +80,10 @@ namespace ModbusLib
     /// <param name="msg">Response message buffer</param>
     /// <param name="expected_register_count">Response message buffer</param>
     /// <returns>New Response object with parsed data</returns>
-    Response* parse_write_reponse(std::vector<char>* msg, int expected_register_count)
+    Response* Response::parse_write_reponse(std::vector<unsigned char>* msg, int expected_register_count)
     {
         auto response = new Response();
-        response->success = true;
-        if (msg->size() < 5)
+        if (msg->size() < 8)
         {
             response->success = false;
             response->error_message = "Message too short to parse";
@@ -86,7 +98,7 @@ namespace ModbusLib
             return response;
         }
         union {
-            char swap_int_bytes[4];
+            unsigned char swap_int_bytes[4];
             int swap_int;
         };
         swap_int = 0;
@@ -104,7 +116,7 @@ namespace ModbusLib
                     "not match expected register count.";
         }
         union {
-            char crc_bytes[2];
+            unsigned char crc_bytes[2];
             uint16_t crc;
         };
         crc_bytes[0] = msg->at(msg->size() - 2);

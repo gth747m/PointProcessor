@@ -13,6 +13,25 @@ namespace ModbusLib
     {
     public:
         /// <summary>
+        /// Class constructor
+        /// </summary>
+        Response();
+
+        /// <summary>
+        /// Parse the Modbus response to a read request
+        /// </summary>
+        /// <param name="msg">Response message buffer</param>
+        /// <returns>New Response object with parsed data</returns>
+        static Response* parse_read_response(std::vector<unsigned char>* msg);
+
+        /// <summary>
+        /// Parse the Modbus response to a write request
+        /// </summary>
+        /// <param name="msg">Response message buffer</param>
+        /// <returns>New Response object with parsed data</returns>
+        static Response* parse_write_reponse(std::vector<unsigned char>* msg, int expectedRegisterCount);
+
+        /// <summary>
         /// Slave address
         /// </summary>
         int slave_address;
@@ -44,25 +63,6 @@ namespace ModbusLib
         /// If not a success check this message
         /// </summary>
         std::string error_message;
-
-        /// <summary>
-        /// Parse the Modbus response to a read request
-        /// </summary>
-        /// <param name="msg">Response message buffer</param>
-        /// <returns>New Response object with parsed data</returns>
-        static Response* parse_read_response(std::vector<char>* msg);
-
-        /// <summary>
-        /// Parse the Modbus response to a write request
-        /// </summary>
-        /// <param name="msg">Response message buffer</param>
-        /// <returns>New Response object with parsed data</returns>
-        static Response* parse_write_reponse(std::vector<char>* msg, int expectedRegisterCount);
-
-        /// <summary>
-        /// Class constructor
-        /// </summary>
-        Response();
 
     };
 }

@@ -54,7 +54,7 @@ namespace ModbusLib
     /// <param name="msg">Message to calculate CRC for</param>
     /// <param name="msg_includes_crc">Message includes a CRC already (ignore it)</param>
     /// <returns>Two-byte array of calculated CRC in Big-Endian format</returns>
-    static uint16_t compute_crc(std::vector<char>* msg, bool msg_includes_crc)
+    static uint16_t compute_crc(std::vector<unsigned char>* msg, bool msg_includes_crc)
     {
         union {
             unsigned char crc_bytes[2];
@@ -72,7 +72,7 @@ namespace ModbusLib
         for (auto curr_byte = msg->cbegin(); curr_byte != end; curr_byte++)
         {
             idx = static_cast<uint16_t>(hi ^ (*curr_byte));
-            hi = (unsigned char)(lo ^ crc_table_hi[idx]);
+            hi = static_cast<unsigned char>(lo ^ crc_table_hi[idx]);
             lo = crc_table_lo[idx];
         }
         crc_bytes[0] = hi;
@@ -85,7 +85,7 @@ namespace ModbusLib
     /// </summary>
     /// <param name="msg">Message to calculate CRC for</param>
     /// <returns>Two-byte array of calculated CRC in Big-Endian format</returns>
-    uint16_t Crc16::compute(std::vector<char>* msg)
+    uint16_t Crc16::compute(std::vector<unsigned char>* msg)
     {
         return compute_crc(msg, false);
     }
@@ -95,10 +95,10 @@ namespace ModbusLib
     /// </summary>
     /// <param name="msg">Message with a CRC included to validate</param>
     /// <returns>True = CRC in message is valid, False = CRC does not match message</returns>
-    bool Crc16::validate_msg_with_crc(std::vector<char>* msg)
+    bool Crc16::validate_msg_with_crc(std::vector<unsigned char>* msg)
     {
         union {
-            char crc_bytes[2];
+            unsigned char crc_bytes[2];
             uint16_t crc;
         };
         crc_bytes[0] = msg->at(msg->size() - 2);
