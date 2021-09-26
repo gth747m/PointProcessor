@@ -50,6 +50,7 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
+[Bb]uild/
 .vs
 
 # CMake Files
