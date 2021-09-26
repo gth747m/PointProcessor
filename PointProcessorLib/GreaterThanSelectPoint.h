@@ -44,12 +44,12 @@ namespace PointProcessor
                 this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
-            if (this->input_points.first->get_value<T>() >
-                this->input_points.second->get_value<T>())
+            if (this->input_points.first->template get_value<T>() >
+                this->input_points.second->template get_value<T>())
             {
                 if (IsUsableQuality(this->input_points.first->get_quality()))
                 {
-                    this->value = static_cast<double>(this->output_points.first->get_value<T>());
+                    this->value = static_cast<double>(this->output_points.first->template get_value<T>());
                     this->quality = this->output_points.first->get_quality();
                     return;
                 }
@@ -63,7 +63,7 @@ namespace PointProcessor
             {
                 if (IsUsableQuality(this->input_points.second->get_quality()))
                 {
-                    this->value = static_cast<double>(this->output_points.second->get_value<T>());
+                    this->value = static_cast<double>(this->output_points.second->template get_value<T>());
                     this->quality = this->output_points.second->get_quality();
                     return;
                 }
