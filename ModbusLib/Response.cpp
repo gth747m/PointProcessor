@@ -41,7 +41,7 @@ namespace modbus
         }
         response->register_count = static_cast<int>(msg->at(2)) / 2;
         int value_count = response->register_count / 2;
-        for (size_t i = 0; i < value_count; i++)
+        for (size_t i = 0; i < static_cast<size_t>(value_count); i++)
         {
             union {
                 unsigned char swap_float_bytes[4];
