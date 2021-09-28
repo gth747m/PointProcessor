@@ -1,9 +1,11 @@
+
 cmake_minimum_required (VERSION 3.8)
 
 set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    # Using Clang
     # Using Clang
     set (CLANG_COMPILE_FLAGS "-Wall -Wextra -Wpedantic")
     set (CMAKE_CXX_FLAGS ${CLANG_COMPILE_FLAGS})
@@ -17,12 +19,13 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     set (CMAKE_CXX_FLAGS ${MSVC_COMPILE_FLAGS})
 endif ()
 
+file (GLOB HDRS *.cpp)
 file (GLOB SRCS *.cpp)
 
-add_executable (PointProcessorTest ${SRCS})
+add_library (SBB STATIC ${SRCS})
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/gtest/src/gtest/googletest/include/)
+cmake_policy (SET CMP0076 NEW)
 
-target_link_libraries (PointProcessorTest PointProcessorLib)
-target_link_libraries (PointProcessorTest libgtest libgmock)
-target_link_libraries (PointProcessorTest rt)
+target_sources (SBB PUBLIC ${HDRS})
+
+target_include_directories (SBB PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

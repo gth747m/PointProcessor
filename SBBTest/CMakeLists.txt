@@ -19,10 +19,10 @@ endif ()
 
 file (GLOB SRCS *.cpp)
 
-add_executable (PointProcessorTest ${SRCS})
+add_executable (SBBTest ${SRCS})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/gtest/src/gtest/googletest/include/)
 
-target_link_libraries (PointProcessorTest PointProcessorLib)
-target_link_libraries (PointProcessorTest libgtest libgmock)
-target_link_libraries (PointProcessorTest rt)
+target_link_libraries (SBBTest SBB)
+target_link_libraries (SBBTest libgtest libgmock)
+target_link_libraries (SBBTest rt)
