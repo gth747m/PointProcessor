@@ -4,11 +4,14 @@ using namespace point_processor;
 
 TEST(SelectPoint, UInt32)
 {
-    auto inpA = ExternalPoint<int32_t>();
-    auto inpB = ExternalPoint<int32_t>();
-    auto inpC = ExternalPoint<int32_t>();
-    auto indx = ExternalPoint<uint32_t>();
-    auto point = SelectPoint<int32_t>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int32_t>(&values[2], &qualities[2], &durations[2]);
+    auto indx = ExternalPoint<uint32_t>(&values[3], &qualities[3], &durations[3]);
+    auto point = SelectPoint<int32_t>(&values[4], &qualities[4], &durations[4]);
     point.add_input(&inpA);
     point.add_input(&inpB);
     point.add_input(&inpC);
@@ -43,11 +46,14 @@ TEST(SelectPoint, UInt32)
 
 TEST(SelectPoint, Int32)
 {
-    auto inpA = ExternalPoint<int32_t>();
-    auto inpB = ExternalPoint<int32_t>();
-    auto inpC = ExternalPoint<int32_t>();
-    auto indx = ExternalPoint<int32_t>();
-    auto point = SelectPoint<int32_t>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int32_t>(&values[2], &qualities[2], &durations[2]);
+    auto indx = ExternalPoint<int32_t>(&values[3], &qualities[3], &durations[3]);
+    auto point = SelectPoint<int32_t>(&values[4], &qualities[4], &durations[4]);
     point.add_input(&inpA);
     point.add_input(&inpB);
     point.add_input(&inpC);
@@ -82,11 +88,14 @@ TEST(SelectPoint, Int32)
 
 TEST(SelectPoint, Int64)
 {
-    auto inpA = ExternalPoint<int64_t>();
-    auto inpB = ExternalPoint<int64_t>();
-    auto inpC = ExternalPoint<int64_t>();
-    auto indx = ExternalPoint<uint64_t>();
-    auto point = SelectPoint<int64_t>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int64_t>(&values[2], &qualities[2], &durations[2]);
+    auto indx = ExternalPoint<uint64_t>(&values[3], &qualities[3], &durations[3]);
+    auto point = SelectPoint<int64_t>(&values[4], &qualities[4], &durations[4]);
     point.add_input(&inpA);
     point.add_input(&inpB);
     point.add_input(&inpC);
@@ -121,11 +130,14 @@ TEST(SelectPoint, Int64)
 
 TEST(SelectPoint, Float)
 {
-    auto inpA = ExternalPoint<float>();
-    auto inpB = ExternalPoint<float>();
-    auto inpC = ExternalPoint<float>();
-    auto indx = ExternalPoint<uint32_t>();
-    auto point = SelectPoint<float>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<float>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<float>(&values[2], &qualities[2], &durations[2]);
+    auto indx = ExternalPoint<uint32_t>(&values[3], &qualities[3], &durations[3]);
+    auto point = SelectPoint<float>(&values[4], &qualities[4], &durations[4]);
     point.add_input(&inpA);
     point.add_input(&inpB);
     point.add_input(&inpC);
@@ -160,11 +172,14 @@ TEST(SelectPoint, Float)
 
 TEST(SelectPoint, Double)
 {
-    auto inpA = ExternalPoint<double>();
-    auto inpB = ExternalPoint<double>();
-    auto inpC = ExternalPoint<double>();
-    auto indx = ExternalPoint<int64_t>();
-    auto point = SelectPoint<double>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<double>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<double>(&values[2], &qualities[2], &durations[2]);
+    auto indx = ExternalPoint<int64_t>(&values[3], &qualities[3], &durations[3]);
+    auto point = SelectPoint<double>(&values[4], &qualities[4], &durations[4]);
     point.add_input(&inpA);
     point.add_input(&inpB);
     point.add_input(&inpC);

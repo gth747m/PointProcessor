@@ -4,11 +4,14 @@ using namespace point_processor;
 
 TEST(ChauvenetAveragePoint, Int32)
 {
-    auto inpA = ExternalPoint<int32_t>();
-    auto inpB = ExternalPoint<int32_t>();
-    auto inpC = ExternalPoint<int32_t>();
-    auto num = ExternalPoint<int32_t>();
-    auto avg = ChauvenetAveragePoint<int32_t>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int32_t>(&values[2], &qualities[2], &durations[2]);
+    auto num = ExternalPoint<int32_t>(&values[3], &qualities[3], &durations[3]);
+    auto avg = ChauvenetAveragePoint<int32_t>(&values[4], &qualities[4], &durations[4]);
     avg.add_input(&inpA);
     avg.add_input(&inpB);
     avg.add_input(&inpC);
@@ -28,12 +31,15 @@ TEST(ChauvenetAveragePoint, Int32)
 
 TEST(ChauvenetAveragePoint, Int64)
 {
-    auto inpA = ExternalPoint<int64_t>();
-    auto inpB = ExternalPoint<int64_t>();
-    auto inpC = ExternalPoint<int64_t>();
-    auto inpD = ExternalPoint<int64_t>();
-    auto num = ExternalPoint<int32_t>();
-    auto avg = ChauvenetAveragePoint<int64_t>();
+    double values[6] = { 0.0 };
+    Quality qualities[6] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[6];
+    auto inpA = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int64_t>(&values[2], &qualities[2], &durations[2]);
+    auto inpD = ExternalPoint<int64_t>(&values[3], &qualities[3], &durations[3]);
+    auto num = ExternalPoint<int32_t>(&values[4], &qualities[4], &durations[4]);
+    auto avg = ChauvenetAveragePoint<int64_t>(&values[5], &qualities[5], &durations[5]);
     avg.add_input(&inpA);
     avg.add_input(&inpB);
     avg.add_input(&inpC);
@@ -56,15 +62,18 @@ TEST(ChauvenetAveragePoint, Int64)
 
 TEST(ChauvenetAveragePoint, Float)
 {
-    auto inpA = ExternalPoint<float>();
-    auto inpB = ExternalPoint<float>();
-    auto inpC = ExternalPoint<float>();
-    auto inpD = ExternalPoint<float>();
-    auto inpE = ExternalPoint<float>();
-    auto inpF = ExternalPoint<float>();
-    auto inpG = ExternalPoint<float>();
-    auto num = ExternalPoint<int32_t>();
-    auto avg = ChauvenetAveragePoint<float>();
+    double values[9] = { 0.0 };
+    Quality qualities[9] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[9];
+    auto inpA = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<float>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<float>(&values[2], &qualities[2], &durations[2]);
+    auto inpD = ExternalPoint<float>(&values[3], &qualities[3], &durations[3]);
+    auto inpE = ExternalPoint<float>(&values[4], &qualities[4], &durations[4]);
+    auto inpF = ExternalPoint<float>(&values[5], &qualities[5], &durations[5]);
+    auto inpG = ExternalPoint<float>(&values[6], &qualities[6], &durations[6]);
+    auto num = ExternalPoint<int32_t>(&values[7], &qualities[7], &durations[7]);
+    auto avg = ChauvenetAveragePoint<float>(&values[8], &qualities[8], &durations[8]);
     avg.add_input(&inpA);
     avg.add_input(&inpB);
     avg.add_input(&inpC);
@@ -98,12 +107,15 @@ TEST(ChauvenetAveragePoint, Float)
 
 TEST(ChauvenetAveragePoint, Double)
 {
-    auto inpA = ExternalPoint<double>();
-    auto inpB = ExternalPoint<double>();
-    auto inpC = ExternalPoint<double>();
-    auto inpD = ExternalPoint<double>();
-    auto num = ExternalPoint<int32_t>();
-    auto avg = ChauvenetAveragePoint<double>();
+    double values[6] = { 0.0 };
+    Quality qualities[6] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[6];
+    auto inpA = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<double>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<double>(&values[2], &qualities[2], &durations[2]);
+    auto inpD = ExternalPoint<double>(&values[3], &qualities[3], &durations[3]);
+    auto num = ExternalPoint<int32_t>(&values[4], &qualities[4], &durations[4]);
+    auto avg = ChauvenetAveragePoint<double>(&values[5], &qualities[5], &durations[5]);
     avg.add_input(&inpA);
     avg.add_input(&inpB);
     avg.add_input(&inpC);

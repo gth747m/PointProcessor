@@ -4,10 +4,13 @@ using namespace point_processor;
 
 TEST(SumPoint, Int32)
 {
-    auto inpA = ExternalPoint<int32_t>();
-    auto inpB = ExternalPoint<int32_t>();
-    auto inpC = ExternalPoint<int32_t>();
-    auto sum = SumPoint<int32_t>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int32_t>(&values[2], &qualities[2], &durations[2]);
+    auto sum = SumPoint<int32_t>(&values[3], &qualities[3], &durations[3]);
     sum.add_input(&inpA);
     sum.add_input(&inpB);
     sum.add_input(&inpC);
@@ -30,10 +33,13 @@ TEST(SumPoint, Int32)
 
 TEST(SumPoint, Int64)
 {
-    auto inpA = ExternalPoint<int64_t>();
-    auto inpB = ExternalPoint<int64_t>();
-    auto inpC = ExternalPoint<int64_t>();
-    auto sum = SumPoint<int64_t>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int64_t>(&values[2], &qualities[2], &durations[2]);
+    auto sum = SumPoint<int64_t>(&values[3], &qualities[3], &durations[3]);
     sum.add_input(&inpA);
     sum.add_input(&inpB);
     sum.add_input(&inpC);
@@ -56,10 +62,13 @@ TEST(SumPoint, Int64)
 
 TEST(SumPoint, Float)
 {
-    auto inpA = ExternalPoint<float>();
-    auto inpB = ExternalPoint<float>();
-    auto inpC = ExternalPoint<float>();
-    auto sum = SumPoint<float>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<float>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<float>(&values[2], &qualities[2], &durations[2]);
+    auto sum = SumPoint<float>(&values[3], &qualities[3], &durations[3]);
     sum.add_input(&inpA);
     sum.add_input(&inpB);
     sum.add_input(&inpC);
@@ -82,10 +91,13 @@ TEST(SumPoint, Float)
 
 TEST(SumPoint, Double)
 {
-    auto inpA = ExternalPoint<double>();
-    auto inpB = ExternalPoint<double>();
-    auto inpC = ExternalPoint<double>();
-    auto sum = SumPoint<double>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<double>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<double>(&values[2], &qualities[2], &durations[2]);
+    auto sum = SumPoint<double>(&values[3], &qualities[3], &durations[3]);
     sum.add_input(&inpA);
     sum.add_input(&inpB);
     sum.add_input(&inpC);

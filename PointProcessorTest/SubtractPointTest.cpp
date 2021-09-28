@@ -4,10 +4,13 @@ using namespace point_processor;
 
 TEST(SubtractPoint, Int32)
 {
-    auto inpA = ExternalPoint<int32_t>();
-    auto inpB = ExternalPoint<int32_t>();
-    auto inpC = ExternalPoint<int32_t>();
-    auto subtract = SubtractPoint<int32_t>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int32_t>(&values[2], &qualities[2], &durations[2]);
+    auto subtract = SubtractPoint<int32_t>(&values[3], &qualities[3], &durations[3]);
     subtract.add_input(&inpA);
     subtract.add_input(&inpB);
     subtract.add_input(&inpC);
@@ -30,10 +33,13 @@ TEST(SubtractPoint, Int32)
 
 TEST(SubtractPoint, Int64)
 {
-    auto inpA = ExternalPoint<int64_t>();
-    auto inpB = ExternalPoint<int64_t>();
-    auto inpC = ExternalPoint<int64_t>();
-    auto subtract = SubtractPoint<int64_t>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int64_t>(&values[2], &qualities[2], &durations[2]);
+    auto subtract = SubtractPoint<int64_t>(&values[3], &qualities[3], &durations[3]);
     subtract.add_input(&inpA);
     subtract.add_input(&inpB);
     subtract.add_input(&inpC);
@@ -56,10 +62,13 @@ TEST(SubtractPoint, Int64)
 
 TEST(SubtractPoint, Float)
 {
-    auto inpA = ExternalPoint<float>();
-    auto inpB = ExternalPoint<float>();
-    auto inpC = ExternalPoint<float>();
-    auto subtract = SubtractPoint<float>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<float>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<float>(&values[2], &qualities[2], &durations[2]);
+    auto subtract = SubtractPoint<float>(&values[3], &qualities[3], &durations[3]);
     subtract.add_input(&inpA);
     subtract.add_input(&inpB);
     subtract.add_input(&inpC);
@@ -82,10 +91,13 @@ TEST(SubtractPoint, Float)
 
 TEST(SubtractPoint, Double)
 {
-    auto inpA = ExternalPoint<double>();
-    auto inpB = ExternalPoint<double>();
-    auto inpC = ExternalPoint<double>();
-    auto subtract = SubtractPoint<double>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<double>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<double>(&values[2], &qualities[2], &durations[2]);
+    auto subtract = SubtractPoint<double>(&values[3], &qualities[3], &durations[3]);
     subtract.add_input(&inpA);
     subtract.add_input(&inpB);
     subtract.add_input(&inpC);

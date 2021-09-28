@@ -17,6 +17,13 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        SelectPoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Set the point to be used as the index selector
         /// </summary>
         inline void set_index_point(Point* point)
@@ -39,23 +46,23 @@ namespace point_processor
         {
             if (index_point == nullptr)
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
             uint32_t index = (uint32_t)this->index_point->template get_value<int32_t>() - 1;
             if (!quality::is_usable(index_point->get_quality()))
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
             if (index > input_points.size())
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
             auto inp_point = this->input_points.at(index);
-            this->value = inp_point->template get_value<double>();
-            this->quality = inp_point->get_quality();
+            *this->value = inp_point->template get_value<double>();
+            *this->quality = inp_point->get_quality();
         }
     private:
         /// <summary>

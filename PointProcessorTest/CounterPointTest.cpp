@@ -4,7 +4,10 @@ using namespace point_processor;
 
 TEST(CounterPoint, Int32)
 {
-    auto counter = CounterPoint<int32_t>();
+    double values[1] = { 0.0 };
+    Quality qualities[1] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[1];
+    auto counter = CounterPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
     for (int i = 0; i < 10; i++)
     {
         counter.increment();
@@ -27,7 +30,10 @@ TEST(CounterPoint, Int32)
 
 TEST(CounterPoint, Int64)
 {
-    auto counter = CounterPoint<int64_t>();
+    double values[1] = { 0.0 };
+    Quality qualities[1] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[1];
+    auto counter = CounterPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
     for (int i = 0; i < 10; i++)
     {
         counter.increment();

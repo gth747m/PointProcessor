@@ -17,6 +17,13 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        CounterPoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Increment the counter
         /// </summary>
         inline void increment()
@@ -36,8 +43,8 @@ namespace point_processor
         /// </summary>
         inline virtual void calc()
         {
-            this->quality = Quality::GOOD;
-            this->value = static_cast<double>(count);
+            *this->quality = Quality::GOOD;
+            *this->value = static_cast<double>(count);
             this->count = 0;
         }
     private:

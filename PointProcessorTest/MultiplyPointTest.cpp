@@ -4,9 +4,12 @@ using namespace point_processor;
 
 TEST(MultiplyPoint, Int32)
 {
-    auto inpA = ExternalPoint<int32_t>();
-    auto inpB = ExternalPoint<int32_t>();
-    auto div = MultiplyPoint<int32_t>();
+    double values[3] = { 0.0 };
+    Quality qualities[3] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[3];
+    auto inpA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto div = MultiplyPoint<int32_t>(&values[2], &qualities[2], &durations[2]);
     inpA.set_value(4);
     inpB.set_value(4);
     inpA.set_quality(Quality::GOOD);
@@ -24,9 +27,12 @@ TEST(MultiplyPoint, Int32)
 
 TEST(MultiplyPoint, Int64)
 {
-    auto inpA = ExternalPoint<int64_t>();
-    auto inpB = ExternalPoint<int64_t>();
-    auto div = MultiplyPoint<int64_t>();
+    double values[3] = { 0.0 };
+    Quality qualities[3] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[3];
+    auto inpA = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
+    auto div = MultiplyPoint<int64_t>(&values[2], &qualities[2], &durations[2]);
     inpA.set_value(4);
     inpB.set_value(4);
     inpA.set_quality(Quality::GOOD);
@@ -44,9 +50,12 @@ TEST(MultiplyPoint, Int64)
 
 TEST(MultiplyPoint, Float)
 {
-    auto inpA = ExternalPoint<float>();
-    auto inpB = ExternalPoint<float>();
-    auto div = MultiplyPoint<float>();
+    double values[3] = { 0.0 };
+    Quality qualities[3] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[3];
+    auto inpA = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<float>(&values[1], &qualities[1], &durations[1]);
+    auto div = MultiplyPoint<float>(&values[2], &qualities[2], &durations[2]);
     inpA.set_value(4.0f);
     inpB.set_value(4.0f);
     inpA.set_quality(Quality::GOOD);
@@ -64,9 +73,12 @@ TEST(MultiplyPoint, Float)
 
 TEST(MultiplyPoint, Double)
 {
-    auto inpA = ExternalPoint<double>();
-    auto inpB = ExternalPoint<double>();
-    auto div = MultiplyPoint<double>();
+    double values[3] = { 0.0 };
+    Quality qualities[3] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[3];
+    auto inpA = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<double>(&values[1], &qualities[1], &durations[1]);
+    auto div = MultiplyPoint<double>(&values[2], &qualities[2], &durations[2]);
     inpA.set_value(4.0);
     inpB.set_value(4.0);
     inpA.set_quality(Quality::GOOD);

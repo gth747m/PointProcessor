@@ -16,6 +16,13 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        DividePoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Add a point the the list of inputs to divide
         /// </summary>
         /// <param name="point">Point to divide</param>
@@ -31,7 +38,7 @@ namespace point_processor
         {
             if (this->input_points.size() == 0)
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
             Quality qual = Quality::GOOD;
@@ -42,7 +49,7 @@ namespace point_processor
             {
                 if (!quality::is_usable((*point)->get_quality()))
                 {
-                    this->quality = Quality::NOT_CALCULABLE;
+                    *this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
                 T next_value = (*point)->template get_value<T>();
@@ -55,7 +62,7 @@ namespace point_processor
                 {
                     if (next_value == 0)
                     {
-                        this->quality = Quality::NOT_CALCULABLE;
+                        *this->quality = Quality::NOT_CALCULABLE;
                         return;
                     }
                     else
@@ -64,8 +71,8 @@ namespace point_processor
                     }
                 }
             }
-            this->value = static_cast<double>(val);
-            this->quality = qual;
+            *this->value = static_cast<double>(val);
+            *this->quality = qual;
         }
     private:
         /// <summary>

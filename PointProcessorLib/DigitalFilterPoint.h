@@ -16,6 +16,13 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        DigitalFilterPoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Set the input point to digitally filter
         /// </summary>
         /// <param name="point">Point to filter</param>
@@ -41,7 +48,7 @@ namespace point_processor
             if ((this->input_point == nullptr) || 
                 (!quality::is_usable(this->input_point->get_quality())))
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
             if (initialized)
@@ -51,8 +58,8 @@ namespace point_processor
 #pragma warning(push)
 #pragma warning(disable: 26451)
 #endif
-                this->value = static_cast<double>(
-                    static_cast<T>((1.0 - this->filter_fraction) * this->value) + 
+                *this->value = static_cast<double>(
+                    static_cast<T>((1.0 - this->filter_fraction) * (*this->value)) + 
                     static_cast<T>(this->filter_fraction * this->input_point->template get_value<T>()));
 #ifdef _WIN32
 #pragma warning(pop)
@@ -60,10 +67,10 @@ namespace point_processor
             }
             else
             {
-                this->value = this->input_point->template get_value<double>();
+                *this->value = this->input_point->template get_value<double>();
                 initialized = true;
             }
-            this->quality = this->input_point->get_quality();
+            *this->quality = this->input_point->get_quality();
         }
     private:
         /// <summary>

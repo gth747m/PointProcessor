@@ -15,6 +15,13 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        GreaterThanSelectPoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Set the input points
         /// </summary>
         /// <param name="point1">Input point to compare to point2</param>
@@ -41,7 +48,7 @@ namespace point_processor
             if (input_points.first == nullptr || input_points.second == nullptr ||
                 output_points.first == nullptr || output_points.second == nullptr)
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
             if (this->input_points.first->template get_value<T>() >
@@ -49,13 +56,13 @@ namespace point_processor
             {
                 if (quality::is_usable(this->input_points.first->get_quality()))
                 {
-                    this->value = static_cast<double>(this->output_points.first->template get_value<T>());
-                    this->quality = this->output_points.first->get_quality();
+                    *this->value = static_cast<double>(this->output_points.first->template get_value<T>());
+                    *this->quality = this->output_points.first->get_quality();
                     return;
                 }
                 else
                 {
-                    this->quality = Quality::NOT_CALCULABLE;
+                    *this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
             }
@@ -63,13 +70,13 @@ namespace point_processor
             {
                 if (quality::is_usable(this->input_points.second->get_quality()))
                 {
-                    this->value = static_cast<double>(this->output_points.second->template get_value<T>());
-                    this->quality = this->output_points.second->get_quality();
+                    *this->value = static_cast<double>(this->output_points.second->template get_value<T>());
+                    *this->quality = this->output_points.second->get_quality();
                     return;
                 }
                 else
                 {
-                    this->quality = Quality::NOT_CALCULABLE;
+                    *this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
             }

@@ -14,6 +14,13 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        FToCPoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Set the input point
         /// </summary>
         /// <param name="point">Input point who's value is Farenheit</param>
@@ -29,13 +36,13 @@ namespace point_processor
         {
             if (input_point == nullptr)
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
-            this->value = static_cast<T>(
+            *this->value = static_cast<T>(
                 ((this->input_point->template get_value<T>() - static_cast<T>(32)) 
                     / static_cast<T>(1.8)));
-            this->quality = this->input_point->get_quality();
+            *this->quality = this->input_point->get_quality();
         }
     private:
         /// <summary>

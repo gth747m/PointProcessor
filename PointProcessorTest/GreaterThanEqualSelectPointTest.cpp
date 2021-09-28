@@ -4,11 +4,14 @@ using namespace point_processor;
 
 TEST(GreaterThanEqualSelectPoint, Int32)
 {
-    auto inpA = ExternalPoint<int32_t>();
-    auto inpB = ExternalPoint<int32_t>();
-    auto outA = ExternalPoint<int32_t>();
-    auto outB = ExternalPoint<int32_t>();
-    auto point = GreaterThanEqualSelectPoint<int32_t>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto outA = ExternalPoint<int32_t>(&values[2], &qualities[2], &durations[2]);
+    auto outB = ExternalPoint<int32_t>(&values[3], &qualities[3], &durations[3]);
+    auto point = GreaterThanEqualSelectPoint<int32_t>(&values[4], &qualities[4], &durations[4]);
     point.set_inputs(&inpA, &inpB);
     point.set_outputs(&outA, &outB);
     inpA.set_value(2);
@@ -31,11 +34,14 @@ TEST(GreaterThanEqualSelectPoint, Int32)
 
 TEST(GreaterThanEqualSelectPoint, Int64)
 {
-    auto inpA = ExternalPoint<int64_t>();
-    auto inpB = ExternalPoint<int64_t>();
-    auto outA = ExternalPoint<int64_t>();
-    auto outB = ExternalPoint<int64_t>();
-    auto point = GreaterThanEqualSelectPoint<int64_t>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
+    auto outA = ExternalPoint<int64_t>(&values[2], &qualities[2], &durations[2]);
+    auto outB = ExternalPoint<int64_t>(&values[3], &qualities[3], &durations[3]);
+    auto point = GreaterThanEqualSelectPoint<int64_t>(&values[4], &qualities[4], &durations[4]);
     point.set_inputs(&inpA, &inpB);
     point.set_outputs(&outA, &outB);
     inpA.set_value(255);
@@ -58,11 +64,14 @@ TEST(GreaterThanEqualSelectPoint, Int64)
 
 TEST(GreaterThanEqualSelectPoint, Float)
 {
-    auto inpA = ExternalPoint<float>();
-    auto inpB = ExternalPoint<float>();
-    auto outA = ExternalPoint<float>();
-    auto outB = ExternalPoint<float>();
-    auto point = GreaterThanEqualSelectPoint<float>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<float>(&values[1], &qualities[1], &durations[1]);
+    auto outA = ExternalPoint<float>(&values[2], &qualities[2], &durations[2]);
+    auto outB = ExternalPoint<float>(&values[3], &qualities[3], &durations[3]);
+    auto point = GreaterThanEqualSelectPoint<float>(&values[4], &qualities[4], &durations[4]);
     point.set_inputs(&inpA, &inpB);
     point.set_outputs(&outA, &outB);
     inpA.set_value(255.0f);
@@ -85,11 +94,14 @@ TEST(GreaterThanEqualSelectPoint, Float)
 
 TEST(GreaterThanEqualSelectPoint, Double)
 {
-    auto inpA = ExternalPoint<double>();
-    auto inpB = ExternalPoint<double>();
-    auto outA = ExternalPoint<double>();
-    auto outB = ExternalPoint<double>();
-    auto point = GreaterThanEqualSelectPoint<double>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<double>(&values[1], &qualities[1], &durations[1]);
+    auto outA = ExternalPoint<double>(&values[2], &qualities[2], &durations[2]);
+    auto outB = ExternalPoint<double>(&values[3], &qualities[3], &durations[3]);
+    auto point = GreaterThanEqualSelectPoint<double>(&values[4], &qualities[4], &durations[4]);
     point.set_inputs(&inpA, &inpB);
     point.set_outputs(&outA, &outB);
     inpA.set_value(255.0);

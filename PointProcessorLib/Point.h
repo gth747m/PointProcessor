@@ -19,37 +19,7 @@ namespace point_processor
         /// <summary>
         /// Point constructor
         /// </summary>
-        Point();
-        /// <summary>
-        /// Get the point ID
-        /// </summary>
-        /// <returns>Point ID</returns>
-        std::string get_id() const;
-        /// <summary>
-        /// Set the point ID
-        /// </summary>
-        /// <param name="id">Point ID</param>
-        void set_id(std::string id);
-        /// <summary>
-        /// Get the point description
-        /// </summary>
-        /// <returns>Point description</returns>
-        std::string get_description() const;
-        /// <summary>
-        /// Set the point description
-        /// </summary>
-        /// <param name="description">Point description</param>
-        void set_description(std::string description);
-        /// <summary>
-        /// Get the point aliases
-        /// </summary>
-        /// <returns>Point aliases</returns>
-        std::vector<std::string> get_aliases() const;
-        /// <summary>
-        /// Add a point alias
-        /// </summary>
-        /// <param name="alias">Point alias</param>
-        void add_alias(std::string alias);
+        Point(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration);
         /// <summary>
         /// Get the point value as type T
         /// </summary>
@@ -58,23 +28,13 @@ namespace point_processor
         template <typename T>
         T get_value() const
         {
-            return static_cast<T>(this->value);
+            return static_cast<T>(*this->value);
         }
         /// <summary>
         /// Get the point quality
         /// </summary>
         /// <returns>Point quality</returns>
         Quality get_quality() const;
-        /// <summary>
-        /// Get the point processing frequency
-        /// </summary>
-        /// <returns>Point processing frequency</returns>
-        Frequency get_freqeuncy() const;
-        /// <summary>
-        /// Set the point processing frequency
-        /// </summary>
-        /// <param name="frequency">Point processing frequency</param>
-        void set_frequency(Frequency frequency);
         /// <summary>
         /// Get the average time it takes to calculate this point
         /// </summary>
@@ -95,7 +55,7 @@ namespace point_processor
         /// <summary>
         /// Point value
         /// </summary>
-        double value;
+        double* value;
         /// <summary>
         /// Point calculation
         /// </summary>
@@ -103,27 +63,11 @@ namespace point_processor
         /// <summary>
         /// Point quality
         /// </summary>
-        Quality quality;
-        /// <summary>
-        /// Point ID
-        /// </summary>
-        std::string id;
-        /// <summary>
-        /// Point Description
-        /// </summary>
-        std::string description;
-        /// <summary>
-        /// Point Alias
-        /// </summary>
-        std::vector<std::string> aliases;
-        /// <summary>
-        /// Point update frequency
-        /// </summary>
-        Frequency frequency;
+        Quality* quality;
         /// <summary>
         /// Average amount of time it takes to execute this calculation
         /// </summary>
-        std::chrono::duration<int, std::micro> average_calc_time;
+        std::chrono::duration<int, std::micro>* average_calc_time;
     private:
     };
 }

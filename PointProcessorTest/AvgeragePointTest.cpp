@@ -4,10 +4,13 @@ using namespace point_processor;
 
 TEST(AveragePoint, Int32)
 {
-    auto inpA = ExternalPoint<int32_t>();
-    auto inpB = ExternalPoint<int32_t>();
-    auto inpC = ExternalPoint<int32_t>();
-    auto avg = AveragePoint<int32_t>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int32_t>(&values[2], &qualities[2], &durations[2]);
+    auto avg = AveragePoint<int32_t>(&values[3], &qualities[3], &durations[3]);
     avg.add_input(&inpA);
     avg.add_input(&inpB);
     avg.add_input(&inpC);
@@ -23,10 +26,13 @@ TEST(AveragePoint, Int32)
 
 TEST(AveragePoint, Int64)
 {
-    auto inpA = ExternalPoint<int64_t>();
-    auto inpB = ExternalPoint<int64_t>();
-    auto inpC = ExternalPoint<int64_t>();
-    auto avg = AveragePoint<int64_t>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<int64_t>(&values[2], &qualities[2], &durations[2]);
+    auto avg = AveragePoint<int64_t>(&values[3], &qualities[3], &durations[3]);
     avg.add_input(&inpA);
     avg.add_input(&inpB);
     avg.add_input(&inpC);
@@ -42,10 +48,13 @@ TEST(AveragePoint, Int64)
 
 TEST(AveragePoint, Float)
 {
-    auto inpA = ExternalPoint<float>();
-    auto inpB = ExternalPoint<float>();
-    auto inpC = ExternalPoint<float>();
-    auto avg = AveragePoint<float>();
+    double values[4] = { 0.0 };
+    Quality qualities[4] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[4];
+    auto inpA = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<float>(&values[1], &qualities[1], &durations[1]);
+    auto inpC = ExternalPoint<float>(&values[2], &qualities[2], &durations[2]);
+    auto avg = AveragePoint<float>(&values[3], &qualities[3], &durations[3]);
     avg.add_input(&inpA);
     avg.add_input(&inpB);
     avg.add_input(&inpC);
@@ -60,9 +69,12 @@ TEST(AveragePoint, Float)
 
 TEST(AveragePoint, Double)
 {
-    auto inpA = ExternalPoint<double>();
-    auto inpB = ExternalPoint<double>();
-    auto avg = AveragePoint<double>();
+    double values[3] = { 0.0 };
+    Quality qualities[3] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[3];
+    auto inpA = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<double>(&values[1], &qualities[1], &durations[1]);
+    auto avg = AveragePoint<double>(&values[2], &qualities[2], &durations[2]);
     avg.add_input(&inpA);
     avg.add_input(&inpB);
     inpA.set_value(25.25);

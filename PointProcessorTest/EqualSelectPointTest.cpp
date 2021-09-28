@@ -4,11 +4,14 @@ using namespace point_processor;
 
 TEST(EqualSelectPoint, Int32)
 {
-    auto inpA = ExternalPoint<int32_t>();
-    auto inpB = ExternalPoint<int32_t>();
-    auto outA = ExternalPoint<int32_t>();
-    auto outB = ExternalPoint<int32_t>();
-    auto point = EqualSelectPoint<int32_t>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto outA = ExternalPoint<int32_t>(&values[2], &qualities[2], &durations[2]);
+    auto outB = ExternalPoint<int32_t>(&values[3], &qualities[3], &durations[3]);
+    auto point = EqualSelectPoint<int32_t>(&values[4], &qualities[4], &durations[4]);
     point.set_inputs(&inpA, &inpB);
     point.set_outputs(&outA, &outB);
     inpA.set_value(2);
@@ -31,11 +34,14 @@ TEST(EqualSelectPoint, Int32)
 
 TEST(EqualSelectPoint, Int64)
 {
-    auto inpA = ExternalPoint<int64_t>();
-    auto inpB = ExternalPoint<int64_t>();
-    auto outA = ExternalPoint<int64_t>();
-    auto outB = ExternalPoint<int64_t>();
-    auto point = EqualSelectPoint<int64_t>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
+    auto outA = ExternalPoint<int64_t>(&values[2], &qualities[2], &durations[2]);
+    auto outB = ExternalPoint<int64_t>(&values[3], &qualities[3], &durations[3]);
+    auto point = EqualSelectPoint<int64_t>(&values[4], &qualities[4], &durations[4]);
     point.set_inputs(&inpA, &inpB);
     point.set_outputs(&outA, &outB);
     inpA.set_value(255);

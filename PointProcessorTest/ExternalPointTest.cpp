@@ -4,7 +4,10 @@ using namespace point_processor;
 
 TEST(ExternalPoint, Int32)
 {
-    auto ext = ExternalPoint<int32_t>();
+    double values[2] = { 0.0 };
+    Quality qualities[2] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[2];
+    auto ext = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
     ext.set_quality(Quality::GOOD);
     for (int i = 0; i < 1000; i++)
     {
@@ -16,7 +19,10 @@ TEST(ExternalPoint, Int32)
 
 TEST(ExternalPoint, Int64)
 {
-    auto ext = ExternalPoint<int64_t>();
+    double values[2] = { 0.0 };
+    Quality qualities[2] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[2];
+    auto ext = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
     ext.set_quality(Quality::GOOD);
     for (int i = 0; i < 1000; i++)
     {
@@ -28,7 +34,10 @@ TEST(ExternalPoint, Int64)
 
 TEST(ExternalPoint, Float)
 {
-    auto ext = ExternalPoint<float>();
+    double values[2] = { 0.0 };
+    Quality qualities[2] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[2];
+    auto ext = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
     ext.set_value(10.0f);
     ext.set_quality(Quality::GOOD);
     EXPECT_EQ(ext.get_value<float>(), 10.0f);
@@ -43,7 +52,10 @@ TEST(ExternalPoint, Float)
 
 TEST(ExternalPoint, Double)
 {
-    auto ext = ExternalPoint<double>();
+    double values[2] = { 0.0 };
+    Quality qualities[2] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[2];
+    auto ext = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
     ext.set_value(10.0);
     ext.set_quality(Quality::GOOD);
     EXPECT_EQ(ext.get_value<double>(), 10.0);

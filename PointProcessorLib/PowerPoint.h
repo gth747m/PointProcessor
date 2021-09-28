@@ -17,6 +17,13 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        PowerPoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Set the input point to digitally filter
         /// </summary>
         /// <param name="point">Point to filter</param>
@@ -41,12 +48,12 @@ namespace point_processor
             if ((this->input_point == nullptr) ||
                 (!quality::is_usable(this->input_point->get_quality())))
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
-            this->value = static_cast<double>(
+            *this->value = static_cast<double>(
                 std::pow(this->input_point->template get_value<T>(), static_cast<T>(this->power)));
-            this->quality = this->input_point->get_quality();
+            *this->quality = this->input_point->get_quality();
         }
     private:
         /// <summary>

@@ -16,12 +16,19 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        ExternalPoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Set the point value
         /// </summary>
         /// <param name="value">Point value</param>
         void set_value(T value)
         {
-            this->value = static_cast<double>(value);
+            *this->value = static_cast<double>(value);
         }
         /// <summary>
         /// Set the point quality
@@ -29,7 +36,7 @@ namespace point_processor
         /// <param name="quality">Point quality</param>
         void set_quality(Quality quality)
         {
-            this->quality = quality;
+            *this->quality = quality;
         }
     protected:
     private:

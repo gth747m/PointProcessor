@@ -4,11 +4,18 @@ using namespace point_processor;
 
 TEST(PolynomialPoint, Int32)
 {
-    auto coeffA = ExternalPoint<int32_t>();
-    auto varA = ExternalPoint<int32_t>();
-    auto coeffB = ExternalPoint<int32_t>();
-    auto varB = ExternalPoint<int32_t>();
-    auto poly = PolynomialPoint<int32_t>();
+    double values[9] = { 0.0 };
+    Quality qualities[9] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[9];
+    auto coeffA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto varA = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto coeffB = ExternalPoint<int32_t>(&values[2], &qualities[2], &durations[2]);
+    auto varB = ExternalPoint<int32_t>(&values[3], &qualities[3], &durations[3]);
+    auto coeffC = ExternalPoint<int32_t>(&values[4], &qualities[4], &durations[4]);
+    auto varC = ExternalPoint<int32_t>(&values[5], &qualities[5], &durations[5]);
+    auto coeffD = ExternalPoint<int32_t>(&values[6], &qualities[6], &durations[6]);
+    auto varD = ExternalPoint<int32_t>(&values[7], &qualities[7], &durations[7]);
+    auto poly = PolynomialPoint<int32_t>(&values[8], &qualities[8], &durations[8]);
     poly.add_input(&coeffA, &varA);
     poly.add_input(&coeffB, &varB);
     coeffA.set_value(-2);
@@ -23,8 +30,6 @@ TEST(PolynomialPoint, Int32)
     // should be  4(3^1) + (-2)
     EXPECT_EQ(poly.get_value<int32_t>(), 10);
     EXPECT_EQ(poly.get_quality(), Quality::GOOD);
-    auto coeffC = ExternalPoint<int32_t>();
-    auto varC = ExternalPoint<int32_t>();
     poly.add_input(&coeffC, &varC);
     coeffA.set_value(9999);
     varA.set_value(0);
@@ -38,8 +43,6 @@ TEST(PolynomialPoint, Int32)
     // should be  5(9^2) + 3(4^1) + (9999)
     EXPECT_EQ(poly.get_value<int32_t>(), 10416);
     EXPECT_EQ(poly.get_quality(), Quality::GOOD);
-    auto coeffD = ExternalPoint<int32_t>();
-    auto varD = ExternalPoint<int32_t>();
     poly.add_input(&coeffD, &varD);
     coeffD.set_value(-1);
     varD.set_value(22);
@@ -53,15 +56,18 @@ TEST(PolynomialPoint, Int32)
 
 TEST(PolynomialPoint, Int64)
 {
-    auto coeffA = ExternalPoint<int64_t>();
-    auto varA = ExternalPoint<int64_t>();
-    auto coeffB = ExternalPoint<int64_t>();
-    auto varB = ExternalPoint<int64_t>();
-    auto poly = PolynomialPoint<int64_t>();
-    auto coeffC = ExternalPoint<int64_t>();
-    auto varC = ExternalPoint<int64_t>();
-    auto coeffD = ExternalPoint<int64_t>();
-    auto varD = ExternalPoint<int64_t>();
+    double values[9] = { 0.0 };
+    Quality qualities[9] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[9];
+    auto coeffA = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto varA = ExternalPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
+    auto coeffB = ExternalPoint<int64_t>(&values[2], &qualities[2], &durations[2]);
+    auto varB = ExternalPoint<int64_t>(&values[3], &qualities[3], &durations[3]);
+    auto poly = PolynomialPoint<int64_t>(&values[4], &qualities[4], &durations[4]);
+    auto coeffC = ExternalPoint<int64_t>(&values[5], &qualities[5], &durations[5]);
+    auto varC = ExternalPoint<int64_t>(&values[6], &qualities[6], &durations[6]);
+    auto coeffD = ExternalPoint<int64_t>(&values[7], &qualities[7], &durations[7]);
+    auto varD = ExternalPoint<int64_t>(&values[8], &qualities[8], &durations[8]);
     poly.add_input(&coeffA, &varA);
     poly.add_input(&coeffB, &varB);
     poly.add_input(&coeffC, &varC);
@@ -90,11 +96,18 @@ TEST(PolynomialPoint, Int64)
 
 TEST(PolynomialPoint, Float)
 {
-    auto coeffA = ExternalPoint<float>();
-    auto varA = ExternalPoint<float>();
-    auto coeffB = ExternalPoint<float>();
-    auto varB = ExternalPoint<float>();
-    auto poly = PolynomialPoint<float>();
+    double values[9] = { 0.0 };
+    Quality qualities[9] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[9];
+    auto coeffA = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto varA = ExternalPoint<float>(&values[1], &qualities[1], &durations[1]);
+    auto coeffB = ExternalPoint<float>(&values[2], &qualities[2], &durations[2]);
+    auto varB = ExternalPoint<float>(&values[3], &qualities[3], &durations[3]);
+    auto poly = PolynomialPoint<float>(&values[4], &qualities[4], &durations[4]);
+    auto coeffC = ExternalPoint<float>(&values[5], &qualities[5], &durations[5]);
+    auto varC = ExternalPoint<float>(&values[6], &qualities[6], &durations[6]);
+    auto coeffD = ExternalPoint<float>(&values[7], &qualities[7], &durations[7]);
+    auto varD = ExternalPoint<float>(&values[8], &qualities[8], &durations[8]);
     poly.add_input(&coeffA, &varA);
     poly.add_input(&coeffB, &varB);
     coeffA.set_value(-2);
@@ -109,8 +122,6 @@ TEST(PolynomialPoint, Float)
     // should be  4(3^1) + (-2)
     EXPECT_FLOAT_EQ(poly.get_value<float>(), 10.0f);
     EXPECT_EQ(poly.get_quality(), Quality::GOOD);
-    auto coeffC = ExternalPoint<float>();
-    auto varC = ExternalPoint<float>();
     poly.add_input(&coeffC, &varC);
     coeffA.set_value(9999.0f);
     varA.set_value(0.0f);
@@ -124,8 +135,6 @@ TEST(PolynomialPoint, Float)
     // should be  5(9^2) + 3(4^1) + (9999)
     EXPECT_FLOAT_EQ(poly.get_value<float>(), 10416.0f);
     EXPECT_EQ(poly.get_quality(), Quality::GOOD);
-    auto coeffD = ExternalPoint<float>();
-    auto varD = ExternalPoint<float>();
     poly.add_input(&coeffD, &varD);
     coeffD.set_value(-1.0f);
     varD.set_value(22.0f);
@@ -139,15 +148,18 @@ TEST(PolynomialPoint, Float)
 
 TEST(PolynomialPoint, Double)
 {
-    auto coeffA = ExternalPoint<double>();
-    auto varA = ExternalPoint<double>();
-    auto coeffB = ExternalPoint<double>();
-    auto varB = ExternalPoint<double>();
-    auto poly = PolynomialPoint<double>();
-    auto coeffC = ExternalPoint<double>();
-    auto varC = ExternalPoint<double>();
-    auto coeffD = ExternalPoint<double>();
-    auto varD = ExternalPoint<double>();
+    double values[9] = { 0.0 };
+    Quality qualities[9] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[9];
+    auto coeffA = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto varA = ExternalPoint<double>(&values[1], &qualities[1], &durations[1]);
+    auto coeffB = ExternalPoint<double>(&values[2], &qualities[2], &durations[2]);
+    auto varB = ExternalPoint<double>(&values[3], &qualities[3], &durations[3]);
+    auto poly = PolynomialPoint<double>(&values[4], &qualities[4], &durations[4]);
+    auto coeffC = ExternalPoint<double>(&values[5], &qualities[5], &durations[5]);
+    auto varC = ExternalPoint<double>(&values[6], &qualities[6], &durations[6]);
+    auto coeffD = ExternalPoint<double>(&values[7], &qualities[7], &durations[7]);
+    auto varD = ExternalPoint<double>(&values[8], &qualities[8], &durations[8]);
     poly.add_input(&coeffA, &varA);
     poly.add_input(&coeffB, &varB);
     poly.add_input(&coeffC, &varC);

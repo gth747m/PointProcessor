@@ -17,6 +17,13 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        ChauvenetAveragePoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Set the point who's value is the minimum number of good points
         /// </summary>
         /// <param name="point">Point to add</param>
@@ -40,7 +47,7 @@ namespace point_processor
         {
             if (this->min_good_points == nullptr)
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
             // points to be used in the averaging
@@ -55,7 +62,7 @@ namespace point_processor
                 if ((used_points.size() < this->min_good_points->template get_value<uint64_t>()) ||
                     (used_points.size() < 3))
                 {
-                    this->quality = Quality::NOT_CALCULABLE;
+                    *this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
                 // Get the average
@@ -152,8 +159,8 @@ namespace point_processor
                     }
                 }
                 // All points are good
-                this->value = static_cast<double>(avg);
-                this->quality = qual;
+                *this->value = static_cast<double>(avg);
+                *this->quality = qual;
                 return;
             }
         }

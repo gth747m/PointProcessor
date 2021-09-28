@@ -4,8 +4,11 @@ using namespace point_processor;
 
 TEST(FToCPoint, Float)
 {
-    auto inp = ExternalPoint<float>();
-    auto celsius = FToCPoint<float>();
+    double values[2] = { 0.0 };
+    Quality qualities[2] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[2];
+    auto inp = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto celsius = FToCPoint<float>(&values[1], &qualities[1], &durations[1]);
     celsius.set_input(&inp);
     inp.set_value(32.0f);
     inp.set_quality(Quality::GOOD);
@@ -24,8 +27,11 @@ TEST(FToCPoint, Float)
 
 TEST(FToCPoint, Double)
 {
-    auto inp = ExternalPoint<double>();
-    auto celsius = FToCPoint<double>();
+    double values[2] = { 0.0 };
+    Quality qualities[2] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[2];
+    auto inp = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto celsius = FToCPoint<double>(&values[1], &qualities[1], &durations[1]);
     celsius.set_input(&inp);
     inp.set_value(32.0);
     inp.set_quality(Quality::GOOD);

@@ -4,9 +4,12 @@ using namespace point_processor;
 
 TEST(DividePoint, Int32)
 {
-    auto inpA = ExternalPoint<int32_t>();
-    auto inpB = ExternalPoint<int32_t>();
-    auto div = DividePoint<int32_t>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
+    auto div = DividePoint<int32_t>(&values[2], &qualities[2], &durations[2]);
     inpA.set_value(4);
     inpB.set_value(4);
     inpA.set_quality(Quality::GOOD);
@@ -27,9 +30,12 @@ TEST(DividePoint, Int32)
 
 TEST(DividePoint, Int64)
 {
-    auto inpA = ExternalPoint<int64_t>();
-    auto inpB = ExternalPoint<int64_t>();
-    auto div = DividePoint<int64_t>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
+    auto div = DividePoint<int64_t>(&values[2], &qualities[2], &durations[2]);
     inpA.set_value(4);
     inpB.set_value(4);
     inpA.set_quality(Quality::GOOD);
@@ -50,9 +56,12 @@ TEST(DividePoint, Int64)
 
 TEST(DividePoint, Float)
 {
-    auto inpA = ExternalPoint<float>();
-    auto inpB = ExternalPoint<float>();
-    auto div = DividePoint<float>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<float>(&values[1], &qualities[1], &durations[1]);
+    auto div = DividePoint<float>(&values[2], &qualities[2], &durations[2]);
     inpA.set_value(4.0f);
     inpB.set_value(4.0f);
     inpA.set_quality(Quality::GOOD);
@@ -73,9 +82,12 @@ TEST(DividePoint, Float)
 
 TEST(DividePoint, Double)
 {
-    auto inpA = ExternalPoint<double>();
-    auto inpB = ExternalPoint<double>();
-    auto div = DividePoint<double>();
+    double values[5] = { 0.0 };
+    Quality qualities[5] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[5];
+    auto inpA = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto inpB = ExternalPoint<double>(&values[1], &qualities[1], &durations[1]);
+    auto div = DividePoint<double>(&values[2], &qualities[2], &durations[2]);
     inpA.set_value(4.0);
     inpB.set_value(4.0);
     inpA.set_quality(Quality::GOOD);

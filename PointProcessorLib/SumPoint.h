@@ -16,6 +16,13 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        SumPoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Add a point the the list of inputs to sum
         /// </summary>
         /// <param name="point">Point to add</param>
@@ -31,7 +38,7 @@ namespace point_processor
         {
             if (this->input_points.size() == 0)
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
             Quality qual = Quality::GOOD;
@@ -42,7 +49,7 @@ namespace point_processor
             {
                 if (!quality::is_usable((*point)->get_quality()))
                 {
-                    this->quality = Quality::NOT_CALCULABLE;
+                    *this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
                 if (first)
@@ -55,8 +62,8 @@ namespace point_processor
                     val += (*point)->template get_value<T>();
                 }
             }
-            this->value = static_cast<double>(val);
-            this->quality = qual;
+            *this->value = static_cast<double>(val);
+            *this->quality = qual;
         }
     private:
         /// <summary>

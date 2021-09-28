@@ -16,6 +16,13 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Point constructor
+        /// </summary>
+        AveragePoint(double* value, Quality* quality, std::chrono::duration<int, std::micro>* duration) :
+            Point(value, quality, duration)
+        {
+        }
+        /// <summary>
         /// Add a point the the list of inputs to average
         /// </summary>
         /// <param name="point">Point to add</param>
@@ -31,7 +38,7 @@ namespace point_processor
         {
             if (this->input_points.size() == 0)
             {
-                this->quality = Quality::NOT_CALCULABLE;
+                *this->quality = Quality::NOT_CALCULABLE;
                 return;
             }
             Quality qual = Quality::GOOD;
@@ -51,12 +58,12 @@ namespace point_processor
                 }
                 if (!quality::is_usable((*point)->get_quality()))
                 {
-                    this->quality = Quality::NOT_CALCULABLE;
+                    *this->quality = Quality::NOT_CALCULABLE;
                     return;
                 }
             }
-            this->value = static_cast<double>(val / this->input_points.size());
-            this->quality = qual;
+            *this->value = static_cast<double>(val / this->input_points.size());
+            *this->quality = qual;
         }
     private:
         /// <summary>

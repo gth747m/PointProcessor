@@ -4,8 +4,11 @@ using namespace point_processor;
 
 TEST(PowerPointTest, Int32)
 {
-    auto inp = ExternalPoint<int32_t>();
-    auto power = PowerPoint<int32_t>();
+    double values[2] = { 0.0 };
+    Quality qualities[2] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[2];
+    auto inp = ExternalPoint<int32_t>(&values[0], &qualities[0], &durations[0]);
+    auto power = PowerPoint<int32_t>(&values[1], &qualities[1], &durations[1]);
     inp.set_value(2);
     inp.set_quality(Quality::GOOD);
     power.set_input(&inp);
@@ -25,8 +28,11 @@ TEST(PowerPointTest, Int32)
 
 TEST(PowerPointTest, Int64)
 {
-    auto inp = ExternalPoint<int64_t>();
-    auto power = PowerPoint<int64_t>();
+    double values[2] = { 0.0 };
+    Quality qualities[2] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[2];
+    auto inp = ExternalPoint<int64_t>(&values[0], &qualities[0], &durations[0]);
+    auto power = PowerPoint<int64_t>(&values[1], &qualities[1], &durations[1]);
     inp.set_value(2);
     inp.set_quality(Quality::GOOD);
     power.set_input(&inp);
@@ -46,8 +52,11 @@ TEST(PowerPointTest, Int64)
 
 TEST(PowerPointTest, Float)
 {
-    auto inp = ExternalPoint<float>();
-    auto power = PowerPoint<float>();
+    double values[2] = { 0.0 };
+    Quality qualities[2] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[2];
+    auto inp = ExternalPoint<float>(&values[0], &qualities[0], &durations[0]);
+    auto power = PowerPoint<float>(&values[1], &qualities[1], &durations[1]);
     inp.set_value(2);
     inp.set_quality(Quality::GOOD);
     power.set_input(&inp);
@@ -72,8 +81,11 @@ TEST(PowerPointTest, Float)
 
 TEST(PowerPointTest, Double)
 {
-    auto inp = ExternalPoint<double>();
-    auto power = PowerPoint<double>();
+    double values[2] = { 0.0 };
+    Quality qualities[2] = { Quality::UNKNOWN };
+    std::chrono::duration<int, std::micro> durations[2];
+    auto inp = ExternalPoint<double>(&values[0], &qualities[0], &durations[0]);
+    auto power = PowerPoint<double>(&values[1], &qualities[1], &durations[1]);
     inp.set_value(2.0);
     inp.set_quality(Quality::GOOD);
     power.set_input(&inp);
