@@ -14,39 +14,18 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Crc16.cpp">
+    <ClCompile Include="NamedMutex.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Request.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Response.cpp">
+    <ClCompile Include="SharedMemory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Crc16.h">
+    <ClInclude Include="NamedMutex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FunctionCode.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModbusLib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Parameter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Protocol.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Request.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Response.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ValueType.h">
+    <ClInclude Include="SharedMemory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
