@@ -23,6 +23,9 @@
     <ClCompile Include="SBBLib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShmPool.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NamedMutex.h">
@@ -38,6 +41,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SBBLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShmPool.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

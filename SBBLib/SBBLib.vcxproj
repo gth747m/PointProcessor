@@ -155,12 +155,14 @@
     <ClCompile Include="NamedMutex.cpp" />
     <ClCompile Include="SBBLib.cpp" />
     <ClCompile Include="SharedMemory.cpp" />
+    <ClCompile Include="ShmPool.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NamedMutex.h" />
     <ClInclude Include="SBBLib.h" />
     <ClInclude Include="SharedMemory.h" />
     <ClInclude Include="ShmAllocator.h" />
+    <ClInclude Include="ShmPool.h" />
     <ClInclude Include="ShmTypes.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

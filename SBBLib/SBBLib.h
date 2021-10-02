@@ -31,5 +31,6 @@
 
 #include "NamedMutex.h"
 #include "SharedMemory.h"
+#include "ShmPool.h"
 #include "ShmAllocator.h"
 #include "ShmTypes.h"

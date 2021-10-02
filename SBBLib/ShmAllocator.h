@@ -9,15 +9,24 @@ namespace sbb
     /// </summary>
     /// <typeparam name="T">Value type being stored</typeparam>
     template <class T>
-    struct ShmAllocator
+    class ShmAllocator
     {
+    public:
+        typedef std::size_t size_type;
+        typedef std::ptrdiff_t difference_type;
+        typedef T* pointer;
+        typedef const T* const_pointer;
+        typedef T& reference;
+        typedef const T& const_reference;
         typedef T value_type;
 
         /// <summary>
         /// Default Constructor
         /// </summary>
         /// <returns></returns>
-        ShmAllocator() noexcept {}
+        ShmAllocator() noexcept 
+        {
+        }
 
         /// <summary>
         /// Copy Constructor
@@ -85,5 +94,8 @@ namespace sbb
         {
             free(p);
         }
+        
+    private:
+        static ShmPool* pool;
     };
 }
