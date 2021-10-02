@@ -1,18 +1,4 @@
-#include "NamedMutex.h"
-
-#include <cstdint>
-#include <iostream>
-#include <sstream>
-
-#ifdef __linux__
-#    include <errno.h>
-#    include <fcntl.h>
-#    include <limits.h>
-#    include <stdlib.h>
-#    include <sys/ipc.h>
-#    include <sys/sem.h>
-#    include <sys/stat.h>
-#endif
+#include "SBBLib.h"
 
 namespace sbb
 {

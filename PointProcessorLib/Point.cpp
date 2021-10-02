@@ -1,4 +1,4 @@
-#include "Point.h"
+#include "PointProcessorLib.h"
 
 namespace point_processor
 {

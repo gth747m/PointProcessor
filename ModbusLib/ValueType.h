@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ModbusLib.h"
+
 namespace modbus
 {
     enum class ValueType : int

@@ -1,4 +1,4 @@
-#include "Quality.h"
+#include "PointProcessorLib.h"
 
 namespace point_processor
 {

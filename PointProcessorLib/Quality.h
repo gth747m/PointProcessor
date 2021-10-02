@@ -2,8 +2,6 @@
 
 #include "PointProcessorLib.h"
 
-#include <ostream>
-
 namespace point_processor
 {
     /// <summary>

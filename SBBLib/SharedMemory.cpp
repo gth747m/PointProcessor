@@ -1,14 +1,4 @@
-#include "SharedMemory.h"
-
-#include <cstdint>
-
-#ifdef __linux__
-#    include <unistd.h>
-#    include <errno.h>
-#    include <fcntl.h>
-#    include <sys/mman.h>
-#    include <sys/stat.h>
-#endif
+#include "SBBLib.h"
 
 namespace sbb
 {

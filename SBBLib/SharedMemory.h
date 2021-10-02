@@ -1,21 +1,6 @@
 #pragma once
 
-#include <cstdint>
-#include <iostream>
-#include <sstream>
-#include <string>
-
-#ifdef __linux__
-#    include <fcntl.h>
-#    include <sys/mman.h>
-#    include <sys/stat.h>
-#    include <sys/types.h>
-#    include <unistd.h>
-#    include <string.h>
-#elif defined _WIN32
-#    define WIN32_LEAN_AND_MEAN
-#    include <Windows.h>
-#endif
+#include "SBBLib.h"
 
 namespace sbb
 {

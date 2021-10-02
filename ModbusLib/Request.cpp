@@ -1,8 +1,4 @@
-#include "Request.h"
-
-#include "Crc16.h"
-#include "FunctionCode.h"
-#include "Parameter.h"
+#include "ModbusLib.h"
 
 namespace modbus
 {

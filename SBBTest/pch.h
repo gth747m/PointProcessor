@@ -22,6 +22,7 @@
 #include "NamedMutex.h"
 #include "SharedMemory.h"
 #include "ShmAllocator.h"
+#include "ShmTypes.h"
 
 // Google Test
 #ifdef _WIN32

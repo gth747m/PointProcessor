@@ -1,11 +1,6 @@
 #pragma once
 
-#include <chrono>
-#include <string>
-#include <vector>
-
-#include "Quality.h"
-#include "Frequency.h"
+#include "PointProcessorLib.h"
 
 namespace point_processor
 {

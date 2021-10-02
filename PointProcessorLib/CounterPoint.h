@@ -1,9 +1,6 @@
 #pragma once
 
-#include <iostream>
-#include <vector>
-
-#include "Point.h"
+#include "PointProcessorLib.h"
 
 namespace point_processor
 {

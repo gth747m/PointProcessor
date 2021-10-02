@@ -1,8 +1,6 @@
 #pragma once
 
-#include <vector>
-
-#include "FunctionCode.h"
+#include "ModbusLib.h"
 
 namespace modbus
 {

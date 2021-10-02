@@ -1,8 +1,10 @@
 #include "pch.h"
 
+using namespace sbb;
+
 TEST(ShmAllocator, VectorInt32)
 {
-    std::vector<int32_t, ShmAllocator<int32_t>> vec;
+    ShmVector<int32_t> vec;
     vec.push_back(1);
     vec.push_back(2);
     vec.push_back(3);
@@ -11,7 +13,7 @@ TEST(ShmAllocator, VectorInt32)
 
 TEST(ShmAllocator, VectorInt64)
 {
-    std::vector<int64_t, ShmAllocator<int64_t>> vec;
+    ShmVector<int64_t> vec;
     vec.push_back(1);
     vec.push_back(2);
     vec.push_back(3);
@@ -20,7 +22,7 @@ TEST(ShmAllocator, VectorInt64)
 
 TEST(ShmAllocator, VectorFloat)
 {
-    std::vector<float, ShmAllocator<float>> vec;
+    ShmVector<float> vec;
     vec.push_back(1.0f);
     vec.push_back(2.0f);
     vec.push_back(3.0f);
@@ -29,7 +31,7 @@ TEST(ShmAllocator, VectorFloat)
 
 TEST(ShmAllocator, VectorDouble)
 {
-    std::vector<double, ShmAllocator<double>> vec;
+    ShmVector<double> vec;
     vec.push_back(1.0);
     vec.push_back(2.0);
     vec.push_back(3.0);
@@ -38,9 +40,7 @@ TEST(ShmAllocator, VectorDouble)
 
 TEST(ShmAllocator, String)
 {
-    using string = std::basic_string<char, 
-            std::char_traits<char>, ShmAllocator<char>>;
-    string str("Hello World");
+    ShmString str("Hello World");
     ASSERT_STREQ(str.c_str(), "Hello World");
     str.append("!");
     ASSERT_STREQ(str.c_str(), "Hello World!");

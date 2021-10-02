@@ -16,29 +16,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// PointProcessorLib Point Libraries
-#include "Point.h"
-#include "Quality.h"
-#include "Frequency.h"
-
-// PointProcessorLib Points
-#include "AveragePoint.h"
-#include "CToFPoint.h"
-#include "ChauvenetAveragePoint.h"
-#include "CounterPoint.h"
-#include "DigitalFilterPoint.h"
-#include "DividePoint.h"
-#include "EqualSelectPoint.h"
-#include "ExternalPoint.h"
-#include "FToCPoint.h"
-#include "GreaterThanEqualSelectPoint.h"
-#include "GreaterThanSelectPoint.h"
-#include "MultiplyPoint.h"
-#include "PolynomialPoint.h"
-#include "PowerPoint.h"
-#include "SelectPoint.h"
-#include "SubtractPoint.h"
-#include "SumPoint.h"
+// PointProcessorLib Point Library
+#include "PointProcessorLib.h"
 
 // Google Test
 #ifdef _WIN32

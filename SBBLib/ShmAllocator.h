@@ -1,54 +1,89 @@
 #pragma once
 
-#include <stdlib.h>
-#include <new>
-#include <memory>
+#include "SBBLib.h"
 
-template <class T>
-struct ShmAllocator
+namespace sbb
 {
-    typedef T value_type;
-    ShmAllocator() noexcept {}
-
-    // A converting copy constructor
-    template<class U> ShmAllocator(const ShmAllocator<U>&) noexcept {}
-
-    template<class U> bool operator==(const ShmAllocator<U>&) const noexcept 
+    /// <summary>
+    /// Structure for allocating things in shared memory
+    /// </summary>
+    /// <typeparam name="T">Value type being stored</typeparam>
+    template <class T>
+    struct ShmAllocator
     {
-        return true;
-    }
+        typedef T value_type;
 
-    template<class U> bool operator!=(const ShmAllocator<U>&) const noexcept
-    {
-        return false;
-    }
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        /// <returns></returns>
+        ShmAllocator() noexcept {}
 
-    T* allocate(const size_t n) const;
+        /// <summary>
+        /// Copy Constructor
+        /// </summary>
+        /// <typeparam name="U">Value type being stored</typeparam>
+        template<class U> 
+        ShmAllocator(const ShmAllocator<U>&) noexcept 
+        {
+        }
 
-    void deallocate(T* const p, size_t) const noexcept;
-};
+        /// <summary>
+        /// Equals Operator
+        /// </summary>
+        /// <typeparam name="U">Value type being stored</typeparam>
+        /// <param name=""></param>
+        /// <returns>True, all match because this is a stateless allocator</returns>
+        template<class U> 
+        bool operator==(const ShmAllocator<U>&) const noexcept
+        {
+            return true;
+        }
 
-template<class T>
-T* ShmAllocator<T>::allocate(const size_t n) const
-{
-    if (n == 0)
-    {
-        return nullptr;
-    }
-    if (n > static_cast<size_t>(-1) / sizeof(T))
-    {
-        throw std::bad_array_new_length();
-    }
-    void* const pv = malloc(n * sizeof(T));
-    if (!pv)
-    {
-        throw std::bad_alloc();
-    }
-    return static_cast<T*>(pv);
-}
+        /// <summary>
+        /// Not Equals Operator
+        /// </summary>
+        /// <typeparam name="U">Value type being stored</typeparam>
+        /// <param name=""></param>
+        /// <returns>False, all match because this is a stateless allocator</returns>
+        template<class U> 
+        bool operator!=(const ShmAllocator<U>&) const noexcept
+        {
+            return false;
+        }
 
-template<class T>
-void ShmAllocator<T>::deallocate(T * const p, size_t) const noexcept
-{
-    free(p);
+        /// <summary>
+        /// Allocate enough space to store n number of objects
+        /// </summary>
+        /// <param name="n">Number of objects to allocate space for</param>
+        /// <returns>Pointer to the start of allcoated space</returns>
+        T* allocate(const size_t n) const
+        {
+            if (n == 0)
+            {
+                return nullptr;
+            }
+            if (n > static_cast<size_t>(-1) / sizeof(T))
+            {
+                throw std::bad_array_new_length();
+            }
+            void* const pv = malloc(n * sizeof(T));
+            if (!pv)
+            {
+                throw std::bad_alloc();
+            }
+            return static_cast<T*>(pv);
+        }
+
+        /// <summary>
+        /// Deallocate a previously allocated object
+        /// </summary>
+        /// <param name="p">Pointer to previously allocated object</param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        void deallocate(T* const p, size_t) const noexcept
+        {
+            free(p);
+        }
+    };
 }
