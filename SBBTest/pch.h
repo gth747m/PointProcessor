@@ -15,10 +15,13 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
+#include <vector>
 
 // PointProcessorLib System Libraries
 #include "NamedMutex.h"
 #include "SharedMemory.h"
+#include "ShmAllocator.h"
 
 // Google Test
 #ifdef _WIN32
