@@ -20,11 +20,8 @@
 #include <thread>
 #include <vector>
 
-// PointProcessorLib System Libraries
-#include "NamedMutex.h"
-#include "SharedMemory.h"
-#include "ShmAllocator.h"
-#include "ShmTypes.h"
+// SBBLib 
+#include "SBBLib.h"
 
 // Google Test
 #ifdef _WIN32
