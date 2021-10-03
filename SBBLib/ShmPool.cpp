@@ -7,7 +7,7 @@ namespace sbb
     /// </summary>
     ShmPool::ShmPool(const char* shm_name)
     {
-        shm = std::make_unique<SharedMemory<unsigned char, 1024000000>>(shm_name);
+        shm = std::make_unique<SharedMemory<unsigned char, mem_size>>(shm_name);
         mutex = std::make_unique<NamedMutex>(std::string("Lock") + shm_name);
     }
 

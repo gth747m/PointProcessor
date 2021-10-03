@@ -15,7 +15,7 @@ namespace sbb
         std::string error_message;
     };
 
-    template <typename T, size_t n = 1>
+    template <typename T, uint64_t n = 1>
     class SharedMemory
     {
     public:
@@ -107,13 +107,17 @@ namespace sbb
     #elif defined _WIN32
             BOOL init = FALSE;
             // Save the handle to the file mapping
-            // TODO: Add support for 64bit size
+            union {
+                uint64_t split_int64;
+                uint32_t split_int32[2];
+            };
+            split_int64 = this->shm_size;
             this->handle = CreateFileMappingA(
                 INVALID_HANDLE_VALUE,   // use paging file
                 NULL,                   // default security
                 PAGE_READWRITE,         // read/write access
-                0,                      // size: high 32-bits
-                (DWORD)this->shm_size,  // size: low 32-bits
+                (DWORD)split_int32[1],  // size: high 32-bits
+                (DWORD)split_int32[0],  // size: low 32-bits
                 this->name.c_str());    // name of the map
             // The first process to attach initializes memory
             init = (GetLastError() != ERROR_ALREADY_EXISTS);
@@ -247,7 +251,7 @@ namespace sbb
         /// <summary>
         /// Size of the shared memory
         /// </summary>
-        size_t shm_size;
+        uint64_t shm_size;
         /// <summary>
         /// Pointer to the start of shared memory
         /// </summary>

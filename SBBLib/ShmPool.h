@@ -36,9 +36,13 @@ namespace sbb
         void deallocate(unsigned char* const p, size_t n_bytes);
     private:
         /// <summary>
+        /// Memory Size
+        /// </summary>
+        const static uint64_t mem_size = 1024000000; // TODO: Move this to compile time variable?
+        /// <summary>
         /// Pointer to shared memory
         /// </summary>
-        std::unique_ptr<SharedMemory<unsigned char, 1024000000>> shm;
+        std::unique_ptr<SharedMemory<unsigned char, mem_size>> shm;
         /// <summary>
         /// Named mutex for thread safety
         /// </summary>
