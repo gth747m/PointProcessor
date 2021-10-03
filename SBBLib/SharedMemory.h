@@ -15,7 +15,7 @@ namespace sbb
         std::string error_message;
     };
 
-    template <typename T>
+    template <typename T, size_t n = 1>
     class SharedMemory
     {
     public:
@@ -25,7 +25,7 @@ namespace sbb
         /// <typeparam name="T">Type of object to be stored in shared memory</typeparam>
         SharedMemory(const char* name) :
             name(name),
-            shm_size(sizeof(T)),
+            shm_size(n * sizeof(T)),
             shm_ptr(nullptr)
     #if defined _WIN32
             ,handle(nullptr)

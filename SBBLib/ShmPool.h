@@ -33,12 +33,16 @@ namespace sbb
         /// </summary>
         /// <param name="p">Pointer to start of memory region</param>
         /// <param name="n_bytes">Number of bytes to deallocate</param>
-        void deallocate(unsigned char* p, size_t);
+        void deallocate(unsigned char* const p, size_t n_bytes);
     private:
         /// <summary>
         /// Pointer to shared memory
         /// </summary>
-        std::unique_ptr<SharedMemory<unsigned char>> shm;
+        std::unique_ptr<SharedMemory<unsigned char, 1024000000>> shm;
+        /// <summary>
+        /// Named mutex for thread safety
+        /// </summary>
+        std::unique_ptr<NamedMutex> mutex;
         /// <summary>
         /// Minimum block size per allocation
         /// </summary>

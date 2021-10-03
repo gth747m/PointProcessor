@@ -29,8 +29,8 @@
 #    include <Windows.h>
 #endif
 
-#include "NamedMutex.h"
 #include "SharedMemory.h"
+#include "NamedMutex.h"
 #include "ShmPool.h"
 #include "ShmAllocator.h"
 #include "ShmTypes.h"

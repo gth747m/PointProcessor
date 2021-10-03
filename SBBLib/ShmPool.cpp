@@ -7,7 +7,8 @@ namespace sbb
     /// </summary>
     ShmPool::ShmPool(const char* shm_name)
     {
-        shm = std::make_unique<SharedMemory<unsigned char>>(shm_name);
+        shm = std::make_unique<SharedMemory<unsigned char, 1024000000>>(shm_name);
+        mutex = std::make_unique<NamedMutex>(std::string("Lock") + shm_name);
     }
 
     /// <summary>
@@ -31,6 +32,10 @@ namespace sbb
     /// <returns>Pointer to start of allocated memory region</returns>
     unsigned char* ShmPool::allocate(size_t n_bytes)
     {
+        if (n_bytes == 0)
+        {
+            return nullptr;
+        }
         void* const p = malloc(n_bytes);
         if (!p)
         {
@@ -44,7 +49,7 @@ namespace sbb
     /// </summary>
     /// <param name="p">Pointer to start of memory region</param>
     /// <param name="n_bytes">Number of bytes to deallocate</param>
-    void ShmPool::deallocate(unsigned char* p, size_t)
+    void ShmPool::deallocate(unsigned char* const p, size_t)
     {
         if (p)
         {

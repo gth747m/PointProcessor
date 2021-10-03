@@ -24,7 +24,7 @@ namespace sbb
         /// Default Constructor
         /// </summary>
         /// <returns></returns>
-        ShmAllocator() noexcept 
+        ShmAllocator() 
         {
         }
 
@@ -33,7 +33,7 @@ namespace sbb
         /// </summary>
         /// <typeparam name="U">Value type being stored</typeparam>
         template<class U> 
-        ShmAllocator(const ShmAllocator<U>&) noexcept 
+        ShmAllocator(const ShmAllocator<U>&) 
         {
         }
 
@@ -44,7 +44,7 @@ namespace sbb
         /// <param name=""></param>
         /// <returns>True, all match because this is a stateless allocator</returns>
         template<class U> 
-        bool operator==(const ShmAllocator<U>&) const noexcept
+        bool operator==(const ShmAllocator<U>&) const
         {
             return true;
         }
@@ -56,7 +56,7 @@ namespace sbb
         /// <param name=""></param>
         /// <returns>False, all match because this is a stateless allocator</returns>
         template<class U> 
-        bool operator!=(const ShmAllocator<U>&) const noexcept
+        bool operator!=(const ShmAllocator<U>&) const
         {
             return false;
         }
@@ -68,34 +68,24 @@ namespace sbb
         /// <returns>Pointer to the start of allcoated space</returns>
         T* allocate(const size_t n) const
         {
-            if (n == 0)
-            {
-                return nullptr;
-            }
-            if (n > static_cast<size_t>(-1) / sizeof(T))
-            {
-                throw std::bad_array_new_length();
-            }
-            void* const pv = malloc(n * sizeof(T));
-            if (!pv)
-            {
-                throw std::bad_alloc();
-            }
-            return static_cast<T*>(pv);
+            return reinterpret_cast<T*>(pool->allocate(n * sizeof(T)));
         }
 
         /// <summary>
         /// Deallocate a previously allocated object
         /// </summary>
         /// <param name="p">Pointer to previously allocated object</param>
-        /// <param name=""></param>
+        /// <param name="n">Number of objects allocated here</param>
         /// <returns></returns>
-        void deallocate(T* const p, size_t) const noexcept
+        void deallocate(T* const p, size_t n) const
         {
-            free(p);
+            pool->deallocate(reinterpret_cast<unsigned char*>(p), n * sizeof(T));
         }
-        
+
     private:
         static ShmPool* pool;
     };
+
+    template<class T>
+    ShmPool* ShmAllocator<T>::pool = new ShmPool("SbbShmPool");
 }

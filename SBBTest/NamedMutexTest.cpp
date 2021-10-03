@@ -1,8 +1,5 @@
 #include "pch.h"
 
-#include <iostream>
-#include <thread>
-
 static const char* const NAME = "MyTestNamedMutex";
 
 /// <summary>
