@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        SelectPoint() : Point(PointType::SELECT)
+        {
+        }
+        /// <summary>
         /// Set the point to be used as the index selector
         /// </summary>
         inline void set_index_point(Point* point)

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "SBBLib.h"
+#include "PointProcessorLib.h"
 
-namespace sbb
+namespace point_processor
 {
     class NamedMutexException : public std::exception
     {

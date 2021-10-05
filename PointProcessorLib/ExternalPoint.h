@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        ExternalPoint() : Point(PointType::EXTERNAL)
+        {
+        }
+        /// <summary>
         /// Set the point value
         /// </summary>
         /// <param name="value">Point value</param>

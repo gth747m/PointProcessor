@@ -9,83 +9,128 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{0364fc59-d2ff-4fd9-aee8-fb3176eae159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Point">
+      <UniqueIdentifier>{3f799071-a025-41b3-bc56-3d34ef9282b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{8323f316-1ea0-4668-9d2e-3100cb22b9da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Point">
+      <UniqueIdentifier>{8a0c2c12-3819-4301-b92b-e489377692c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AveragePoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Frequency.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Point.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Quality.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SumPoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PointProcessorLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CToFPoint.h">
+    <ClInclude Include="PointProcessorShm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FToCPoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SubtractPoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectPoint.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="AveragePoint.h">
+      <Filter>Header Files\Point</Filter>
     </ClInclude>
     <ClInclude Include="ChauvenetAveragePoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PolynomialPoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DigitalFilterPoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MultiplyPoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DividePoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerPoint.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Point</Filter>
     </ClInclude>
     <ClInclude Include="CounterPoint.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Point</Filter>
     </ClInclude>
-    <ClInclude Include="ExternalPoint.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="CToFPoint.h">
+      <Filter>Header Files\Point</Filter>
     </ClInclude>
-    <ClInclude Include="GreaterThanSelectPoint.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="DigitalFilterPoint.h">
+      <Filter>Header Files\Point</Filter>
     </ClInclude>
-    <ClInclude Include="GreaterThanEqualSelectPoint.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="DividePoint.h">
+      <Filter>Header Files\Point</Filter>
     </ClInclude>
     <ClInclude Include="EqualSelectPoint.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="ExternalPoint.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="FToCPoint.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="GreaterThanEqualSelectPoint.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="GreaterThanSelectPoint.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiplyPoint.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="PolynomialPoint.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerPoint.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectPoint.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="SubtractPoint.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="SumPoint.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="Point.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="NamedMutex.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="SharedMemory.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ShmAllocator.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ShmPool.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="ShmTypes.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="PointType.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="Frequency.h">
+      <Filter>Header Files\Point</Filter>
+    </ClInclude>
+    <ClInclude Include="Quality.h">
+      <Filter>Header Files\Point</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Frequency.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="NamedMutex.cpp">
+      <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="Quality.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="SharedMemory.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="ShmPool.cpp">
+      <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="Point.cpp">
+      <Filter>Source Files\Point</Filter>
+    </ClCompile>
+    <ClCompile Include="Quality.cpp">
+      <Filter>Source Files\Point</Filter>
+    </ClCompile>
+    <ClCompile Include="Frequency.cpp">
+      <Filter>Source Files\Point</Filter>
+    </ClCompile>
+    <ClCompile Include="PointProcessorShm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

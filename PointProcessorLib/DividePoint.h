@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        DividePoint() : Point(PointType::DIVIDE)
+        {
+        }
+        /// <summary>
         /// Add a point the the list of inputs to divide
         /// </summary>
         /// <param name="point">Point to divide</param>

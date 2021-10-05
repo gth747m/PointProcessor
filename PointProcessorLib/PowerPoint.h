@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        PowerPoint() : Point(PointType::POWER)
+        {
+        }
+        /// <summary>
         /// Set the input point to digitally filter
         /// </summary>
         /// <param name="point">Point to filter</param>

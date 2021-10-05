@@ -1,6 +1,6 @@
-#include "SBBLib.h"
+#include "PointProcessorLib.h"
 
-namespace sbb
+namespace point_processor
 {
     SharedMemoryException::SharedMemoryException(const char* msg) :
         error_message(std::string(msg))

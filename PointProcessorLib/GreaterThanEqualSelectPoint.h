@@ -15,6 +15,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        GreaterThanEqualSelectPoint() : Point(PointType::GREATER_THAN_EQUAL_SELECT)
+        {
+        }
+        /// <summary>
         /// Set the input points
         /// </summary>
         /// <param name="point1">Input point to compare to point2</param>

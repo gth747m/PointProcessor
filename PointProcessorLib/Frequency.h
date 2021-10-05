@@ -7,7 +7,7 @@ namespace point_processor
     /// <summary>
     /// Point Processing Frequency
     /// </summary>
-    enum class Frequency : int
+    enum class Frequency : uint64_t
     {
         /// <summary>
         /// Unknown Point Processing Frequency
@@ -20,31 +20,31 @@ namespace point_processor
         /// <summary>
         /// 1 second
         /// </summary>
-        B = 2,
+        B = 1 << 1,
         /// <summary>
         /// 5 seconds
         /// </summary>
-        C = 3,
+        C = 1 << 2,
         /// <summary>
         /// 15 seconds
         /// </summary>
-        D = 4,
+        D = 1 << 3,
         /// <summary>
         /// 30 seconds
         /// </summary>
-        E = 5,
+        E = 1 << 4,
         /// <summary>
         /// 1 minute
         /// </summary>
-        F = 6,
+        F = 1 << 5,
         /// <summary>
         /// 2 minutes
         /// </summary>
-        G = 7,
+        G = 1 << 6,
         /// <summary>
         /// 15 minutes
         /// </summary>
-        H = 8
+        H = 1 << 7
     };
 
     /// <summary>
@@ -52,30 +52,23 @@ namespace point_processor
     /// </summary>
     inline std::ostream& operator<<(std::ostream& os, Frequency freq)
     {
-        switch ((int)freq)
+        switch (freq)
         {
-            case (0): os << "UNKNOWN";  break;
-            case (1): os << "A";        break;
-            case (2): os << "B";        break;
-            case (3): os << "C";        break;
-            case (4): os << "D";        break;
-            case (5): os << "E";        break;
-            case (6): os << "F";        break;
-            case (7): os << "G";        break;
-            case (8): os << "H";        break;
+        case (Frequency::UNKNOWN):  os << "UNKNOWN";  break;
+        case (Frequency::A):        os << "A";        break;
+        case (Frequency::B):        os << "B";        break;
+        case (Frequency::C):        os << "C";        break;
+        case (Frequency::D):        os << "D";        break;
+        case (Frequency::E):        os << "E";        break;
+        case (Frequency::F):        os << "F";        break;
+        case (Frequency::G):        os << "G";        break;
+        case (Frequency::H):        os << "H";        break;
         }
         return os;
     }
 
     namespace frequency
     {
-        /// <summary>
-        /// Converts a frequency int (from ime_type) to a Frequency enumerator
-        /// </summary>
-        /// <param name="frequency">[IN] Frequency int from ime_type</param>
-        /// <returns>Frequency enumerator</returns>
-        Frequency from(const int frequency);
-
         /// <summary>
         /// Converts a Frequency enumerator to the number of seconds per update
         /// </summary>

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "SBBLib.h"
+#include "PointProcessorLib.h"
 
-namespace sbb
+namespace point_processor
 {
     /// <summary>
     /// Alias to a string stored in shared memory
@@ -16,6 +16,6 @@ namespace sbb
     /// <summary>
     /// Alias to a dictionary who's entries are stored in shared memory
     /// </summary>
-    template<class T>
-    using ShmMap = std::map<ShmString, T, std::less<T>, ShmAllocator<std::pair<const ShmString, T>>>;
+    template<class T, class U, class less = std::less<T>>
+    using ShmMap = std::map<T, U, less, ShmAllocator<std::pair<const T, U>>>;
 }

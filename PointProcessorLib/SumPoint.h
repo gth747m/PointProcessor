@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        SumPoint() : Point(PointType::SUM)
+        {
+        }
+        /// <summary>
         /// Add a point the the list of inputs to sum
         /// </summary>
         /// <param name="point">Point to add</param>

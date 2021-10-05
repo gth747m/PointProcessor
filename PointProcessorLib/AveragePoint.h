@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        AveragePoint() : Point(PointType::AVERAGE)
+        {
+        }
+        /// <summary>
         /// Add a point the the list of inputs to average
         /// </summary>
         /// <param name="point">Point to add</param>

@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        PolynomialPoint() : Point(PointType::POLYNOMIAL)
+        {
+        }
+        /// <summary>
         /// Add a coefficient and variable as the next degree of the polynomial
         /// </summary>
         /// <param name="coefficient">Next degree coefficient</param>

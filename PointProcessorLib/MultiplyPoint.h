@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        MultiplyPoint() : Point(PointType::MULTIPLY)
+        {
+        }
+        /// <summary>
         /// Add a point the the list of inputs to multiply
         /// </summary>
         /// <param name="point">Point to multiply</param>

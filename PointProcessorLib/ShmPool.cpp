@@ -1,6 +1,6 @@
-#include "SBBLib.h"
+#include "PointProcessorLib.h"
 
-namespace sbb
+namespace point_processor
 {
     /// <summary>
     /// Class Constructor

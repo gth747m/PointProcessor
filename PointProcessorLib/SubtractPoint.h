@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        SubtractPoint() : Point(PointType::SUBTRACT)
+        {
+        }
+        /// <summary>
         /// Add a point the the list of inputs to subtract
         /// </summary>
         /// <param name="point">Point to add</param>

@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        CToFPoint() : Point(PointType::C_TO_F)
+        {
+        }
+        /// <summary>
         /// Set the input point
         /// </summary>
         /// <param name="point">Input point who's value is Celcius</param>

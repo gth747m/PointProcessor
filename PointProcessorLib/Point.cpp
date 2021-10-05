@@ -6,7 +6,8 @@ namespace point_processor
     /// <summary>
     /// Point constructor
     /// </summary>
-    Point::Point() :
+    Point::Point(PointType type) :
+        type(type),
         value(0),
         quality(Quality::UNKNOWN),
         frequency(Frequency::UNKNOWN),
@@ -20,7 +21,7 @@ namespace point_processor
     /// <returns>Point ID</returns>
     std::string Point::get_id() const
     {
-        return this->id;
+        return std::string(this->id.c_str());
     }
 
     /// <summary>
@@ -29,7 +30,16 @@ namespace point_processor
     /// <param name="id">Point ID</param>
     void Point::set_id(std::string id)
     {
-        this->id = id;
+        this->id.assign(id.c_str());
+    }
+
+    /// <summary>
+    /// Get the point type
+    /// </summary>
+    /// <returns>Point type</returns>
+    PointType Point::get_type() const
+    {
+        return this->type;
     }
 
     /// <summary>
@@ -38,7 +48,7 @@ namespace point_processor
     /// <returns>Point description</returns>
     std::string Point::get_description() const
     {
-        return this->description;
+        return std::string(this->description.c_str());
     }
 
     /// <summary>
@@ -47,7 +57,7 @@ namespace point_processor
     /// <param name="description">Point description</param>
     void Point::set_description(std::string description)
     {
-        this->description = description;
+        this->description.assign(description.c_str());
     }
 
     /// <summary>
@@ -56,7 +66,12 @@ namespace point_processor
     /// <returns>Point aliases</returns>
     std::vector<std::string> Point::get_aliases() const
     {
-        return std::vector<std::string>(this->aliases.begin(), this->aliases.end());
+        std::vector<std::string> vec;
+        for (auto it = this->aliases.cbegin(); it != this->aliases.cend(); it++)
+        {
+            vec.push_back((*it).c_str());
+        }
+        return vec;
     }
 
     /// <summary>
@@ -65,7 +80,7 @@ namespace point_processor
     /// <param name="alias">Point alias</param>
     void Point::add_alias(std::string alias)
     {
-        this->aliases.push_back(alias);
+        this->aliases.push_back(ShmString(alias.c_str()));
     }
 
     /// <summary>

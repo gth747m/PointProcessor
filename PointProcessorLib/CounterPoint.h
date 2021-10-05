@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        CounterPoint() : Point(PointType::COUNTER)
+        {
+        }
+        /// <summary>
         /// Increment the counter
         /// </summary>
         inline void increment()

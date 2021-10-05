@@ -14,7 +14,7 @@ namespace point_processor
         /// <summary>
         /// Point constructor
         /// </summary>
-        Point();
+        Point(PointType type);
         /// <summary>
         /// Get the point ID
         /// </summary>
@@ -25,6 +25,11 @@ namespace point_processor
         /// </summary>
         /// <param name="id">Point ID</param>
         void set_id(std::string id);
+        /// <summary>
+        /// Get the point type
+        /// </summary>
+        /// <returns>Point type</returns>
+        PointType get_type() const;
         /// <summary>
         /// Get the point description
         /// </summary>
@@ -88,29 +93,29 @@ namespace point_processor
         friend std::ostream& operator<<(std::ostream& os, Point& point);
     protected:
         /// <summary>
+        /// Point ID
+        /// </summary>
+        ShmString id;
+        /// <summary>
+        /// Point Type
+        /// </summary>
+        PointType type;
+        /// <summary>
         /// Point value
         /// </summary>
         double value;
-        /// <summary>
-        /// Point calculation
-        /// </summary>
-        inline virtual void calc() {};
         /// <summary>
         /// Point quality
         /// </summary>
         Quality quality;
         /// <summary>
-        /// Point ID
-        /// </summary>
-        std::string id;
-        /// <summary>
         /// Point Description
         /// </summary>
-        std::string description;
+        ShmString description;
         /// <summary>
         /// Point Alias
         /// </summary>
-        std::vector<std::string> aliases;
+        ShmVector<ShmString> aliases;
         /// <summary>
         /// Point update frequency
         /// </summary>
@@ -119,6 +124,10 @@ namespace point_processor
         /// Average amount of time it takes to execute this calculation
         /// </summary>
         std::chrono::duration<int, std::micro> average_calc_time;
+        /// <summary>
+        /// Point calculation
+        /// </summary>
+        inline virtual void calc() {};
     private:
     };
 }

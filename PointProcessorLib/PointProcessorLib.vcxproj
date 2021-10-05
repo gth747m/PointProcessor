@@ -124,6 +124,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>PointProcessorLib.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -141,6 +142,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>PointProcessorLib.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -164,20 +166,31 @@
     <ClInclude Include="GreaterThanEqualSelectPoint.h" />
     <ClInclude Include="GreaterThanSelectPoint.h" />
     <ClInclude Include="MultiplyPoint.h" />
+    <ClInclude Include="NamedMutex.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="PointProcessorLib.h" />
+    <ClInclude Include="PointProcessorShm.h" />
+    <ClInclude Include="PointType.h" />
     <ClInclude Include="PolynomialPoint.h" />
     <ClInclude Include="PowerPoint.h" />
     <ClInclude Include="Quality.h" />
     <ClInclude Include="SelectPoint.h" />
+    <ClInclude Include="SharedMemory.h" />
+    <ClInclude Include="ShmAllocator.h" />
+    <ClInclude Include="ShmPool.h" />
+    <ClInclude Include="ShmTypes.h" />
     <ClInclude Include="SubtractPoint.h" />
     <ClInclude Include="SumPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="Frequency.cpp" />
+    <ClCompile Include="NamedMutex.cpp" />
     <ClCompile Include="Point.cpp" />
+    <ClCompile Include="PointProcessorShm.cpp" />
     <ClCompile Include="Quality.cpp" />
+    <ClCompile Include="SharedMemory.cpp" />
+    <ClCompile Include="ShmPool.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

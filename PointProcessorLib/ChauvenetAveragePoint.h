@@ -14,6 +14,12 @@ namespace point_processor
     {
     public:
         /// <summary>
+        /// Class Constructor
+        /// </summary>
+        ChauvenetAveragePoint() : Point(PointType::CHAUVENET_AVERAGE)
+        {
+        }
+        /// <summary>
         /// Set the point who's value is the minimum number of good points
         /// </summary>
         /// <param name="point">Point to add</param>

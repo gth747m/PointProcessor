@@ -1,6 +1,6 @@
 #include "pch.h"
 
-using namespace sbb;
+using namespace point_processor;
 
 TEST(ShmAllocator, VectorInt32)
 {

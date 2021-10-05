@@ -1,6 +1,6 @@
-#include "SBBLib.h"
+#include "PointProcessorLib.h"
 
-namespace sbb
+namespace point_processor
 {
     NamedMutexException::NamedMutexException(const char* msg) :
         error_message(std::string(msg))

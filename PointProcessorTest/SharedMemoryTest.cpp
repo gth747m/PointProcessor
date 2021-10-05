@@ -1,5 +1,7 @@
 #include "pch.h"
 
+using namespace point_processor;
+
 static const char* const NAME = "MyTestSharedMemory";
 
 /// <summary>
@@ -7,23 +9,23 @@ static const char* const NAME = "MyTestSharedMemory";
 /// </summary>
 TEST(SharedMemory, Create)
 {
-    std::unique_ptr<sbb::SharedMemory<int>> shm;
-    sbb::SharedMemory<int>* shm2;
+    std::unique_ptr<SharedMemory<int>> shm;
+    SharedMemory<int>* shm2;
     bool threw_exception = false;
     try
     {
-        shm = std::make_unique<sbb::SharedMemory<int>>(NAME);
+        shm = std::make_unique<SharedMemory<int>>(NAME);
     }
-    catch (sbb::SharedMemoryException&)
+    catch (SharedMemoryException&)
     {
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
     try
     {
-        shm2 = new sbb::SharedMemory<int>(NAME);
+        shm2 = new SharedMemory<int>(NAME);
     }
-    catch (sbb::SharedMemoryException&)
+    catch (SharedMemoryException&)
     {
         threw_exception = true;
     }
@@ -32,7 +34,7 @@ TEST(SharedMemory, Create)
     {
         delete shm2;
     }
-    catch (sbb::SharedMemoryException&)
+    catch (SharedMemoryException&)
     {
         threw_exception = true;
     }
@@ -41,8 +43,8 @@ TEST(SharedMemory, Create)
 
 TEST(SharedMemory, SharedIntIncrement)
 {
-    sbb::SharedMemory<int> shm(NAME);
-    sbb::SharedMemory<int> shm2(NAME);
+    SharedMemory<int> shm(NAME);
+    SharedMemory<int> shm2(NAME);
     bool threw_exception = false;
     try
     {
@@ -55,7 +57,7 @@ TEST(SharedMemory, SharedIntIncrement)
         EXPECT_EQ(*shm.get(), 2);
         EXPECT_EQ(*shm2.get(), 2);
     }
-    catch (sbb::SharedMemoryException&)
+    catch (SharedMemoryException&)
     {
         threw_exception = true;
     }

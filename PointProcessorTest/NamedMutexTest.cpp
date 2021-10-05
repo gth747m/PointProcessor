@@ -1,5 +1,7 @@
 #include "pch.h"
 
+using namespace point_processor;
+
 static const char* const NAME = "MyTestNamedMutex";
 
 /// <summary>
@@ -8,14 +10,14 @@ static const char* const NAME = "MyTestNamedMutex";
 TEST(NamedMutex, Create)
 {
     bool threw_exception = false;
-    std::unique_ptr<sbb::NamedMutex> mutex;
-    sbb::NamedMutex* mutex2 = nullptr;
+    std::unique_ptr<NamedMutex> mutex;
+    NamedMutex* mutex2 = nullptr;
     // Create a new mutex
     try
     {
-        mutex = std::make_unique<sbb::NamedMutex>(NAME);
+        mutex = std::make_unique<NamedMutex>(NAME);
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -23,9 +25,9 @@ TEST(NamedMutex, Create)
     // Try to create or get the same mutex and succeed
     try
     {
-        mutex2 = new sbb::NamedMutex(NAME);
+        mutex2 = new NamedMutex(NAME);
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -35,7 +37,7 @@ TEST(NamedMutex, Create)
     {
         delete mutex2;
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -45,7 +47,7 @@ TEST(NamedMutex, Create)
     {
         mutex->remove();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -57,7 +59,7 @@ TEST(NamedMutex, Create)
 /// </summary>
 TEST(NamedMutex, LockAndUnlock)
 {
-    sbb::NamedMutex mutex(NAME);
+    NamedMutex mutex(NAME);
     bool threw_exception = false;
     try
     {
@@ -65,7 +67,7 @@ TEST(NamedMutex, LockAndUnlock)
         mutex.unlock();
         mutex.remove();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -78,20 +80,20 @@ TEST(NamedMutex, LockAndUnlock)
 TEST(NamedMutex, LockParallel)
 {
     int32_t i = 0;
-    sbb::NamedMutex mutex(NAME);
+    NamedMutex mutex(NAME);
     bool threw_exception = false;
     try
     {
         mutex.lock();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
     ASSERT_TRUE(!threw_exception);
     // Mutex locked increment function
     auto func = [](int32_t* i) -> void {
-        sbb::NamedMutex mutex2(NAME);
+        NamedMutex mutex2(NAME);
         mutex2.lock();
         if (i)
         {
@@ -112,7 +114,7 @@ TEST(NamedMutex, LockParallel)
     {
         mutex.unlock();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -125,7 +127,7 @@ TEST(NamedMutex, LockParallel)
     {
         mutex.remove();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -138,14 +140,14 @@ TEST(NamedMutex, LockParallel)
 TEST(NamedMutex, TryLock)
 {
     // Create a mutex and lock it
-    sbb::NamedMutex mutex(NAME);
+    NamedMutex mutex(NAME);
     int32_t i = 0;
     bool threw_exception = false;
     try
     {
         mutex.lock();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -153,7 +155,7 @@ TEST(NamedMutex, TryLock)
     // Create a thread that tries to unlock the mutex 
     // and increment i if it succeeds
     auto func = [](int32_t* i) -> void {
-        sbb::NamedMutex mutex2(NAME);
+        NamedMutex mutex2(NAME);
         if (mutex2.try_lock())
         { 
             if (i)
@@ -174,7 +176,7 @@ TEST(NamedMutex, TryLock)
     {
         mutex.unlock();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -189,7 +191,7 @@ TEST(NamedMutex, TryLock)
     {
         mutex.remove();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -201,14 +203,14 @@ TEST(NamedMutex, TryLock)
 /// </summary>
 TEST(NamedMutex, TimedLock)
 {
-    sbb::NamedMutex mutex(NAME);
+    NamedMutex mutex(NAME);
     int32_t i = 0;
     bool threw_exception = false;
     try
     {
         mutex.lock();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -216,7 +218,7 @@ TEST(NamedMutex, TimedLock)
     // Create a thread that tries to unlock the mutex 
     // and increment i if it succeeds
     auto func = [](int32_t* i) -> void {
-        sbb::NamedMutex mutex2(NAME);
+        NamedMutex mutex2(NAME);
         if (mutex2.try_lock(std::chrono::milliseconds(10)))
         { 
             if (i)
@@ -235,7 +237,7 @@ TEST(NamedMutex, TimedLock)
     {
         mutex.unlock();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }
@@ -249,7 +251,7 @@ TEST(NamedMutex, TimedLock)
     {
         mutex.remove();
     }
-    catch (sbb::NamedMutexException&)
+    catch (NamedMutexException&)
     {
         threw_exception = true;
     }

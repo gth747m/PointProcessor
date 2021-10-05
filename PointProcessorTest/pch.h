@@ -11,10 +11,14 @@
 #define NOMINMAX
 #endif
 
+#include <iostream>
 #include <limits>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
+#include <thread>
+#include <vector>
 
 // PointProcessorLib Point Library
 #include "PointProcessorLib.h"
